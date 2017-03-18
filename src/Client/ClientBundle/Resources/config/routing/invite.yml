@@ -1,0 +1,3 @@
+invite:
+    path:     /invite
+    defaults: { _controller: "ClientBundle:Invite:index" }

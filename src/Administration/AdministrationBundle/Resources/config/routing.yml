@@ -1,0 +1,115 @@
+region:
+    resource: "@AdministrationBundle/Resources/config/routing/region.yml"
+    prefix:   /region
+
+gouvernorat:
+    resource: "@AdministrationBundle/Resources/config/routing/gouvernorat.yml"
+    prefix:   /gouvernorat
+
+saison:
+    resource: "@AdministrationBundle/Resources/config/routing/saison.yml"
+    prefix:   /saison
+
+typecuisson:
+    resource: "@AdministrationBundle/Resources/config/routing/typecuisson.yml"
+    prefix:   /typecuisson
+
+prix:
+    resource: "@AdministrationBundle/Resources/config/routing/prix.yml"
+    prefix:   /prix
+
+menu:
+    resource: "@AdministrationBundle/Resources/config/routing/menu.yml"
+    prefix:   /menu
+
+include:
+    resource: "@AdministrationBundle/Resources/config/routing/include.yml"
+    prefix:   /include
+
+signalRecette:
+    resource: "@AdministrationBundle/Resources/config/routing/signalrecette.yml"
+    prefix:   /signalrecette
+
+stat:
+    resource: "@AdministrationBundle/Resources/config/routing/stat.yml"
+    prefix:   /stat
+
+member:
+    resource: "@AdministrationBundle/Resources/config/routing/memberRouting.yml"
+    prefix:   /member
+
+topMember:
+    resource: "@AdministrationBundle/Resources/config/routing/topMember.yml"
+    prefix:   /topMember
+
+etablissement:
+    resource: "@AdministrationBundle/Resources/config/routing/etablissement.yml"
+    prefix:   /etablissement
+
+specialite:
+    resource: "@AdministrationBundle/Resources/config/routing/specialite.yml"
+    prefix:   /specialite
+
+filtre:
+    resource: "@AdministrationBundle/Resources/config/routing/filtre.yml"
+    prefix:   /filtre
+
+ambiance:
+    resource: "@AdministrationBundle/Resources/config/routing/ambiance.yml"
+    prefix:   /ambiance
+
+difficulte:
+    resource: "@AdministrationBundle/Resources/config/routing/difficulte.yml"
+    prefix:   /difficulte
+
+nationalite:
+    resource: "@AdministrationBundle/Resources/config/routing/nationalite.yml"
+    prefix:   /nationalite
+
+categorie:
+    resource: "@AdministrationBundle/Resources/config/routing/categorie.yml"
+    prefix:   /categorie
+
+topic:
+    resource: "@AdministrationBundle/Resources/config/routing/topic.yml"
+    prefix:   /topic
+
+langue:
+    resource: "@AdministrationBundle/Resources/config/routing/langue.yml"
+    prefix:   /langue
+
+subcategorie:
+    resource: "@AdministrationBundle/Resources/config/routing/subcategorie.yml"
+    prefix:   /subcategorie
+
+ingredient:
+    resource: "@AdministrationBundle/Resources/config/routing/ingredient.yml"
+    prefix:   /ingredient
+
+theme:
+    resource: "@AdministrationBundle/Resources/config/routing/theme.yml"
+    prefix:   /theme
+
+recette:
+    resource: "@AdministrationBundle/Resources/config/routing/recette.yml"
+    prefix:   /recetteAdmin
+
+surveillance:
+    resource: "@AdministrationBundle/Resources/config/routing/surveillance.yml"
+    prefix:   /surveillance
+
+messagerie:
+    resource: "@AdministrationBundle/Resources/config/routing/messagerie.yml"
+    prefix:   /messagerie
+
+confidentialite:
+    resource: "@AdministrationBundle/Resources/config/routing/confidentialite.yml"
+    prefix:   /confidentialite
+
+article:
+    resource: "@AdministrationBundle/Resources/config/routing/article.yml"
+    prefix:   /article
+
+administration_homepage:
+    path:     /
+    defaults: { _controller: AdministrationBundle:Default:index }

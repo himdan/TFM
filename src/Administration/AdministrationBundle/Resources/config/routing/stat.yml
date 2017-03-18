@@ -1,0 +1,47 @@
+stat_navigateur:
+    path:     /navigateur
+    defaults: { _controller: "AdministrationBundle:Stat:navigateur" }
+
+stat_redactionTotal:
+    path:     /redactionTotal
+    defaults: { _controller: "AdministrationBundle:Stat:redactionTotal" }
+
+stat_redactionRecetteTotal:
+    path:     /redactionRecetteTotal
+    defaults: { _controller: "AdministrationBundle:Stat:redactionRecetteTotal" }
+
+stat_redactionMonth:
+    path:     /redactionMonth
+    defaults: { _controller: "AdministrationBundle:Stat:redactionMonth" }
+
+stat_redactionRecetteMonth:
+    path:     /redactionRecetteMonth
+    defaults: { _controller: "AdministrationBundle:Stat:redactionRecetteMonth" }
+
+stat_redactionDay:
+    path:     /redactionDay
+    defaults: { _controller: "AdministrationBundle:Stat:redactionDay" }
+
+stat_redactionMembre:
+    path:     /redactionMembre
+    defaults: { _controller: "AdministrationBundle:Stat:redactionMembre" }
+
+stat_redactionRecetteDay:
+    path:     /redactionRecetteDay
+    defaults: { _controller: "AdministrationBundle:Stat:redactionRecetteDay" }
+
+stat_redactionRecetteHour:
+    path:     /redactionRecetteHour
+    defaults: { _controller: "AdministrationBundle:Stat:redactionRecetteHour" }
+
+stat_systeme:
+    path:     /systeme
+    defaults: { _controller: "AdministrationBundle:Stat:systeme" }
+
+stat_pays:
+    path:     /pays
+    defaults: { _controller: "AdministrationBundle:Stat:pays" }
+
+stat_ville:
+    path:     /ville
+    defaults: { _controller: "AdministrationBundle:Stat:ville" }

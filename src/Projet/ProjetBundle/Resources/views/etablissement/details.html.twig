@@ -1,0 +1,1734 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+ <style>
+     .modal-wide{
+         z-index: 2;
+     }
+
+     .toast-warning{
+         z-index: 3;
+     }
+     #map-details {
+         height: 100%;
+     }
+
+ </style>
+
+ <div ng-app="myAppDetailsEtab" ng-controller="etablissementDetailsController">
+
+
+     <div id="ajout-etablissement-modal" class="modal fade modal-wide">
+         <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+
+                 <div class="modal-body">
+                     <form class="form-inline" name="formAjoutEtab">
+                         <p class="text-center heading">
+                             <img src="{{ asset('dist/img/modal-etab-head.png') }}" alt="heading">
+                             Ajouter un établissement
+                         </p>
+
+                         <section class="etablissement">
+                             <h2>
+
+                                 Type d’établissement
+                             </h2>
+                             <article class="well">
+
+
+                                 <div class="row">
+
+                                     <div ng-repeat="catAdd in dataAddEtabCat" class="box-etablissement">
+                                         <div>
+                                             <input id="catAdd#catAdd.id#" type="radio" name="langue" ng-click="" value="#catAdd.id#"><label for="catAdd#catAdd.id#" class="ng-binding"><span></span>#catAdd.nomcat#</label>
+                                         </div>
+                                     </div>
+                                     {#
+                                        <div ng-repeat="catAdd in dataAddEtabCat" class="box-etablissement">
+                                         <div>
+                                             <input id="catAdd#catAdd.id#" class="RadioDesigned" type="radio" name="langue" ng-click="" value="a1"><label for="a1" class="ng-binding"><span></span>#catAdd.nomcat#</label>
+                                         </div>
+                                        </div>
+                                     #}
+
+                                 </div> <!-- row -->
+
+
+
+
+                             </article>
+
+                         </section>
+
+
+                         <!--  -->
+
+                         <section  class="etablissement-inf">
+                             <h2>
+
+                                 Informations sur l’établissement
+                             </h2>
+
+                             <article class="row">
+
+                                 <div class="col-md-5 col-sm-12 col-xs-12 firstInf">
+
+                                     <div class="form-group">
+                                         <label for="inputEmail">Nom de l'établissement*</label>
+                                         <input type="text" class="form-control" required id="nomEtabAdd" ng-model="nomEtabAdd" >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Adresse*</label>
+                                         <input type="text" class="form-control" id="addrEtabAdd" ng-model="addrEtabAdd">
+                                     </div>
+
+                                     <div class="form-group">
+                                         <label for="inputEmail">Gouvernerat*</label>
+                                         <select class="form-control" id="selectGov" name="selectGov" ng-model="selectGov" ng-change="changerRegions()">
+                                             <option></option>
+                                             <option ng-repeat="gv in dataAddEtabGovs" value="#gv.id#" >#gv.nomGov#</option>
+
+                                         </select>
+                                     </div>
+
+                                     <div class="form-group">
+                                         <label for="inputEmail">Region*</label>
+                                         <select class="form-control" id="selectReg" name="selectReg" ng-model="selectReg">
+                                             <option></option>
+                                             <option ng-repeat="reg in regionsToShow" value="#reg.id#">#reg.nomRegion#</option>
+                                         </select>
+                                     </div>
+
+                                     <div class="form-group">
+                                         <label for="inputEmail">Code postal*</label>
+                                         <input type="text" class="form-control" id="codeEtabAdd" ng-model="codeEtabAdd" >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Téléphone 1*</label>
+                                         <input type="text" class="form-control" id="telEtabAdd" ng-model="tel1EtabAdd"  >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Téléphone 2</label>
+                                         <input type="text" class="form-control" id="tel2EtabAdd" ng-model="tel2EtabAdd" >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Téléphone 3</label>
+                                         <input type="text" class="form-control" id="tel3EtabAdd" ng-model="tel3EtabAdd" >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Email*</label>
+                                         <input type="text" class="form-control" id="mailEtabAdd" ng-model="mailEtabAdd"  >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Site internet*</label>
+                                         <input type="text" class="form-control" id="siteEtabAdd" ng-model="siteEtabAdd"  >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Page facebook*</label>
+                                         <input type="text" class="form-control" id="pageFbEtabAdd" ng-model="pageFbEtabAdd"  >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Ouvre1*</label>
+                                         <input type="text" class="form-control" id="ouv1EtabAdd" ng-model="ouv1EtabAdd"  >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Ferme1*</label>
+                                         <input type="text" class="form-control" id="ferm1EtabAdd" ng-model="ferm1EtabAdd"  >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Ouvre2*</label>
+                                         <input type="text" class="form-control" id="ouv2EtabAdd" ng-model="ouv2EtabAdd"  >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Ferme2*</label>
+                                         <input type="text" class="form-control" id="ferm2EtabAdd" ng-model="ferm2EtabAdd"  >
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="inputEmail">Cordonnées Géographique(longitude)*</label>
+                                         <input type="text" class="form-control" id="longiEtabAdd" ng-model="longiEtabAdd"   >
+                                     </div>
+
+                                     <div class="form-group">
+                                         <label for="inputEmail">Cordonnées Géographique(latitude)*</label>
+                                         <input type="text" class="form-control" id="latiEtabAdd" ng-model="latiEtabAdd"   >
+                                     </div>
+
+
+                                 </div>
+
+
+                                 <div class="col-md-3 col-sm-12 col-xs-12 secondInf">
+
+                                     <h2>Spécialités</h2>
+
+
+                                     <div ng-repeat="specAdd in dataAddEtabSpec" class="checkbox checkbox-default">
+                                         <input type="checkbox" id="specAdd#specAdd.id#" value="#specAdd.id#" ng-click="" name="specCb">
+                                         <label for="specAdd#specAdd.id#">#specAdd.specialite#</label>
+                                     </div>
+
+                                     <h2 style="clear:both">Ambiance</h2>
+
+                                     <div ng-repeat="ambAdd in dataAddEtabAmb" class="checkbox checkbox-default">
+                                         <input type="checkbox" id="ambAdd#ambAdd.id#" value="#ambAdd.id#" ng-click="" name="ambCb">
+                                         <label for="ambAdd#ambAdd.id#">Ambiance #ambAdd.ambiance#</label>
+                                     </div>
+
+
+
+                                 </div>
+
+
+                                 <div class="col-md-3 col-sm-12 col-xs-12 secondInf" >
+
+                                     <h2>Plus de Filtres</h2>
+
+                                     <div ng-repeat="filtreAdd in dataAddEtabFiltre" class="checkbox checkbox-default">
+                                         <input type="checkbox" id="filtreAdd#filtreAdd.id#" value="#filtreAdd.id#" ng-click="" name="fltrCb">
+                                         <label for="filtreAdd#filtreAdd.id#">#filtreAdd.filtre#</label>
+                                     </div>
+
+
+                                 </div>
+
+
+
+
+                                 <div class="row">
+                                     <div class="col-md-6 optgroup">
+                                         <div class="obtn1" style="float:right;">
+
+
+                                             <form>
+                                      <span class="fileselector">
+                                          <label class="btn btn-default" for="upload-file-selector">
+                                              <input id="upload-file-selector" type="file">
+                                              <i class="glyphicon glyphicon-camera margin-correction"></i>Ajouter des photos*
+                                          </label>
+                                      </span>
+                                             </form>
+
+                                         </div>
+                                     </div>
+                                     <div class="col-md-6 optgroup">
+                                         <div class="obtn2">
+
+                                             <form>
+                                      <span class="fileselector">
+                                          <label class="btn btn-default" for="upload-file-selector">
+                                              <input id="upload-file-selector" type="file">
+                                              <i class="glyphicon glyphicon-tags margin-correction"></i>Cartes des Prix*
+
+                                          </label>
+                                      </span>
+                                             </form>
+
+                                         </div>
+                                     </div>
+                                 </div>
+
+
+                                 <div class="center-block text-center">
+                                     <button type="submit" class="btn btn-valider" ng-click="ajouterEtab(formAjoutEtab)">Valider</button>
+                                 </div>
+                             </article>
+
+                         </section>
+
+                     </form>
+
+                 </div> <!-- modal-content -->
+
+             </div>
+         </div>
+     </div>
+     <div id="advSearch" class="modal fade advSearch">
+         <div class="modal-dialog">
+             <div class="modal-content">
+
+                 <div class="modal-body center-block text-center">
+                     <h1 class="heading1-search">
+                         <img src="{{ asset('dist/img/loop-adv.png') }}" alt="">Recherche avancée
+                     </h1>
+                     <div class="row">
+                         <div class="col-md-6">
+                             <form class="form-horizontal form-search-adv">
+                                 <div class="form-group">
+                                     <label for="inputEmail" class="control-label col-xs-3">Nom</label>
+                                     <div class="col-xs-9">
+                                         <input type="text" class="form-control" id="inputNom" >
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="inputPassword" class="control-label col-xs-3">ville</label>
+                                     <div class="col-xs-9">
+                                         <input type="text" class="form-control" id="inputVille" >
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="inputSexe" class="control-label col-xs-3">Sexe</label>
+                                     <div class="col-xs-9">
+                                         <select class="form-control">
+                                             <option>Homme</option>
+                                             <option>Femme</option>
+                                             <option>Other</option>
+                                         </select>
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     <label for="inputAge" class="control-label col-xs-3">Age</label>
+                                     <div class="col-xs-9" style="padding-top: 12px;">
+                                         <!-- slider -->
+                                         <div id="slider-range"></div>
+                                         <div class="row">
+                                             <div class="col-xs-6" style="text-align:left">
+                                                 <span id="rangeMin">0</span>
+                                             </div>
+                                             <div class="col-xs-6"  style="text-align:right">
+                                                 <span id="rangeMax">500</span> <span>+</span>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     <label for="inputPassword" class="control-label col-xs-3"
+                                            style="padding-top:21px;">Niveau</label>
+                                     <div class="col-xs-9">
+                                         <img src="{{ asset('dist/img/level.png') }}" class="img-responsive" alt="level">
+                                     </div>
+                                 </div>
+                             </form>
+                         </div> <!-- col-md-6 -->
+                         <div class="col-md-6" style="margin-top:65px;">
+                             <p>
+                                 <a href="#" class="btn btn-search-fb"></a>
+                             </p>
+                             <p>
+                                 <a href="#" class="btn btn-search-gl"></a>
+                             </p>
+                         </div><!-- col-md-6 -->
+                     </div>
+                     <div class="row res_search">
+                         <h1>Resultat de recherche...</h1>
+                         <div class="col-md-12">
+
+
+                             <div class="row">
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/avatar-modal-search.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/1.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/2.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/2.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+
+
+
+
+                             <div class="row">
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/avatar-modal-search.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/3.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/4.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/4.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+
+                             <div class="row">
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/5.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/1.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/4.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-3">
+                                     <div class="row">
+                                         <div class="col-xs-3">
+                                             <img src="{{ asset('dist/img/3.jpg') }}" alt="">
+                                         </div>
+                                         <div class="col-xs-9">
+                                             <p class="info_perso_serch">
+                                                 James Doe <br>
+                                                 56 <br>
+                                                 tunis
+                                             </p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+
+
+
+
+
+
+
+
+                         </div>
+
+                     </div>
+                 </div>
+
+             </div>
+         </div>
+     </div>
+     <div id="partage-modal" class="modal fade modal-wide">
+         <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <p class="text-center">Partager l’article </p>
+                 </div>
+
+                 <div class="modal-body">
+                     <div class="row">
+                         <div class="col-sm-12">
+                             <p class="text-center para">
+                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodtempor incididunt ut labore et dolore magna
+                             </p>
+
+                             <p class="text-center">
+                                 <a href="#" class="btn btn-primary fb-btn"></a>
+                             </p>
+                             <p class="text-center">
+                                 <a href="#" class="btn btn-info tw-btn"></a>
+                             </p>
+
+                         </div>
+                     </div>
+                 </div>
+
+             </div>
+         </div>
+     </div>
+     <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+
+
+         <!-- Wrapper for slides -->
+
+         {#
+
+            <div class="carousel-inner" role="listbox">
+             <div class="item active">
+                 <video autoplay preload="auto" loop="loop" id="pretzel-video" class="video-playing">
+                     <!---->
+                     <source src="{{ asset('dist/media/etablissement_vid.mp4') }}" type="video/mp4">
+                     <source src="{{ asset('dist/media/etablissement_vid.webm') }}" type="video/webm">
+                 </video>
+                 <div class="carousel-caption video">
+                     <h3>Lorem ipsum dolor sit amet</h3>
+                     <p class="titleTwo"> sed do eiusmod tempor incididunt ut labore </p>
+                 </div>
+             </div>
+
+            </div>
+
+
+         #}
+
+         <!-- form inside carrousel -->
+         <form class="form-inline center-block text-center formInsideCarrousel">
+
+             <div class="container">
+                 <div class="row">
+                     {#
+
+                     <div class="col-sm-5">
+                         <select class="js-example-basic-hide-search"  id="inputProximite">
+                             <option value="Tunis" > Tunis</option>
+                             <option value="Tunis" > Bizerte</option>
+                             <option value="Tunis" > Ariana</option>
+                             <option value="Tunis" > Nabul</option>
+                             <option value="Tunis" > Ben Arous</option>
+                             <option value="Tunis" > Sousse</option>
+                             <option value="Tunis" > Manouba</option>
+                             <option value="Sfax" > Sfax</option>
+                         </select>
+                     </div>
+                     <div class="col-sm-5">
+                         <!-- <label class="sr-only" for="inputSearch">search</label>
+                         <input type="text" class="form-control" id="inputSearch"> -->
+                         <select class="js-example-basic-multiple" id="inputSearch"  multiple="multiple">
+                             <option value="Restaurants"
+                                     data-image="{{ asset('dist/img/ambianceico.png') }}"> Restaurants</option>
+                             <option value="the"
+                                     data-image="{{ asset('dist/img/aproximite.png') }}">Salons de thé & Brasseries</option>
+                             <option value="pizzas"
+                                     data-image="{{ asset('dist/img/budgeticon.png') }}">Snacks & Pizzerias</option>
+                             <option value="pati"
+                                     data-image="{{ asset('dist/img/cuisson.png') }}">Patisseries</option>
+                             <option value="clubs"
+                                     data-image="{{ asset('dist/img/diffcult.png') }}">Bars & Clubs</option>
+                             <option value="yaourt"
+                                     data-image="{{ asset('dist/img/Horaires.png') }}">Glaciers & Yaourties</option>
+                             <option value="chokolat"
+                                     data-image="{{ asset('dist/img/ico-langue.png') }}">Dragées & chocolat</option>
+                             <option value="recette"
+                                     data-image="{{ asset('dist/img/ico-langue.png') }}" ico-left-etab1.png">Recette</option>
+                         </select>
+                     </div>
+                     <div class="col-sm-2">
+                         <button type="submit" class="btn-search">
+                             <!-- <span class="glyphicon glyphicon-search"></span> --> Rechercher
+                         </button>
+                     </div>
+
+                     #}
+                 </div>
+             </div>
+
+         </form>
+
+     </div>
+
+
+     <div class="container outerWrapper">
+         <div class="col-md-3 menu-left menu-left-etab">
+             <!-- right column (268px) -->
+
+             <h3 class="menu-left-heading"> <img src="{{ asset('dist/img/ico-left-etab1.png') }}" alt="amis"> Numéro de Téléphone </h3>
+
+
+             <section class="numerotel">
+
+                 <div class="row center-block text-center">
+                     <div class="col-xs-12">
+                         {% if not etablissement.telOneEtablissement and not etablissement.telTwoEtablissement and not etablissement.telThreeEtablissement %}
+                            Pas d'information
+                         {% endif %}
+
+                         {% if etablissement.telOneEtablissement %}
+                             +216 {{ etablissement.telOneEtablissement }}<br>
+                         {% endif %}
+                         {% if etablissement.telTwoEtablissement%}
+                             +216 {{ etablissement.telTwoEtablissement }}<br>
+                         {% endif %}
+                         {% if etablissement.telThreeEtablissement %}
+                             +216 {{ etablissement.telThreeEtablissement }}<br>
+                         {% endif %}
+
+                     </div>
+                 </div>
+
+             </section>
+
+
+             <h3 class="menu-left-heading"> <img src="{{ asset('dist/img/adress-ico.png') }}" alt="adress"> Adresse </h3>
+             <section class="adress-etbl">
+
+                 <p>
+                     {% if not etablissement.adresseEtablissement and not etablissement.postaleEtablissement and not etablissement.region %}
+                         Pas d'information
+                     {% endif %}
+                     {{ etablissement.adresseEtablissement }} <br>
+                     {{ etablissement.postaleEtablissement }} {{ etablissement.region }}
+                 </p>
+
+                 <div class="row">
+                     <!-- the map -->
+                     <div class="well well-sm">
+                         <div id="map" style="height: 250px;width: 100%;">
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="row center-block text-center subglMap">
+                     <div class="col-xs-4" style="padding-left:0;">
+                         25 <br>   Avis
+                     </div>
+                     <div class="col-xs-4"  style="padding-left:0;">
+                         10 <br>   Photos
+                     </div>
+                     <div class="col-xs-4"  style="padding-left:0;">
+                         12 <br>   Bookmarks
+                     </div>
+                 </div>
+
+             </section>
+
+
+
+             <h3 class="menu-left-heading"> <img src="{{ asset('dist/img/kaskrout.png') }}" alt="lieu"> Spécialité </h3>
+             <section>
+
+                 <div class="row">
+
+                     <div class="row center-block text-center">
+                         <div class="col-xs-12 specialite-etab">
+                             {% if etablissement.specialite|length == 0 %}
+                                Pas d'information
+                             {% endif %}
+
+                             {% for spe in etablissement.specialite %}
+                                 {{ spe.nomSpecialite }}<br>
+                             {% endfor %}
+                         </div>
+                     </div>
+
+                 </div>
+
+
+
+             </section>
+
+
+             <h3 class="menu-left-heading"> <img src="{{ asset('dist/img/Horaires.png') }}" alt="lieu"> Horaires </h3>
+             <section>
+
+                 <div class="row">
+
+                     <div class="row center-block text-center">
+                         <div class="col-xs-12 horraire-etab">
+                             Lundi -Vendredi
+
+                             {% if etablissement.horraireFromFirstEtablissement and etablissement.horraireToFirstEtablissement %}
+                                 <span class="pull-right">{{ etablissement.horraireFromFirstEtablissement }}H-{{ etablissement.horraireToFirstEtablissement }}H</span> <br>
+                             {% else %}
+                             <span class="pull-right">Fermé</span><br>
+                             {% endif %}
+                             Samedi -Dimanche
+
+                             {% if etablissement.horraireFromSecondEtablissement and etablissement.horraireToSecondEtablissement %}
+                                 <span class="pull-right">{{ etablissement.horraireFromSecondEtablissement }}H-{{ etablissement.horraireToSecondEtablissement }}H</span>                             {% else %}
+                                 <span class="pull-right">Fermé</span>
+                             {% endif %}
+
+
+                         </div>
+                     </div>
+
+                 </div>
+
+
+
+             </section>
+
+
+
+             <h3 class="menu-left-heading"> <img src="{{ asset('dist/img/ambianceico.png') }}" alt="lieu"> Ambiance </h3>
+             <section>
+
+                 <div class="row">
+
+                     <div class="row center-block text-center">
+                         <div class="col-xs-12 ">
+
+                             {% if etablissement.ambiance|length ==0%}
+                                Pas d'information
+
+                             {% endif %}
+
+                             {% for amb in etablissement.ambiance %}
+                                 {{ amb.nomAmbiance }}<br>
+                             {% endfor %}
+                         </div>
+                     </div>
+
+                 </div>
+             </section>
+
+
+
+             <h3 class="menu-left-heading"> <img src="{{ asset('dist/img/happy.png') }}" alt="lieu"> Commodités </h3>
+             <section>
+
+                 <div class="row">
+
+                     <div class="row center-block text-center">
+                         <div class="col-xs-12 ">
+
+
+                             {% if etablissement.filtre|length ==0%}
+                                 Pas d'information
+
+                             {% endif %}
+
+                             {% for filtre in etablissement.filtre %}
+                                 {{ filtre.nomFiltre }}<br>
+                             {% endfor %}
+                         </div>
+
+
+
+                         <p class="budget">
+                             Budget pour 2 : {{ etablissement.budgetEtablissement }}DTN
+                         </p>
+
+
+                         <p style="margin:0 auto;">
+                             <a data-toggle="modal" data-target="#etablissementSignal" class="btn signaler">Signaler</a> <br>
+                             <!--<a href="#" class="btn modifer">Modifier une information</a>-->
+                             <!--<a class="btn btn-publier" ng-click="openModalAjoutEtab()">Ajouter un établissement</a>-->
+                         </p>
+
+                         <!-- <div class="row" style="margin:30px 0">
+                           <div class="col-xs-12 center-block text-center">
+                             <button type="submit" class="btn btn-publier">Ajouter un établissement</button>
+                           </div>
+                         </div> -->
+
+
+
+
+                     </div>
+             </section>
+
+
+
+
+
+         </div> <!-- menu-left -->
+
+
+
+
+         <div class="modal fade" id="myModalCarte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+             <div class="modal-dialog  modal-lg" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                         <h4 class="modal-title" id="myModalLabel">Ajouter des Photos</h4>
+                     </div>
+                     <div class="modal-body">
+
+                         <div  class="dropzone" id="carteAddByUser" style="box-shadow:none;border-style:dashed;">
+                             <div class="dz-message" data-dz-message>
+
+                             </div>
+                         </div>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="modal fade" id="etablissementSignal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+             <div class="modal-dialog  modal-lg" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                         <h4 class="modal-title" id="myModalLabel">Ajouter des Photos</h4>
+                     </div>
+                     <div class="modal-body">
+                         <div class="alert alert-danger" id="messageSignalAlert" style="display: none;">
+                             vide
+                         </div>
+                         <textarea class="form-control" id="texteSignal"></textarea>
+                         <br>
+                         <button class="btn btn-sm btn-success" id="sendSignal">Signaler</button>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="col-md-6 center-content">
+
+
+
+             <section class="row etab-section" style="margin-left:0px;">
+                <button class="btn btn-info" data-toggle="modal" data-target="#myModalCarte">Ajouter des cartes</button>
+                 <div class="center-block text-center">
+                     <h3 class="title-etab-h3">{{ etablissement.nomEtablissement }}</h3>
+                     <input type="hidden" id="etabId" value="{{ etablissement.id }}">
+                     <input type="hidden" value="{{ etablissement.nomEtablissement }}" id="nomEtablissement">
+                     <input type="hidden" value="www.troisfourchettes.com/etablissement/details/{{ etablissement.id }}" id="linkEtablissement">
+                     <input type="hidden" value="{{ asset('http://www.troisfourchettes.com/'~etablissement.image.WebPath) }}" id="pictureEtablissement">
+                     <input type="hidden" value="{{ etablissement.descriptionEtablissement|raw }}" id="descEtablissement">
+                 </div>
+                 <div class="row text-etab">
+                     <div class="col-xs-7" id="rankRecette" style="display: none">
+                         <ul class="list-inline">
+                             <li><div class="starrr" ng-click="openModalVote({{ etablissement.id }})">
+
+                                         <a href=""  ng-class="{'fa fa-star': 1<=noteForThisRecette,'fa-star-o fa':1>noteForThisRecette}" style="margin-right:-5px"></a>
+                                         <a href="" ng-class="{'fa fa-star': 2<=noteForThisRecette,'fa-star-o fa':2>noteForThisRecette}" style="margin-right:-5px"></a>
+                                         <a href="" ng-class="{'fa fa-star': 3<=noteForThisRecette,'fa-star-o fa':3>noteForThisRecette}" style="margin-right:-5px"></a>
+                                         <a href="" ng-class="{'fa fa-star': 4<=noteForThisRecette,'fa-star-o fa':4>noteForThisRecette}" style="margin-right:-5px"></a>
+                                         <a href="" ng-class="{'fa fa-star': 5<=noteForThisRecette,'fa-star-o fa':5>noteForThisRecette}"></a>
+
+                                 </div></li>
+                             <li class="vot"># 2*noteForThisRecette# /10 (# nbrVoteForThisRecette # votes )</li>
+                         </ul>
+                     </div>
+                     <div class="col-xs-5 budg">Moyenne pour deux perso <span> {{ etablissement.budgetEtablissement }} DT </span> </div>
+                 </div>
+                 <div class="center-block text-center text-etab1">
+                     {{ etablissement.descriptionEtablissement }}
+                 </div>
+
+                 <h3 class="menu-right-heading-etab">
+                     <img src="{{ asset('dist/img/price-center.png') }}" alt=""> Carte des Prix </h3>
+                 {% if(etablissement.carte|length != null) %}
+                 <article class="row prices">
+                         {% for carte in etablissement.carte %}
+                             <a class="grouped_cartes" rel="group1" href="{{ asset(carte.WebPath) }}">
+                                 <img src="{{ asset(carte.WebPath) }}"alt=""  style="width: 100px;height: 100px;"/>
+                             </a>
+                         {% endfor %}
+                 </article>
+                 {% else %}
+                     <div class="alert alert-info">
+                         Pas de carte
+                     </div>
+                 {% endif %}
+             </section>
+
+
+             <section class="etab-section">
+
+                 <h3 class="menu-right-heading-etab">
+                     <img src="{{ asset('dist/img/photo-etab.png') }}" alt=""> Photos </h3>
+                {% if(etablissement.album|length != null) %}
+                 <article class="row photo-eb">
+                     {% for album in etablissement.album %}
+                         <a class="grouped_elements" rel="group1" href="{{ asset(album.WebPath) }}">
+                             <img src="{{ asset(album.WebPath) }}" alt=""  style="width: 100px;height: 100px;"/>
+                         </a>
+                     {% endfor %}
+
+
+
+                 </article>
+                {% else %}
+                    <div class="alert alert-info">
+                        Pas de photos
+                    </div>
+                {% endif %}
+
+                 <hr>
+
+                 <article class="row exprimezVous exprimPublied thePost">
+
+                     <!-- ------------------------------- -->
+                     <div class="postInformations">
+                         <div class="row">
+                             <div class="col-xs-4">
+                                 <h3 class="postDate"> <span class='dateIcon'></span> 25 mars 2016</h3>
+                             </div>
+                             <div class="col-xs-8">
+                                 <!-- rating -->
+                                 <ul class="list-inline infstats">
+
+                                     <li>
+
+                                         <a href="#">
+
+                                             <img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">#nbrLikes#</span>
+
+                                         </a>
+
+                                     </li>
+
+                                     <li>
+
+                                         <span class="barSeapara">|</span>
+
+                                     </li>
+
+                                     <li>
+
+                                         <a href="#">
+
+                                             <img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">#nbrDisLikes#</span>
+
+                                         </a>
+
+                                     </li>
+
+                                     <li>
+
+                                         <span class="barSeapara">|</span>
+
+                                     </li>
+
+                                     <li>
+
+                                         <a href="#">
+
+                                             <img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">#nbrTotalcomments#</span>
+
+                                         </a>
+
+                                     </li>
+
+                                     <li>
+
+                                         <span class="barSeapara">|</span>
+
+                                     </li>
+
+                                     <li>
+
+                                         <a href="#">
+
+                                             <img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>
+
+                                         </a>
+
+                                     </li>
+
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
+
+
+                     <ul class="list-inline postUtilities postUtilities-online" >
+                         {% if app.user %}
+
+                             <span id="ChargeAppr" style=" display: block">
+                            <h4>Spinner Chargement En cours...</h4>
+                            </span>
+                             <span id="appr" style=" display: none">
+
+                                                    <li>
+
+                                                        <a class="likeBtn" ng-click="aime({{ etablissement.id }})"> <img ng-src="#shownAime#" alt="" > J’aime </a>
+
+                                                    </li>
+
+                        <li>
+
+
+
+
+                            <a class="dislikeBtn" ng-click="aimepas({{ etablissement.id }})"> <img ng-src="#shownAimePas#" alt=""> J’aime pas </a>
+
+
+
+
+
+
+                        </li>
+
+                        <li>
+
+                            <a href="" class="cmtBtn" ng-click="goToCommenter()"> <img src="{{ asset('dist/img/online-cmtBtn.png') }}" alt=""> Commenter </a>
+
+                        </li>
+
+                        <li>
+
+                            <a id="share_button" class="shareBtn"> <img src="{{ asset('dist/img/online-shareBtn.png') }}" alt=""> Partage </a>
+
+                        </li>
+
+
+
+                        </span>
+
+                         {% else %}
+                            <span id="ChargeAppr"></span>
+                            <span id="appr"></span>
+                         {% endif %}
+                     </ul>
+
+                     <h4 class="title-owl text-center"> A proximité... </h4>
+
+                     <div id="owl-demo">
+
+                         <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide-1.jpg') }}" alt="Owl Image"><p>Restaurant la cabane...</p></a></div>
+                         <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide-2.jpg') }}" alt="Owl Image"><p>Restaurant la cabane...</p></a></div>
+                         <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide-3.jpg') }}" alt="Owl Image"><p>Restaurant la cabane...</p></a></div>
+                         <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide-4.jpg') }}" alt="Owl Image"><p>Restaurant la cabane...</p></a></div>
+                         <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide-5.jpg') }}" alt="Owl Image"><p>Restaurant la cabane...</p></a></div>
+                         <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide-6.jpg') }}" alt="Owl Image"><p>Restaurant la cabane...</p></a></div>
+                         <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide-8.jpg') }}" alt="Owl Image"><p>Restaurant la cabane...</p></a></div>
+                         <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide-8.jpg') }}" alt="Owl Image"><p>Restaurant la cabane...</p></a></div>
+
+                     </div>
+
+                     <div id="chargementComments" style="display: block">
+                         Chargement en cours . . .
+                     </div>
+
+                     <div id="commentsList" style="display: none" class="showComment">
+
+
+                         <div class="col-lg-6">
+                             <a href="" ng-click="moreComments()" id="afficherplus" style="display: block;"><h5>afficher les commentaires précédents</h5></a>
+                         </div>
+                         <div class="col-lg-6">
+                             <img id="loadingComments" style="display:none" src="{{ asset('dist/img/loadingComments.gif') }}" alt="loading...">
+                         </div>
+
+
+                         <br>
+
+                         <div class="media" ng-repeat="comment in commentsToShow">
+
+                             <div class="media-left" style="margin-top:-10px;margin-left: -20px;">
+
+                                 <a href="#">
+                                     <img src="#comment.image#" style="width: 50px;height: 50px;" class="media-object img-thumbnail" alt="Sample Image">
+
+                                 </a>
+
+                             </div>
+
+                             <div class="media-body" style="margin-top:20px;">
+                                 <span id="btnDell#comment.commentId#" class="pull-right" style="color:red" ng-show="comment.deletable" ng-click="deleteComment(comment.commentId)">x</span>
+                                 <span id="spinDell#comment.commentId#" class="pull-right" style="color:Blue;display:none" ng-show="comment.deletable">O</span>
+                                 <h4 class="media-heading">#comment.nomClient#</h4>
+
+                                 <p>#comment.commentText#</p>
+
+                             </div>
+
+                         </div>
+
+                         {% if app.user %}
+                             <div class="alert alert-danger" id="chechTextCom" style="display: none">
+                                 votre texte doit etre < 160
+                             </div>
+                             <form class="form-inline center-block text-center">
+                                 <textarea id="commentToSend" style="width:100%" class="form-control inputAddComment" placeholder="Ajouter un commentaire..."></textarea>
+                                 <!-- <input type="submit" class="btn-commenter-online pull-right" value="commenter">   -->
+                             </form>
+                         {% endif %}
+                         {% if app.user %}
+                             <p class="theLast">
+
+                                 <img src="{{ asset('dist/img/exclamtionPoint.png') }}" alt="exc">
+                                 <span>
+                                  Ecrire un commentaire, utiliser @ pour taguer des amis
+                                </span>
+                             </p>
+                         {% else %}
+                             <p class="theLast">
+                                 <img src="{{ asset('dist/img/exclamtionPoint.png') }}" alt="exc">
+                                 <span>
+                                  Veuillez <a href="{{ path('fos_user_security_login') }}">se connecter</a> pour pouvoir commenter !
+                                </span>
+                             </p>
+                         {% endif %}
+
+
+
+                     </div>
+                     <!-- ------------------------------- -->
+                 </article>  <!-- exprimPublied -->
+
+
+
+
+
+
+         </div>  <!-- center-content -->
+
+         <div class="col-md-3 menu-right">
+             <!-- right column (268px) -->
+             <section class="block-spnsirise center-block text-center">
+
+                 <div class="pub">
+                     <img src="{{ asset('dist/img/banner-exemple.jpg') }}" class="img-responsive">
+
+                 </div>
+
+             </section>
+
+
+             <h3 class="menu-right-heading"> <img src="{{ asset('dist/img/spons-ico.png') }}" alt=""> Sponsorisés </h3>
+
+
+             <section class="block-spnsirise center-block text-center">
+                 {% for spo in etablissementSponsor %}
+                     <a href="{{ path('detailsEtablissement',{'etablissement':spo.id}) }}">
+                         <article class="item1">
+                             <p>
+                                 <img src="{{ asset(spo.image.WebPath) }}" class="spons-img img-responsive" alt="rest1" style="height: 120px;width: 100%;">
+                             </p>
+                             <p class="spons-name" >
+                                 {{ spo.nomEtablissement }}
+                             </p>
+                         </article>
+                     </a>
+                 {% endfor %}
+
+             </section>
+
+
+         </div>
+
+
+     </div>
+
+
+
+     <!-- Modal -->
+     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+         <div class="modal-dialog" role="document">
+             <div class="modal-content">
+
+                 <div class="modal-body">
+                     {% if app.user %}
+                         <div id="partieVote" style="display: block">
+                             <div class='starrr star1'>
+                                 <a href="" ng-click="voter(1)"  class="fa fa-star-o" style="margin-right:-5px"></a>
+                                 <a href="" ng-click="voter(2)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                 <a href="" ng-click="voter(3)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                 <a href="" ng-click="voter(4)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                 <a href="" ng-click="voter(5)" class="fa fa-star-o"></a>
+
+                             </div>
+                             <div id="messagePartieVote"></div>
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                         </div>
+                         <div id="chargementPartieVote" style="display: none">
+                             <h4>Vote En Cours...</h4>
+                         </div>
+
+                     {% else %}
+                         <h2>Vous devez se connecter pour pouvoir voter</h2>
+                     {% endif  %}
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+{% endblock %}
+{% block javascripts %}
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({appId: '1690542801267629', status: true, cookie: true,
+                xfbml: true});
+        };
+        (function() {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+                    '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+        }());
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#share_button').click(function(e){
+                var nom = $('#nomEtablissement').val();
+                var link = $('#linkEtablissement').val();
+                var picture = $('#pictureEtablissement').val();
+                var desc = $('#descEtablissement').val();
+                e.preventDefault();
+                FB.ui(
+                        {
+                            method: 'feed',
+                            name: nom,
+                            link: link,
+                            picture: picture,
+                            caption: 'Visitez notre site www.troisfourchettes.com',
+                            description: desc,
+                            message: "Note: Remember to replace YOUR APP ID with your facebook AppId. If you don't have facebook AppId and you don't know how to create please "
+                        });
+            });
+        });
+    </script>
+    <script>
+        $(function(){
+            $('#sendSignal').click(function(){
+
+                var texte = $('#texteSignal').val();
+                var id = $('#etabId').val();
+                if(texte == ''){
+                    toastr.error('vide','notification',1000);
+                }else{
+                    $.ajax({
+                        url: Routing.generate('etablissementSignal', {'id':id}),
+                        data: {
+                            texte:texte,
+                        },
+                        type:'POST',
+                        dataType: 'JSON',
+                        success: function (result) {
+                            $('#texteSignal').val('');
+                            toastr.success('votre signal est envoye à l\'administration','notification',1000);
+                            setTimeout(function() {
+                                $('#etablissementSignal').modal('hide');
+                            }, 700);
+                        }
+                    });
+                }
+
+
+            });
+        })
+    </script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+
+    <script>
+        Dropzone.autoDiscover = false;
+        if ($('#carteAddByUser').length)
+        {
+            $("div#carteAddByUser").dropzone
+            (
+                    {
+
+                        url: document.URL,
+                        addRemoveLinks: true,
+                        dictRemoveFile:'Supprimer',
+                        init:function()
+                        {
+                            t = this;//drop zone
+                            //var
+                            $.post(document.URL,{do:'get'},function(data){
+
+                                for(i in data.mocks)
+                                {
+                                    //formater les fichier eli jeyin
+                                    m = {name:data.mocks[i].name,size:data.mocks[i].size,type:data.mocks[i].type,serverId:data.mocks[i].serverId}
+                                    t.emit("addedfile", m);
+                                    t.emit("thumbnail",m, data.mocks[i].url);//ajouter a dropzone
+                                }
+
+                            })
+                        },
+                        removedfile:function(file)
+                        {
+                            if(file.hasOwnProperty('serverId'))
+                            {
+                                //method te5ou id  w tafsa5 c tt w lo5ra upload jsute nbadlou el url
+                                $.post(document.URL,{do:'delete',id:file.serverId},function(data){
+                                    if(data.ok)
+                                    {
+                                        file.previewElement.remove();
+                                    }
+                                })
+                            }
+
+                        },
+                        success: function(file, response){
+                            if(response.ok)
+                            {
+                                file.previewElement.classList.add("dz-success");
+                                $msg = '<div class="alert alert-dismissable alert-success">'+
+                                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                        '<strong>Success: </strong> '+response.msg+
+                                        '</div>';
+                                file.serverId = response.serverId;//bech ki tenzel supprimer fi dropzone ya3ref el id
+                            }
+                            else
+                            {
+                                file.previewElement.classList.add("dz-error");
+                                $msg = '<div class="alert alert-dismissable alert-danger">'+
+                                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                        '<strong>Success: </strong> '+response.msg+
+                                        '</div>';
+                            }
+                            $("#msg").html($msg);
+                        },
+                        error: function(file,reponse)
+                        {
+                            $msg = '<div class="alert alert-dismissable alert-danger">'+
+                                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                    '<strong>Success: </strong> Erreur serveur!! '+
+                                    '</div>';
+                            $("#msg").html($msg);
+                        }
+                    }
+            );
+        }
+    </script>
+    <script>
+        var appDetailsEtablissement = angular.module('myAppDetailsEtab',[])
+                .config(function($interpolateProvider){
+                    $interpolateProvider.startSymbol('#').endSymbol('#');
+                })
+                .directive('loading', function () {
+                    return {
+                        restrict: 'E',
+                        replace:true,
+                        template: '<div class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="20" height="20" />LOADING...</div>',
+                        link: function (scope, element, attr) {
+                            scope.$watch('loading', function (val) {
+                                if (val)
+                                    $(element).show();
+                                else
+                                    $(element).hide();
+                            });
+                        }
+                    }
+                });
+        appDetailsEtablissement.controller('etablissementDetailsController', function($scope,$http) {
+            $scope.idEtab="{{ etablissement.id }}";
+            var textAriaComment = document.getElementById('commentToSend');
+            $scope.goToCommenter=function(){
+                textAriaComment.scrollIntoView(true);
+            }
+            $scope.openModalVote=function(id){
+                {% if(app.user) %}
+                $scope.idRecetteAvoter=id;
+                $scope.idRecetteAvoter=id;
+                $('#myModal2').modal('show');
+                $('.star1').starrr();
+                {% else %}
+                toastr.warning('Vous devez <a href="http://localhost/troisfourchettes/web/app_dev.php/login">se connecter</a> pour pouvoir voter','notification',2000);
+                {% endif %}
+            }
+            $scope.getElementsForAddEtab=function(){
+                $http.post(Routing.generate('getDataForAddEtabJson'))
+                        .then(function(response) {
+                            $scope.dataAddEtabGovs=response.data.govs;
+                            $scope.dataAddEtabSpec=response.data.specialite;
+                            $scope.dataAddEtabAmb=response.data.ambiance;
+                            $scope.dataAddEtabFiltre=response.data.filtre;
+                            $scope.dataAddEtabCat=response.data.cat;
+                        });
+            }
+            $scope.getElementsForAddEtab();
+            $scope.regionsToShow=[];
+            $scope.changerRegions=function(){
+                var idGovSelected=$("#selectGov").val() ;
+                $http.post(Routing.generate('getRegionSelonGovJson',{idGov:idGovSelected}))
+                        .then(function(response) {
+                            $scope.regionsToShow=response.data;
+                        });
+            }
+            $scope.getThisAppreciation=function () {
+                $scope.objAppr={
+                    idr:$scope.idEtab
+                };
+                $http.post(Routing.generate('nbrLikeDislikeEtabJSON'),$scope.objAppr)
+                        .then(function(response) {
+                            $scope.nbrLikes=response.data.likes;
+                            $scope.nbrDisLikes=response.data.dislikes;
+                        });
+            }
+            $scope.getThisAppreciation();
+            $scope.getThisRank=function () {
+                $scope.objRank={
+                    idr:$scope.idEtab
+                };
+                $http.post(Routing.generate('rankOneEtabJSON'),$scope.objRank)
+                        .then(function(response) {
+                            $scope.noteForThisRecette=response.data[0].note;
+                            $scope.nbrVoteForThisRecette=response.data[0].nbrVote;
+                            document.getElementById("rankRecette").style.display="block";
+                        });
+            }
+            $scope.getThisRank();
+            $scope.voter=function(NbrVote){
+                document.getElementById("partieVote").style.display="none";
+                document.getElementById("chargementPartieVote").style.display="block";
+                document.getElementById("messagePartieVote").innerHTML="";
+                $http.post(Routing.generate('Addrank', { id: $scope.idEtab , type: "etablissement",nbr:NbrVote }))
+                        .then(function(response) {
+                            document.getElementById("partieVote").style.display="block";
+                            document.getElementById("chargementPartieVote").style.display="none";
+                            document.getElementById("messagePartieVote").innerHTML=response.data.success;
+                            $scope.getThisRank();
+                        }).then(function(response){
+                    setTimeout(function(){
+                        $('#myModal2').modal('hide');
+                    },2000);
+                });
+            }
+            $scope.img='{{ asset('dist/img/likerouge.png') }}';
+            $scope.img2='{{ asset('dist/img/online-likeBtn.png') }}';
+            $scope.img1AimePas="{{ asset('dist/img/pnline-dislikeBtn.png') }}";
+            $scope.img2AimePas="{{ asset('dist/img/deslikerouge.png') }}";
+            $scope.recetteLiked=false;
+            $scope.recetteNotLiked=false;
+            $scope.aime = function(id){
+                document.getElementById("ChargeAppr").style.display="block";
+                document.getElementById("appr").style.display="none";
+                $scope.loading = true;
+                $http.post(Routing.generate('Addappreciation', { id: id , type: "etablissement" }))
+                        .then(function(response) {
+                        }).then(function(response) {
+                    $scope.getAppr();
+                    $scope.getThisAppreciation();
+                });
+            };
+            $scope.aimepas = function(id){
+                document.getElementById("ChargeAppr").style.display="block";
+                document.getElementById("appr").style.display="none";
+                $scope.loading = true;
+                $http.post(Routing.generate('deleteappreciation', { id: id , type: "etablissement" }))
+                        .then(function(response) {
+                        }).then(function(response) {
+                    $scope.getAppr();
+                    $scope.getThisAppreciation();
+
+                });
+
+            };
+            $scope.getAppr = function(){
+                document.getElementById("ChargeAppr").style.display="block";
+                document.getElementById("appr").style.display="none";
+                $http.post(Routing.generate('Getappreciation', { id: {{ etablissement.id }} , type: "etablissement" }))
+                        .then(function(response) {
+                            document.getElementById("ChargeAppr").style.display="none";
+                            document.getElementById("appr").style.display="block";
+                            $scope.recetteLiked=response.data.aime;
+                            $scope.recetteNotLiked=response.data.aimepas;
+                            $scope.nbraimespas=response.data.nbraimespas;
+                            $scope.nbraimes=response.data.nbraimes;
+                            if($scope.recetteLiked==1){
+                                $scope.shownAime=$scope.img;
+                            }
+                            if($scope.recetteLiked==0){
+                                $scope.shownAime=$scope.img2;
+                            }
+                            if($scope.recetteNotLiked==0){
+                                $scope.shownAimePas=$scope.img1AimePas;
+                            }
+                            if($scope.recetteNotLiked==1){
+                                $scope.shownAimePas=$scope.img2AimePas;
+                            }
+                        });
+            };
+            $scope.getAppr();
+            $scope.trancheComment=1;
+            $('#commentToSend').keydown(function (e){
+                $scope.commentaire=document.getElementById("commentToSend").value;
+
+                if((e.shiftKey) && (e.keyCode == 13)){
+                    var newText= $(this).val() + '<br>';
+                }
+                else if((!e.shiftKey) && (e.keyCode == 13)){
+                    if($scope.commentaire.length <=5){
+                        $('#chechTextCom').show();
+                    }else{
+                        $('#chechTextCom').hide();
+                        if($scope.commentaire.trim().length === 0){
+                            setTimeout(function(){
+                                $('#commentToSend').val('');
+                            },100);
+                        }else{
+                            setTimeout(function(){
+                                $scope.objComment={
+                                    id:{{ etablissement.id }},
+                                    commentaire:$scope.commentaire,
+                                    type:"etablissement"
+                                };
+                                $('#commentToSend').val('');
+                                document.getElementById("commentToSend").disabled = true;
+                                $http.post(Routing.generate('sendComment'),$scope.objComment)
+                                        .then(function(response) {
+                                            document.getElementById("commentToSend").disabled = false;
+                                        }).then(function(response){
+                                    $scope.getComments();
+                                });
+                            },10);
+                        }
+                    }
+                }
+            })
+            $scope.commentsToShow=[];
+            $scope.getComments= function(){
+                $scope.objToGetComments={
+                    id:{{ etablissement.id }},
+                    tranche:$scope.trancheComment,
+                    type:"etablissement"
+                }
+                $http.post(Routing.generate('getComments'),$scope.objToGetComments)
+                        .then(function(response) {
+                            $scope.nbrTotalcomments=response.data.nbrTotal;
+                            $scope.commentsToShow=response.data.comments;
+                            document.getElementById("chargementComments").style.display="none";
+                            document.getElementById("commentsList").style.display="block";
+                            if(response.data.nbrTotal > $scope.commentsToShow.length){
+                                document.getElementById("afficherplus").style.display="block";
+
+                            }else{
+                                document.getElementById("afficherplus").style.display="none";
+                            }
+                            document.getElementById('loadingComments').style.display="none";
+                        });
+            }
+            $scope.getComments();
+            $scope.moreComments=function(){
+                document.getElementById('loadingComments').style.display="block";
+                $scope.trancheComment++;
+                $scope.getComments();
+            }
+            $scope.deleteComment=function(idC){
+                var idBtnToDell="btnDell"+idC;
+                var idBtnSpinn="spinDell"+idC;
+                document.getElementById(idBtnToDell).style.display="none";
+                document.getElementById(idBtnSpinn).style.display="block";
+                $scope.objDel={
+                    id:idC,
+                    type:"etablissement"
+                }
+                $http.post(Routing.generate('deleteComment'),$scope.objDel)
+                        .then(function(response) {
+
+                        }).then(function(response){
+                    $scope.getComments();
+
+                });
+            }
+            $scope.initFormAdd=function(){
+                $scope.nomEtabAdd="";
+                $scope.addrEtabAdd="";
+                $scope.codeEtabAdd="";
+                $scope.tel1EtabAdd="";
+                $scope.tel2EtabAdd="";
+                $scope.tel3EtabAdd="";
+                $scope.mailEtabAdd="";
+                $scope.siteEtabAdd="";
+                $scope.pageFbEtabAdd="";
+                $scope.ouv1EtabAdd="";
+                $scope.ferm1EtabAdd="";
+                $scope.ouv2EtabAdd="";
+                $scope.ferm2EtabAdd="";
+                $scope.longiEtabAdd="";
+                $scope.latiEtabAdd="";
+
+            }
+            var catAddR= document.getElementsByName("langue");
+            $scope.openModalAjoutEtab = function(){
+                $('#ajout-etablissement-modal').modal('show');
+                catAddR[0].checked=true;
+            }
+            $scope.nomEtabAdd="";
+            $scope.addrEtabAdd="";
+            $scope.codeEtabAdd="";
+            $scope.tel1EtabAdd="";
+            $scope.tel2EtabAdd="";
+            $scope.tel3EtabAdd="";
+            $scope.mailEtabAdd="";
+            $scope.siteEtabAdd="";
+            $scope.pageFbEtabAdd="";
+            $scope.ouv1EtabAdd="";
+            $scope.ferm1EtabAdd="";
+            $scope.ouv2EtabAdd="";
+            $scope.ferm2EtabAdd="";
+            $scope.longiEtabAdd="";
+            $scope.latiEtabAdd="";
+            var specAdd=[];
+            var ambAdd=[];
+            var fltrAdd=[];
+            var catAddR= document.getElementsByName("langue");
+            for(i=0;i<catAddR.length;i++){
+            }
+            $scope.ajouterEtab=function(formAjoutEtab){
+                if(formAjoutEtab.$valid){
+                    var idCatSelected=0;
+                    for(i=0;i<catAddR.length;i++){
+                        if(catAddR[i].checked){
+                            idCatSelected=catAddR[i].value;
+                        }
+                    }
+                    var specAdd=[];
+                    var ambAdd=[];
+                    var fltrAdd=[];
+                    var cbSpec=document.getElementsByName("specCb");
+                    var cbAmb=document.getElementsByName("ambCb");
+                    var cbFltr=document.getElementsByName("fltrCb");
+                    for(i=0;i<cbSpec.length;i++){
+
+                        if(cbSpec[i].checked){
+                            specAdd.push(cbSpec[i].value);
+                        }
+                    }
+                    for(i=0;i<cbAmb.length;i++){
+
+                        if(cbAmb[i].checked){
+                            ambAdd.push(cbAmb[i].value);
+                        }
+                    }
+                    for(i=0;i<cbFltr.length;i++){
+
+                        if(cbFltr[i].checked){
+                            fltrAdd.push(cbFltr[i].value);
+                        }
+                    }
+                    var objToSend={
+                        idcat:idCatSelected,
+                        spec:specAdd,
+                        amb:ambAdd,
+                        fltr:fltrAdd,
+                        nom:$scope.nomEtabAdd,
+                        addr:$scope.addrEtabAdd,
+                        codeEtab:$scope.codeEtabAdd,
+                        tel1:$scope.tel1EtabAdd,
+                        tel2:$scope.tel2EtabAdd,
+                        tel3:$scope.tel3EtabAdd,
+                        mail:$scope.mailEtabAdd,
+                        site:$scope.siteEtabAdd,
+                        page:$scope.pageFbEtabAdd,
+                        ouv1:$scope.ouv1EtabAdd,
+                        ferm1:$scope.ferm1EtabAdd,
+                        ouv2:$scope.ouv2EtabAdd,
+                        ferm2:$scope.ferm2EtabAdd,
+                        longi:$scope.longiEtabAdd,
+                        lati:$scope.latiEtabAdd,
+                        gov:$("#selectGov").val(),
+                        reg:$("#selectReg").val(),
+                    }
+                    $http.post(Routing.generate('addEtablissement'),objToSend)
+                            .then(function(response) {
+                                $scope.initFormAdd();
+                            });
+                    toastr.info("etablissement ajouté avec succes, attendez la confirmation de l'administrateur",'information',2000);
+                }else{
+                     $('#ajout-etablissement-modal').modal('hide');
+                    toastr.warning("verifiez vos entrées svp",'information',5000);
+                }
+            }
+        });
+    </script>
+    <script>
+        function initMap() {
+            var myLatLng = {lat: {{ etablissement.latEtablissement }}, lng: {{ etablissement.longEtablissement }}  };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGD36zjRpUtvJwdTTpChcxm5qxhdcBBCg&signed_in=true&callback=initMap">
+    </script>
+
+{% endblock %}

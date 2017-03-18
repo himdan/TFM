@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Client</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ client.id }}</td>
+            </tr>
+            <tr>
+                <th>Dateajoutclient</th>
+                <td>{% if client.dateAjoutClient %}{{ client.dateAjoutClient|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Navigateurclient</th>
+                <td>{{ client.navigateurClient }}</td>
+            </tr>
+            <tr>
+                <th>Osclient</th>
+                <td>{{ client.osClient }}</td>
+            </tr>
+            <tr>
+                <th>Nomclient</th>
+                <td>{{ client.nomClient }}</td>
+            </tr>
+            <tr>
+                <th>Prenomclient</th>
+                <td>{{ client.prenomClient }}</td>
+            </tr>
+            <tr>
+                <th>Adresseclient</th>
+                <td>{{ client.adresseClient }}</td>
+            </tr>
+            <tr>
+                <th>Sexeclient</th>
+                <td>{{ client.sexeClient }}</td>
+            </tr>
+            <tr>
+                <th>Datenaissanceclient</th>
+                <td>{{ client.dateNaissanceClient }}</td>
+            </tr>
+            <tr>
+                <th>Descriptionclient</th>
+                <td>{{ client.descriptionClient }}</td>
+            </tr>
+            <tr>
+                <th>Paysclient</th>
+                <td>{{ client.paysClient }}</td>
+            </tr>
+            <tr>
+                <th>Villeclient</th>
+                <td>{{ client.villeClient }}</td>
+            </tr>
+            <tr>
+                <th>Mobileclient</th>
+                <td>{{ client.mobileClient }}</td>
+            </tr>
+            <tr>
+                <th>Fixeclient</th>
+                <td>{{ client.fixeClient }}</td>
+            </tr>
+            <tr>
+                <th>Faxclient</th>
+                <td>{{ client.faxClient }}</td>
+            </tr>
+            <tr>
+                <th>Siteclient</th>
+                <td>{{ client.siteClient }}</td>
+            </tr>
+            <tr>
+                <th>Situationclient</th>
+                <td>{{ client.situationClient }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('client_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('client_edit', { 'id': client.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

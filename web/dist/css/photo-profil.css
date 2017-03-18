@@ -1,0 +1,318 @@
+
+.text-right{
+    text-align: right;
+}
+.formInsideCarrousel {
+    background-color: transparent;
+    top: 0;
+}
+
+div.outerWrapper {
+     top: 0px; 
+}
+
+div.outerWrapperSearch{
+    padding: 20px 0;
+    background: #FFF;
+    border: 1px solid #ecebeb;
+
+    /*sift the container*/
+    max-width: 1116px;
+    position: relative;
+    left: -14px;
+}
+
+button.btn-search {
+    background-color: #c9532f;
+}
+button.btn-search:hover {
+    background-color: #c9532f;
+}
+select#inputProximite, input#inputSearch {
+    border: 1px solid #c9532f;
+}
+
+button.btn-search {
+    max-width: 156px;
+    margin-left: -82px;
+}
+
+div.outerWrapper div.center-content {
+    padding-left: 11px;
+    margin-right: 10px;
+    margin-bottom: 12px;
+}
+div.outerWrapper div.center-content {
+    padding-right: 8px;
+}
+
+
+/**/
+.photos_page .photos_ico,
+.mon_profil .photos_ico{
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1.1px;
+}
+.photos_page .add-new-img a,
+.mon_profil .add-new-img a{
+    color: #cd532b;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    font-weight: 400;
+}
+.photos_page .add-new-img a:hover,
+.mon_profil .add-new-img a:hover{
+    color: #cd532b;
+    text-decoration: none;
+}
+.photos_page .inBetweenVert,
+.mon_profil .inBetweenVert{
+    margin: 15px 0;
+}
+.photos_page .thumbnail,
+.mon_profil .thumbnail {
+    display: block;
+    padding: 0px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 0px solid transparent;
+    border-radius: 0px;
+    /*-webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;*/
+}
+.photos_page .thumbnail a i ,
+.mon_profil .thumbnail a i{
+top: 9%;
+right: 50%;
+position: absolute;
+margin-right: -70px;
+/*margin-top: -30px;*/
+color: white;
+font-size: 16px;
+}
+
+.social-avatar-inf{
+    padding-left: 15px;
+}
+.social-avatar-inf .name{
+  font-size: 17.22px;
+  color: rgb( 0, 0, 0 );
+  line-height: 15px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+}
+.social-avatar-inf .date{
+  font-size: 11px;
+  color: rgb( 122, 122, 122 );
+  line-height: 17px;
+  letter-spacing: 1.2px;
+}
+
+.photos_page .allComments,
+.mon_profil .allComments{
+    background: #f8f7f7;
+    border-top: 2px solid #f4f3f3;
+}
+.horizontal-padd{
+    padding: 0 5px;
+}
+.photos_page .media,
+.mon_profil .media{
+    border-bottom: 1px solid #eeeded;
+}
+.exprimezVous textarea.exp{
+    height: 84px;
+    border: 1px solid #e2e2e2;
+    width: 95%;
+    outline: none;
+    margin-top: -15px;
+
+}
+.photos_page .fotoDeProfil,
+.exprimezVous .mon_profil .fotoDeProfil{
+    padding-left: 5px;
+}
+.photos_page .app,
+.mon_profil .app{
+  font-size: 10.5px;
+  color: rgb( 136, 136, 136 );
+  line-height: 10px;
+}
+.photos_page .smile,
+.mon_profil .smile{
+    padding-right: 15px;
+    padding-bottom: 8px;
+}
+.photos_page .all-cmt,
+.mon_profil .all-cmt{
+    max-height: 400px;
+    overflow: auto;
+}
+
+
+/*profile-settings*/
+.profile-settings .img-profile{
+    /*border: 3px solid #e5e4e3;*/
+    width: 148px;
+
+}
+.profile-settings .name{
+    font-size: 20px;
+    line-height: 40px;
+    letter-spacing: 1.5px;
+}
+.profile-settings .inf{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 37px;
+    letter-spacing: 0.5px;
+}
+.profile-settings .statistics{
+    font-size: 12px;
+    font-weight: 500;
+    margin: 11px 0;
+}
+.profile-settings .statistics img{
+    margin: 0 5px;
+}
+.description{
+        width: 99%;
+}
+div.outerWrapper .menu-left .menu-left-heading{
+    font-size: 16px;
+    
+}
+div.outerWrapper .menu-left  section{
+    padding: 0 5px;
+    padding-left: 0;
+}
+div.outerWrapper .menu-left  section .img-amis,
+div.outerWrapper .menu-left  section .img-photos,
+div.outerWrapper .menu-left  section .img-lieu{
+    margin: 12px 0;
+}
+.img-lieu p{
+    font-size: 9px;
+    letter-spacing: 1.1px;
+}
+.para-lieu{
+    padding-left: 10px;
+}
+
+/*autre profil*/
+.adding-new{
+    color: #c9532f;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1.2px;
+    margin-bottom: -7px;
+}
+
+a.add-profil-autre,
+a.add-new-msg{
+    color: #c9532f;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    text-decoration: none;
+    border: 1px solid #FFAF95;
+}
+a.add-profil-autre:hover,
+a.add-new-msg:hover{
+    text-decoration: none;
+    color: #c9532f;
+}
+
+a.setting,
+a.invite{
+    color: #c9532f;
+    font-size: 13px;
+        letter-spacing: 0.2px;
+    text-decoration: none;
+    
+}
+
+.user-s{
+    margin-bottom: -10px;
+    text-decoration:unset;
+}
+
+
+/*end autre profil*/
+
+body.photos_page .formInsideCarrousel,
+body.mon_profil .formInsideCarrousel{
+    padding: 30px 0px 4px;
+    position: relative;
+    /*bottom: 0;*/
+    width: 100%;
+}
+
+
+/*body.photos_page .postUtilities,
+body.mon_profil .postUtilities{margin-top: 24px;margin-bottom: 24px;    margin-left: 10px;}
+body.photos_page .postUtilities li,
+body.mon_profil .postUtilities li{ margin: 0;padding: 0;display: inline;}
+body.photos_page .postUtilities li a,
+body.mon_profil .postUtilities li a{ padding: 3% 5.9%;background:#f6f6f6; border-right:1px solid  #e8e7e7;
+color: #cccccc; font-size: 12px;}
+
+body.photos_page .postUtilities li a.shareBtnOffline,
+body.mon_profil .postUtilities li a.shareBtnOffline{ color: #737373;}*/
+
+.fbphotobox-container-right{
+    height: auto !important;
+}
+
+
+
+textarea::-webkit-input-placeholder {
+   color: #e0dddd;
+   font-size: 14px;
+}
+
+textarea:-moz-placeholder { /* Firefox 18- */
+   color: #e0dddd;
+   font-size: 14px;  
+}
+
+textarea::-moz-placeholder {  /* Firefox 19+ */
+   color: #e0dddd;
+   font-size: 14px;  
+}
+
+textarea:-ms-input-placeholder {  
+   color: #e0dddd;
+   font-size: 14px;  
+}
+
+@media (min-width: 1024px)  and (max-width: 1191px)  {
+    .photos_page .thumbnail a i ,
+    .mon_profil .thumbnail a i{
+        margin-right: -55px;
+        }
+
+}
+
+@media (max-width: 760px) {
+
+
+    button.btn-search {
+    margin-left: 0px;
+    }
+
+  }
+
+
+@media (max-width: 460px) {
+
+
+    button.btn-search {
+    margin-left: -5px;
+    }
+
+  }

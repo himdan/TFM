@@ -1,0 +1,9 @@
+notification:
+    path:     /notification
+    defaults: { _controller: "ClientBundle:Notification:index" }
+
+getAll:
+    path:     /notification/getAll
+    defaults: { _controller: "ClientBundle:Notification:getAll" }
+    options:
+        expose: true

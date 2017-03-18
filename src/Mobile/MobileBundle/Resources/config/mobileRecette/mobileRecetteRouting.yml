@@ -1,0 +1,58 @@
+connect:
+    path:     /connect
+    defaults: { _controller: "MobileBundle:MobileRecette:connect" }
+    options:
+        expose: true
+
+inscription:
+    path:     /inscription
+    defaults: { _controller: "MobileBundle:MobileRecette:inscription" }
+    options:
+        expose: true
+
+etablissementMobile:
+    path:     /etablissementMobile
+    defaults: { _controller: "MobileBundle:MobileRecette:etablissementMobile" }
+    options:
+        expose: true
+
+etablissementDetailMobile:
+    path:     /etablissementDetailMobile
+    defaults: { _controller: "MobileBundle:MobileRecette:etablissementDetailsMobile" }
+    options:
+        expose: true
+
+routesMobile:
+    path:     /routesMobile
+    defaults: { _controller: "MobileBundle:MobileRecette:routesMobile" }
+    options:
+        expose: true
+
+apiKeyMobile:
+    path:     /apikeyMobile
+    defaults: { _controller: "MobileBundle:MobileRecette:setApiKey" }
+    options:
+        expose: true
+
+profileMobile:
+    path:     /profileMobile
+    defaults: { _controller: "MobileBundle:MobileRecette:editProfile" }
+    options:
+        expose: true
+accountMobile:
+    path:     /account
+    defaults: { _controller: "MobileBundle:MobileRecette:editAccount" }
+    options:
+        expose: true
+
+cridentialMobile:
+    path:     /cridentialMobile
+    defaults: { _controller: "MobileBundle:MobileRecette:editCridential" }
+    options:
+        expose: true
+
+searchMobile:
+    path:     /search
+    defaults: { _controller: "MobileBundle:MobileRecette:search" }
+    options:
+        expose: true          

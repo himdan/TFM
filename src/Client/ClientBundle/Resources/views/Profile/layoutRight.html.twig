@@ -1,0 +1,222 @@
+<div class="col-md-3 menu-right">
+    <!-- right column (268px) -->
+    <div class="container-menu">
+        <form class="form-inline center-block text-center">
+            <input type="text" class="form-control searchMember" placeholder="Nom de membre." >
+            <button type="submit" class="btn  btn-search-member"></button>
+        </form>
+    </div>
+    <div class="center-block text-center">
+        <a href="#advSearch" data-toggle="modal" class="adv-search">Recherche Avancé>></a>
+    </div>
+
+    <h3 class="menu-right-heading"> <img src="{{ asset('dist/img/proximite.png') }}" alt=""> Membres a proximité de vous </h3>
+    <div class="container-menu blockUserNear">
+        <center><img src="{{ asset('dist/img/rolling.gif') }}" class="chargement"></center>
+    </div>
+
+    <h3 class="menu-right-heading"> <img src="{{ asset('dist/img/sugg.png') }}" alt=""> Suggestion des membres </h3>
+    <div class="container-menu">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img src="{{ asset('dist/img/avatar-medium3.jpg') }}" class="media-object" alt="Sample Image">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Mme Doe</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor... ..incididunt ut labore
+                    et dolore magna aliqua.</p>
+            </div>
+        </div>
+
+        <h3 class="menu-right-heading"> <img src="{{ asset('dist/img/topfotografer.png') }}" alt=""><a href="{{ path('topmember') }}"> Top Gourmands</a> </h3>
+        <div class="container-menu blockGourmand">
+            <center><img src="{{ asset('dist/img/rolling.gif') }}" class="chargementGourmand"></center>
+        </div>
+
+        <h3 class="menu-right-heading"> <img src="{{ asset('dist/img/topfotografer.png') }}" alt=""><a href="{{ path('topmember') }}"> Top Photographes</a> </h3>
+        <div class="container-menu blockPhotographe">
+            <center><img src="{{ asset('dist/img/rolling.gif') }}" class="chargement"></center>
+        </div>
+
+        <h3 class="menu-right-heading"> <img src="{{ asset('dist/img/topfotografer.png') }}" alt=""><a href="{{ path('topmember') }}"> Top Ecrivains</a> </h3>
+        <div class="container-menu blockEcrivain">
+            <center><img src="{{ asset('dist/img/rolling.gif') }}" class="chargementEcrivain"></center>
+        </div>
+
+    </div>
+</div>
+{% block javascripts %}
+    <script>
+        function userNearFunction() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('userNear'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        $('.chargement').hide();
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+
+                                block += '<div class="media">'+
+                                        '<div class="media-left">'+
+                                        '<a href="#">'+
+                                        '<img src="'+ item.image +'" class="img-thumbnail media-object" alt="Sample Image" style="width: 50px;height: 50px;">'+
+                                        '</a>'+
+                                        '</div>'+
+                                        '<div class="media-body">'+
+                                        '<h4 class="media-heading">'+item.nom+' '+item.prenom+'</h4>'+
+                                        '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor... ..incididunt </p>'+
+                                        '</div>'+
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.blockUserNear').html(block);
+                        }else{
+                            $('.blockUserNear').html('' +
+                                    '<div class="alert alert-danger">'+
+                                    '<b>Aucun membre est pres de vous</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+
+        setInterval(userNearFunction,3000);
+    </script>
+    <script>
+        function topGourmand() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('topGourmand'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+                                block += '<div class="media">'+
+                                        '<div class="media-left">'+
+                                        '<a href="#">'+
+                                        '<img src="'+ item.image +'" class="img-thumbnail media-object" alt="Sample Image" style="width: 50px;height: 50px;">'+
+                                        '</a>'+
+                                        '</div>'+
+                                        '<div class="media-body">'+
+                                        '<h4 class="media-heading">'+item.nom+' '+item.prenom+'</h4>'+
+                                        '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor... ..incididunt </p>'+
+                                        '</div>'+
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.blockGourmand').html(block);
+                        }else{
+                            $('.blockGourmand').html('' +
+                                    '<div class="alert alert-danger" style="margin-top: 10px;">'+
+                                    '<b>aucune Gourmand</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(topGourmand,3000);
+    </script>
+    <script>
+        function topPhotographe() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('topPhotographe'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+                                block += '<div class="media">'+
+                                        '<div class="media-left">'+
+                                        '<a href="#">'+
+                                        '<img src="'+ item.image +'" class="img-thumbnail media-object" alt="Sample Image" style="width: 50px;height: 50px;">'+
+                                        '</a>'+
+                                        '</div>'+
+                                        '<div class="media-body">'+
+                                        '<h4 class="media-heading">'+item.nom+' '+item.prenom+'</h4>'+
+                                        '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor... ..incididunt </p>'+
+                                        '</div>'+
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.blockPhotographe').html(block);
+                        }else{
+                            $('.blockPhotographe').html('' +
+                                    '<div class="alert alert-danger" style="margin-top: 10px;">'+
+                                    '<b>aucune photographe</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(topPhotographe,3000);
+    </script>
+    <script>
+        function topEcrivain() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('topEcrivain'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+                                block += '<div class="media">'+
+                                        '<div class="media-left">'+
+                                        '<a href="#">'+
+                                        '<img src="'+ item.image +'" class="img-thumbnail media-object" alt="Sample Image" style="width: 50px;height: 50px;">'+
+                                        '</a>'+
+                                        '</div>'+
+                                        '<div class="media-body">'+
+                                        '<h4 class="media-heading">'+item.nom+' '+item.prenom+'</h4>'+
+                                        '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor... ..incididunt </p>'+
+                                        '</div>'+
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.blockEcrivain').html(block);
+                        }else{
+                            $('.blockEcrivain').html('' +
+                                    '<div class="alert alert-danger" style="margin-top: 10px;">'+
+                                    '<b>aucune ecrivain</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(topEcrivain,3000);
+    </script>
+{% endblock %}

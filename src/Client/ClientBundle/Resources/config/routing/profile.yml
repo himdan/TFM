@@ -1,0 +1,30 @@
+layoutLeft:
+    path:     /profile/layoutLeft/{userId}
+    defaults: { _controller: "ClientBundle:Profile:layoutLeft" }
+
+profile:
+    path:     /profile/{userId}
+    defaults: { _controller: "ClientBundle:Profile:index" }
+
+demandeAmitie:
+    path:     /demandeAmitie/{to}
+    defaults: { _controller: "ClientBundle:Profile:demandeAmitie" }
+
+bloqueAmitie:
+    path:     /bloqueAmitie/{to}
+    defaults: { _controller: "ClientBundle:Profile:bloqueAmitie" }
+
+commun:
+    path:     /commun
+    defaults: { _controller: "ClientBundle:Profile:commun" }
+
+
+testDDN:
+    path:     /testDDN/{age}
+    defaults: { _controller: "ClientBundle:Profile:testDDN" }
+
+filtredUsers:
+    path:     /filtredUsers
+    defaults: { _controller: "ClientBundle:Profile:filtredUsers" }
+    options:
+        expose: true

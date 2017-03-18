@@ -1,0 +1,24 @@
+gouvernorat_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Gouvernorat:index" }
+    methods:  GET
+
+gouvernorat_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Gouvernorat:show" }
+    methods:  GET
+
+gouvernorat_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Gouvernorat:new" }
+    methods:  [GET, POST]
+
+gouvernorat_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Gouvernorat:edit" }
+    methods:  [GET, POST]
+
+gouvernorat_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Gouvernorat:delete" }
+    methods:  DELETE

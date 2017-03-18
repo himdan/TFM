@@ -1,0 +1,69 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="{{ asset('dist/img/slider-filter.jpg') }}" alt="Chania">
+                <div class="carousel-caption">
+                    <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</h3>
+                    <p class="titleTwo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- form inside carrousel -->
+        <form class="form-inline center-block text-center formInsideCarrousel">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <select class="js-example-basic-hide-search"  id="inputProximite">
+                            <option value="Tunis" > Tunis</option>
+                            <option value="Tunis" > Bizerte</option>
+                            <option value="Tunis" > Ariana</option>
+                            <option value="Tunis" > Nabul</option>
+                            <option value="Tunis" > Ben Arous</option>
+                            <option value="Tunis" > Sousse</option>
+                            <option value="Tunis" > Manouba</option>
+                            <option value="Sfax" > Sfax</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <!-- <label class="sr-only" for="inputSearch">search</label>
+                        <input type="text" class="form-control" id="inputSearch"> -->
+                        <select class="js-example-basic-multiple" id="inputSearch"  multiple="multiple">
+                            <option value="Restaurants"
+                                    data-image="dist/img/ambianceico.png"> Restaurants</option>
+                            <option value="the"
+                                    data-image="dist/img/aproximite.png">Salons de thé & Brasseries</option>
+                            <option value="pizzas"
+                                    data-image="dist/img/budgeticon.png">Snacks & Pizzerias</option>
+                            <option value="pati"
+                                    data-image="dist/img/cuisson.png">Patisseries</option>
+                            <option value="clubs"
+                                    data-image="dist/img/diffcult.png">Bars & Clubs</option>
+                            <option value="yaourt"
+                                    data-image="dist/img/Horaires.png">Glaciers & Yaourties</option>
+                            <option value="chokolat"
+                                    data-image="dist/img/ico-langue.png">Dragées & chocolat</option>
+                            <option value="recette"
+                                    data-image="dist/img/ico-langue.png""ico-left-etab1.png">Recette</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn-search">
+                            <!-- <span class="glyphicon glyphicon-search"></span> --> Rechercher
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+{% endblock %}

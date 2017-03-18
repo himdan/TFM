@@ -1,0 +1,201 @@
+{% extends 'layout/layout.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('zoom/zoomify.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Detail Etablissement " {{ etablissement.nomEtablissement }} "</h2>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="wrapper wrapper-content project-manager">
+                <h4>{{ etablissement.nomEtablissement }}</h4>
+                <img src="{{ asset(etablissement.image.webPath) }}" class="img-responsive img-thumbnail">
+                <div class="text-center m-t-md">
+                    <a href="{{ path('etablissement_carte',{'id':etablissement.id}) }}" class="btn btn-xs btn-primary">Ajouter Carte</a>
+                    <a href="{{ path('etablissement_album',{'id':etablissement.id}) }}" class="btn btn-xs btn-primary">Ajouter Album</a>
+
+                </div>
+                <br>
+                <h5>Informations </h5>
+                <ul class="list-unstyled project-files">
+                    <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> {{ etablissement.postaleEtablissement }}, {{ etablissement.adresseEtablissement }}</a></li>
+                    <li><a href="#"><i class="fa fa-phone-square" aria-hidden="true"></i> {{ etablissement.telOneEtablissement }} , {{ etablissement.telTwoEtablissement }} , {{ etablissement.telThreeEtablissement }}</a></li>
+                    <li><a href="#"><i class="fa fa-usd" aria-hidden="true"></i> {{ etablissement.budgetEtablissement }}</a></li>
+                    <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <span class="label label-primary"> {{ etablissement.gouvernorat }}</span> ,<span class="label label-primary"> {{ etablissement.region }}</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="wrapper wrapper-content animated fadeInUp">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="m-b-md pull-right">
+                                    <a href="{{ path('etablissement_autorisation', { 'id': etablissement.id }) }}">
+                                        <button class="btn btn-xs btn-success"><i class="fa fa-unlock" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                    <a href="{{ path('etablissement_nonautorisation', { 'id': etablissement.id }) }}">
+                                        <button class="btn btn-xs btn-danger"><i class="fa fa-lock" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                    <a href="{{ path('etablissement_show', { 'id': etablissement.id }) }}">
+                                        <button class="btn btn-xs btn-info"><i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                    <a href="{{ path('etablissement_edit', { 'id': etablissement.id }) }}">
+                                        <button class="btn btn-xs btn-info"><i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                    <a href="{{ path('etablissement_album', { 'id': etablissement.id }) }}">
+                                        <button class="btn btn-xs btn-primary"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Album</button>
+                                    </a>
+                                    <a href="{{ path('etablissement_carte', { 'id': etablissement.id }) }}">
+                                        <button class="btn btn-xs btn-primary"><i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;Carte</button>
+                                    </a>
+                                </div>
+                                <dl class="dl-horizontal">
+                                    <dt>Status:</dt> <dd><span class="label label-primary">Active</span></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7" id="cluster_info">
+                                <dl class="dl-horizontal" >
+
+                                    <dt>Lundi - Vendredi:</dt> <dd>Du {{ etablissement.horraireFromFirstEtablissement }} à {{ etablissement.horraireToFirstEtablissement }}</dd>
+                                    <dt>Samedi - Dimanche :</dt> <dd>Du {{ etablissement.horraireFromSecondEtablissement }} à {{ etablissement.horraireToSecondEtablissement }} </dd>
+                                    
+                                    <dd class="project-people">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;{{ etablissement.facebookEtablissement }}
+                                    </dd>
+                                    <dd class="project-people">
+                                        <i class="fa fa-globe" aria-hidden="true"></i>&nbsp;{{ etablissement.webEtablissement }}
+                                    </dd>
+                                    <dd class="project-people">
+                                        <i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;{{ etablissement.emailEtablissement }}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row m-t-sm">
+                            <div class="col-lg-12">
+                                <div class="panel blank-panel">
+                                    <div class="panel-heading">
+                                        <div class="panel-options">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#tab-1" data-toggle="tab">Album</a></li>
+                                                <li class=""><a href="#tab-2" data-toggle="tab">Carte Validées</a></li>
+                                                <li class=""><a href="#tab-3" data-toggle="tab">Carte non encore Validées</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab-1">
+                                                <div class="feed-activity-list">
+                                                    {% for album in etablissement.album %}
+                                                            <div class="col-md-3">
+                                                                <div class="ibox">
+                                                                    <div class="ibox-content">
+
+                                                                        <div class="">
+                                                                            <img src="{{ asset(album.WebPath) }}" class="img-responsive img-thumbnail" style="width: 100%;height: 150px;">
+                                                                        </div>
+
+                                                                        <div class="row" style="margin-top:10px;">
+                                                                            <div class="col-md-12">
+                                                                                <button class="btn btn-danger btn-xs btn-block" type="button">Signaler</button>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    {% endfor %}
+
+                                                </div>
+
+                                            </div>
+                                            <div class="tab-pane" id="tab-2">
+
+                                                <div class="feed-activity-list">
+                                                    {% for carte in etablissement.carte %}
+                                                            <div class="col-md-3">
+                                                                <div class="ibox">
+                                                                    <div class="ibox-content">
+
+                                                                        <div class="">
+                                                                            <img src="{{ asset(carte.WebPath) }}" class="img-responsive img-thumbnail imgzoom" style="z-index: 9999;">
+                                                                        </div>
+
+                                                                        <div class="row" style="margin-top:10px;">
+                                                                            <div class="col-md-12">
+                                                                                <button class="btn btn-danger btn-xs btn-block" type="button">Supprimer</button>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                    {% endfor %}
+
+                                                </div>
+
+                                            </div>
+                                            <div class="tab-pane" id="tab-3">
+
+                                                <div class="feed-activity-list">
+                                                    {% for carte in etablissement.carte %}
+                                                        <div class="col-md-3">
+                                                            <div class="ibox">
+                                                                <div class="ibox-content">
+
+                                                                    <div class="">
+                                                                        <img src="{{ asset(carte.WebPath) }}" class="img-responsive img-thumbnail imgzoom" style="z-index: 9999;">
+                                                                    </div>
+
+                                                                    <div class="row" style="margin-top:10px;">
+                                                                        <div class="col-md-12">
+                                                                            <button class="btn btn-primary btn-xs btn-block" type="button">Activer</button>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('zoom/zoomify.min.js') }}"></script>
+    <script>
+        $('img.imgzoom').zoomify(); // Default settings
+        $('img.imgzoom').zoomify({ duration: 1000 });
+    </script>
+{% endblock %}

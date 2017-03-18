@@ -1,0 +1,24 @@
+difficulte_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Difficulte:index" }
+    methods:  GET
+
+difficulte_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Difficulte:show" }
+    methods:  GET
+
+difficulte_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Difficulte:new" }
+    methods:  [GET, POST]
+
+difficulte_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Difficulte:edit" }
+    methods:  [GET, POST]
+
+difficulte_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Difficulte:delete" }
+    methods:  DELETE

@@ -1,0 +1,182 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <section class="container">
+
+
+
+        <div class="pub-h">
+
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+
+
+
+        </div>
+
+
+
+    </section>
+
+    <div class="container outerWrapper">
+        {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': app.user.id })) }}
+
+
+
+
+
+        <div class="col-md-6 center-content">
+
+
+            <div class="text-center">
+                <div class="btn-group">
+                    <a href="{{ path('information') }}"> <button type="button" class="btn btn-primary btn-filter active">Information</button></a>
+                    <a href="{{ path('compte') }}"> <button type="button" class="btn btn-primary btn-filter ">Compte</button></a>
+                    <a href="{{ path('securite') }}"><button type="button" class="btn btn-primary btn-filter ">sécurité</button></a>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p class="setting-sub">
+                    Vos informations personelle
+                </p>
+            </div>
+
+            <div class="row center-block text-center secu-form">
+
+                <form>
+                    <div class="form-group">
+                        <label class="pull-left" for="settingWeb">Nom</label>
+                        <input type="input" class="form-control settingWeb" id="nom">
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="settingWeb">Prenom</label>
+                        <input type="input" class="form-control settingWeb" id="prenom">
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="settingVille">Gender</label>
+
+                        <select class="form-control settingVille chosen-select" id="gender">
+
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="settingWeb">Date de naissance</label>
+                        <input type="date" class="form-control settingWeb" id="naissance" value="10/06/2016">
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="settingpropos">A propos de toi</label>
+
+                        <textarea class="form-control settingpropos" rows="5" id="description"></textarea>
+                        <div class="row">
+                            <div class="col-xs-6 sub-form-left pull-left" >
+                                Maximium 200 caractères
+                            </div>
+                            <div class="col-xs-6 sub-form-right pull-right" >
+                                200
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-settings pull-right" id="saveInformation">Enregistrer</button>
+                    </div>
+
+
+
+
+
+                </form>
+
+            </div>
+
+
+
+
+
+
+        </div>  <!-- center-content -->
+
+
+        {{ render(controller('ClientBundle:Profile:layoutRight', { 'userId': app.user.id })) }}
+
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+
+            $.ajax({
+                url: Routing.generate('getGender'),
+
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(result) {
+
+                    $.each(result, function (index, item) {
+
+                        gender += "<option value='" + item.id + "'>" + item.nom +"</option>";
+
+                        $('#gender').html(gender);
+
+                    });
+
+                }
+            });
+
+        });
+    </script>
+    <script>
+        $(function(){
+
+
+
+            $('#saveInformation').click(function(){
+                var nom = $('#nom').val();
+                var prenom = $('#prenom').val();
+                var gender = $('#gender').val();
+                var naissance = $('#naissance').val();
+                var desc = $('#description').val();
+                $.ajax({
+                    url         : Routing.generate('saveInformation'),
+                    type        : 'POST',
+                    data        : {
+                        nom:nom,
+                        prenom:prenom,
+                        gender:gender,
+                        naissance:naissance,
+                        desc:desc
+                    },
+                    success     : function(data) {
+                        toastr.success('vos informations ont ete enregistrés avec succée','Notification');
+                    },
+                    error:function(e){
+                        toastr.danger('erreur lors de l\'insertion des informations','Notification');
+                    }
+
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            $.ajax({
+                url: Routing.generate('getInformation'),
+                dataType: 'JSON',
+                success: function(result) {
+                    console.log(result);
+                    $('#nom').val(result.nom);
+                    $('#prenom').val(result.prenom);
+                    $('#gender').val(result.gender);
+                    $('#description').val(result.description);
+
+
+                }
+            });
+
+        });
+    </script>
+
+{% endblock %}

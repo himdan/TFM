@@ -1,0 +1,2150 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+
+
+
+{% block body %}
+
+    <style>
+
+
+
+    .disableArrow{
+
+            display:none !important;
+
+        }
+
+    </style>
+
+
+
+
+
+    <div ng-app="myApp" ng-controller="recetteController">
+
+
+
+
+
+
+
+
+
+
+        <div id="chargementPage" style="display: block">
+
+            <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;">
+
+        </div>
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" style="display:none" ng-init="usernameCo='{{ app.user }}'">
+
+            <!-- Wrapper for slides -->
+
+            {#
+
+           <div id="chargementPage" style="display: block">
+
+            <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;">
+
+            </div>
+            #}
+
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+
+            <div class="carousel-inner" role="listbox">
+
+                <div class="item active">
+
+                    <img src="{{ asset('dist/img/slider-filter.jpg') }}" alt="Chania">
+
+                    <div class="carousel-caption">
+
+                        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit<br> Lorem ipsum dolor sit amet </h3>
+
+                        <p class="titleTwo"></p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- form inside carrousel -->
+
+            <form class="form-inline center-block text-center formInsideCarrousel">
+
+                <div class="container">
+
+                    <div class="row">
+
+                            <input type="text" id="topPage" ng-model="filtrText" placeholder="Lancer une recherche" ng-change="filtreText()">
+
+                        {#
+
+                            <div class="col-sm-10">
+
+                            <!-- <label class="sr-only" for="inputSearch">search</label>
+
+                               <input type="text" class="form-control" id="inputSearch"> -->
+
+                            <select class="js-example-basic-multiple" id="inputSearch"  multiple="multiple">
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-sm-2">
+
+                            <button type="submit" class="btn-search">
+
+                                <!-- <span class="glyphicon glyphicon-search"></span> --> Rechercher
+
+                            </button>
+
+                        </div>
+
+                        #}
+
+
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+
+        </div>
+
+
+
+        <div class="container outerWrapper" id="page" style="display: none">
+
+
+
+            <div class="col-md-3 menu-left">
+
+
+
+                <!-- right column (268px) -->
+
+
+
+                <h3 class="menu-left-heading-primary">
+
+
+
+                    <img src="{{ asset('dist/img/prix.png') }}" alt="">
+
+
+
+                    Prix
+
+
+
+                </h3>
+
+
+
+                <div class="menu-filter1">
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="ck-button" ng-repeat="prx in prixs">
+
+
+
+
+
+
+
+                        <label>
+
+
+
+                            <input ng-click="checkUncheckNat(prx.id,'prxs')" name="cbPrix" id="prxs#prx.id#" type="checkbox"><span>#prx.prix#</span>
+
+
+
+                        </label>
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div style="padding: 20px"></div>
+
+
+
+                <h3 class="menu-left-heading-primary">
+
+
+
+                    <img src="{{ asset('dist/img/difu.png') }}" alt="">
+
+
+
+                    Difficulté
+
+
+
+                </h3>
+
+
+
+                <div class="menu-filter2">
+
+
+
+
+
+
+
+                    <div class="ck-button" ng-repeat="dfclt in difficultees">
+
+
+
+                        <label>
+
+
+
+                            <input ng-click="checkUncheckNat(dfclt.id,'diffic')" name="cbDif" id="diffic#dfclt.id#" type="checkbox"><span>#dfclt.difficult#</span>
+
+
+
+                        </label>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <!--  -->
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/theme.png') }}" alt="">
+
+
+
+                    Thème
+
+
+
+                    <a href="#" id="expandContractFilter2" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section class="themes">
+
+
+
+                    <div class="filterByinside filterByMore filterBysubcategorie " id="filterByTheme">
+
+
+
+                        <form class="form-inline">
+
+
+
+                            {#themesHne#}
+
+
+
+                            <div class="col-xs-12" ng-repeat="th in themes">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+
+
+
+
+                                    <input type="checkbox" value="yes" id="thm#th.id#" ng-click="checkUncheckNat(th.id,'thm')" name="answer"> <label for="thm#th.id#">#th.theme#</label>
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <!--  -->
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/subcategorie-ico.png') }}" alt="">
+
+
+
+                    subcategorie
+
+
+
+                    <a href="#" id="expandContractFilter" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section>
+
+
+
+                    <div class="filterByinside filterByMore filterBysubcategorie " id="filterByMore">
+
+
+
+                        <form class="form-inline">
+
+
+
+
+
+
+
+                            <div class="col-xs-12" ng-repeat="sc in subCatToShow">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+                                    <input ng-click="checkUncheckNat(sc.id,'subcat')" type="checkbox" class="big-checkbox"  value="yes" id="subcat#sc.id#" name="answer"> <label for="subcat#sc.id#">#sc.subcategorie#</label>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+
+
+                        <div id="chargementSubCat" style="display: none">
+
+
+
+                            Chargement...
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <!--  -->
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/flag.png') }}" alt="">
+
+
+
+                    Nationalité
+
+
+
+                    <a href="#" id="expandContractFilter0" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section>
+
+
+
+                    <div class="filterByinside filterByMore filterBysubcategorie " id="filterByNAT">
+
+
+
+                        <form class="form-inline">
+
+
+
+                            <div class="col-xs-12" ng-repeat="national in nationalites">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+
+
+
+
+                                    <input ng-click="checkUncheckNat(national.id,'nation')" type="checkbox" class="big-checkbox" value="yes" type="checkbox" name="answer" id="nation#national.id#"/><label for="nation#national.id#">#national.nationalite#</label>
+
+
+
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/ing.png') }}" alt="">
+
+
+
+                    Ingrédients
+
+
+
+                    <a href="#" id="expandContractFilter1" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section>
+
+
+
+                    <div class="filterByinside filterByMore filterBysubcategorie " id="filterByIngredient">
+
+
+
+                        <form class="form-inline">
+
+
+
+
+
+
+
+                            <div class="col-xs-12" ng-repeat="ingr in ingredients">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+                                    <input ng-click="checkUncheckNat(ingr.id,'ingr')" type="checkbox" class="big-checkbox"  value="yes" id="ingr#ingr.id#" name="answer"> <label for="ingr#ingr.id#"> #ingr.ingredient# </label>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <!--  -->
+
+
+
+                <!--  -->
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/meat.png') }}" alt="">
+
+
+
+                    Type de Cuisson
+
+
+
+                    <a href="#" id="expandContractFilter3" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section>
+
+
+
+                    <div class="filterByinside filterBysubcategorie " id="filterByCuisson"
+
+
+
+                         style="height:300px">
+
+
+
+                        <form class="form-inline">
+
+
+
+                            <div class="col-xs-12" ng-repeat="c in couisTypes">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+                                    <input ng-click="checkUncheckNat(c.id,'couisType')" type="checkbox" class="big-checkbox"  value="yes" id="couisType#c.id#" name="answer"><label for="couisType#c.id#"> #c.couisson# </label>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/sun.png') }}" alt="">
+
+
+
+                    Saison
+
+
+
+                    <a href="#" id="expandContractFilter5" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section class="weather">
+
+
+
+                    <div class="filter-weather" id="filterBySaisson">
+
+
+
+                        <form class="form-inline">
+
+
+
+                            <div class="col-xs-12" ng-repeat="s in saisons">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+                                    <input ng-click="checkUncheckNat(s.id,'sais')" type="checkbox" class="big-checkbox"  value="yes" id="sais#s.id#" name="answer"> <label for="sais#s.id#"> #s.saison#</label>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <section class="start-f">
+
+                    <button class="init" ng-click="initialFiltre()">
+
+
+
+                        <a href="" ng-click="" class="active filterBtn">
+
+
+
+                            <img src="{{ asset('dist/img/refresh-ico.png') }}" alt="Article Filter"> Initialiser</a>
+
+
+
+                    </button>
+
+
+
+
+
+
+
+                </section>
+
+
+
+            </div>
+
+
+
+            <!-- menu-left -->
+
+
+
+            <div class="col-md-9 center-content">
+
+
+
+                <div class="row text-center">
+
+
+
+                    <div class="col-md-10 col-md-offset-1 menu-r">
+
+
+
+                        <div class="ck-button" ng-repeat="m in menus" >
+
+
+
+                            <label>
+
+
+
+                                <input ng-click="checkUncheckNat(m.id,'menus')" ng-checked="m.checked" id="menus#m.id#" name="cbMenu" type="checkbox"><span>#m.menu#</span>
+
+
+
+                            </label>
+
+
+
+                        </div>
+                         <div class="trier-r">
+
+                            <ul class="nav navbar-nav" id="btnSort">
+
+                                <li class="dropdown">
+
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th"></span></a>
+
+                                    <ul class="dropdown-menu">
+
+                                        <li><a href="" class="scroll" ng-click="changeOrdre('recent')">Plus récents</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li><a href="" class="scroll" ng-click="changeOrdre('visite')">plus visite</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li><a href="" class="scroll" ng-click="changeOrdre('rank')">Mieux notés</a></li>
+
+
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!--small menu select -->
+
+                    
+
+
+
+                </div>
+
+
+
+
+
+
+
+                <div id="chargementBlockResult" style="display: none">
+
+
+
+                    <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;top:50%">
+
+
+
+                </div>
+
+
+
+                <div id="blockResult" style="display: block">
+
+
+
+                    <div>
+
+
+
+                        <div id="aucuneR7" style="display: none">
+
+
+
+                            <div class="alert alert-danger" style="margin-top: 50px">
+
+
+
+                                aucune resultat trouvé
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div id="existeR7" class="row all-items">
+
+
+
+                            <div class="row" ng-init="vote=3">
+
+
+
+                                <div class="col-sm-6 block-item" ng-repeat="recette in recettesFilred">
+
+
+
+                                    <a id="btnFav#recette.id#" class="#recette.fav#" ng-click="addFavorie(recette.id)"></a>
+
+
+
+                                    <a href="details/#recette.id#" target="_blank">
+
+
+
+                                        <img src="#recette.image#" class="img-responsive" alt="" style="width: 401px;height: 253px;">
+
+
+
+                                    </a>
+
+
+
+                                    <!--<h4>Nom de recette</h4>-->
+
+
+
+                                    <div  class="item-info">
+
+
+
+                                        <div class="row prixe">
+
+
+
+                                            <div class="col-xs-12">
+
+
+
+                                                <a href="http://www.troisfourchettes.com/recette/details/#recette.id#" target="_blank">
+
+
+
+                                                    <h6>#recette.recette# ...</h6>
+
+
+
+                                                </a>
+
+
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+                                        <div class="row">
+
+
+
+                                            <div class="col-xs-6">
+
+
+
+                                                <h6>#recette.difficulte#</h6>
+
+
+
+                                            </div>
+
+
+
+                                            <div class="col-xs-6">
+
+
+
+                                                <h6>#recette.prix#</h6>
+
+
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+                                        <div class="row">
+
+
+
+                                            <div class="col-xs-6">
+
+
+
+                                                <!-- rating -->
+
+
+
+                                                {#
+                                                    <div class='starrr star1'></div>
+                                                #}
+
+                                                {% set x='#recette.id#' %}
+
+                                                <div class='starrr' ng-click="openModalVote(recette.id)">
+
+                                                <a href=""  ng-class="{'fa fa-star': 1<=recette.note,'fa-star-o fa':1>recette.note}" style="margin-right:-5px"></a>
+                                                <a href="" ng-class="{'fa fa-star': 2<=recette.note,'fa-star-o fa':2>recette.note}" style="margin-right:-5px"></a>
+                                                <a href="" ng-class="{'fa fa-star': 3<=recette.note,'fa-star-o fa':3>recette.note}" style="margin-right:-5px"></a>
+                                                <a href="" ng-class="{'fa fa-star': 4<=recette.note,'fa-star-o fa':4>recette.note}" style="margin-right:-5px"></a>
+                                                <a href="" ng-class="{'fa fa-star': 5<=recette.note,'fa-star-o fa':5>recette.note}"></a>
+                                                </div>
+
+
+                                            </div>
+
+
+
+                                            <div class="col-xs-6 notes">#4*recette.note#/20(#recette.nbrVote# votes)</div>
+
+
+
+                                        </div>
+
+
+
+                                        <div class="row">
+
+
+
+                                            <div class="col-xs-6 prepa">Préparation: #recette.preparation#</div>
+
+
+
+                                            <div class="col-xs-6 cuiss">Cuisson: #recette.cuisson#</div>
+
+
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+
+                                    <!--  -->
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <!-- all-items -->
+
+
+
+                    </div>
+
+
+
+                    <div class="center-block text-center pagination-filter" id="paginationResult">
+
+
+
+                        <ul class="list-inline">
+
+
+
+                            <li ng-class="{'disableArrow': pageNumber == 1}"> <a href="" class="scroll" ng-click="changePage('first')" > |< </a> </li>
+
+
+
+                            <li ng-class="{'disableArrow': pageNumber == 1}"> <a href="" class="scroll" ng-click="changePage('prec')" > < </a> </li>
+
+
+
+                            <li> <a href="">#pageNumber#</a> </li>
+
+
+
+                            <li ng-class="{'disableArrow': pageNumber == nombreDesPages}"> <a href="" class="scroll" ng-click="changePage('suivant')"> > </a> </li>
+
+
+
+                            <li ng-class="{'disableArrow': pageNumber == nombreDesPages}"> <a href="" class="scroll" ng-click="changePage('last')"> >| </a> </li>
+
+
+
+                        </ul>
+
+
+
+
+
+
+
+                        Sur #nombreDesPages# Pages
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <!-- </div> -->
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+{#-----------TEST MODAL----------#}
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+          {% if app.user %}
+            <div id="partieVote" style="display: block">
+              <div class='starrr star1'>
+                  <a href="" ng-click="voter(1)"  class="fa fa-star-o" style="margin-right:-5px"></a>
+                  <a href="" ng-click="voter(2)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                  <a href="" ng-click="voter(3)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                  <a href="" ng-click="voter(4)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                  <a href="" ng-click="voter(5)" class="fa fa-star-o"></a>
+
+              </div>
+              <div id="messagePartieVote"></div>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          </div>
+          <div id="chargementPartieVote" style="display: none">
+              <h4>Vote En Cours...</h4>
+          </div>
+
+          {% else %}
+           <h2>Vous devez se connecter pour pouvoir voter</h2>
+          {% endif  %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{#-----------TEST MODAL----------#}
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block javascripts %}
+
+
+
+    {#
+
+    <script src="{{ asset('js/angularJS/recetteController.js') }}"></script>
+    #}
+
+    <script>
+        /**
+         * Created by lotfidev on 18/06/16.
+         */
+
+
+        var app = angular.module('myApp',[])
+                .config(function($interpolateProvider){
+                    $interpolateProvider.startSymbol('#').endSymbol('#');
+
+
+
+
+                })
+                .directive('loading', function () {
+                    return {
+                        restrict: 'E',
+                        replace:true,
+                        template: '<div class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="20" height="20" />LOADING...</div>',
+                        link: function (scope, element, attr) {
+                            scope.$watch('loading', function (val) {
+                                if (val)
+                                    $(element).show();
+                                else
+                                    $(element).hide();
+                            });
+                        }
+                    }
+                });
+        app.controller('recetteController', function($scope,$http) {
+
+            /*----+++  ATTENTION : 53 EST LE NOMBRE DES CHARACTERES DU DEBUT VERS DERNIERE CHAR DE DETAILS ++++------*/
+            if(document.referrer.substring(0, 65) == "http://localhost/troisfourchettes/web/app_dev.php/recette/details"){
+                //alert('jey mel detail kedhe');
+                //hne:ne5o el idThemeMelLocalStorage w n7otto wa7do fil thmToFind , ncochi el checkBox mté3ha wndhaher les checkBox
+                //wn3ayét lel database
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+            $scope.addFavorie = function(idR){
+                $http.post(Routing.generate('Addfavoris', { id: idR , type: "recette"}))
+                        .success(function(response) {
+
+                            if(response.success){
+                                var idBtnFav="btnFav"+idR;
+                                var btnFav=document.getElementById(idBtnFav);
+
+                                if(btnFav.className=="icon-bookmark-gris"){
+                                    btnFav.className="icon-bookmark-red";
+                                }else if(btnFav.className=="icon-bookmark-red"){
+                                    btnFav.className="icon-bookmark-gris";
+
+                                }
+                            }else{
+                                toastr.warning('Vous devez <a href="http://localhost/troisfourchettes/web/app_dev.php/login">se connecter</a> pour pouvoir mettre en favoris','notification',2000);
+                            }
+
+                            //console.log('favorie c bon lel '+idR);
+                            //$scope.callDatabase();
+
+                        });
+
+            }
+
+
+
+            $scope.usernameCo="mazelt fergha";
+
+            $scope.ordre="recent";
+
+            $scope.changeOrdre=function(quoi){
+                window.scrollTo(0, 315);
+
+                $scope.pageNumber=1;
+                $scope.ordre=quoi;
+                $scope.callDatabase();
+            }
+
+
+            /*TEST MODAL*/
+            $scope.openModalVote=function(idRV){
+
+                {% if(app.user) %}
+                $scope.idRecetteAvoter=idRV;
+                $('#myModal').modal('show');
+                {% else %}
+                toastr.warning('Vous devez <a href="http://localhost/troisfourchettes/web/app_dev.php/login">se connecter</a> pour pouvoir voter','notification',2000);
+                {% endif %}
+            }
+
+            $scope.voter=function(NbrVote){
+                document.getElementById("partieVote").style.display="none";
+                document.getElementById("chargementPartieVote").style.display="block";
+                document.getElementById("messagePartieVote").innerHTML="";
+                $http.post(Routing.generate('Addrank', { id: $scope.idRecetteAvoter , type: "recette",nbr:NbrVote }))
+                        .then(function(response) {
+                            //console.log(response.data);
+                            document.getElementById("partieVote").style.display="block";
+                            document.getElementById("chargementPartieVote").style.display="none";
+                            document.getElementById("messagePartieVote").innerHTML=response.data.success;
+                            $scope.callDatabase();
+                        }).then(function(response){
+                    setTimeout(function(){
+                        $('#myModal').modal('hide');
+                    },2000);
+                });
+
+
+            }
+
+
+            /*TEST MODAL*/
+
+
+
+
+            $scope.idMenuPremier=0;
+            /********RESULTAT DES FILTRES EXISTANTS*****************/
+            $scope.subCat=[];
+
+            $scope.recettes=[
+
+            ];
+
+            $scope.prixs=[
+
+            ];
+
+            $scope.nationalites=[
+
+            ];
+
+
+            $scope.themes=[];
+
+            $scope.ingredients=[];
+
+            $scope.saisons=[];
+
+            $scope.couisTypes=[];
+
+            $scope.menus=[];
+            $scope.textTofind="";
+
+
+            $scope.natToFind=[];
+            $scope.prxToFind=[];
+            $scope.diffToFind=[];
+            $scope.thmToFind=[];
+            $scope.ingToFind=[];
+            $scope.saisToFind=[];
+            $scope.couisTypeToFind=[];
+            $scope.menuToFind=[];
+            $scope.subCatToFind=[];
+
+
+
+
+            $http.post(Routing.generate('filtreJSON'))
+                    .then(function(response) {
+                        $.each(response.data["subcategorie"], function (index, item) {
+
+                            $scope.subCat.push({
+                                id:item.id,
+                                subcategorie:item.subcategorie,
+                                menu:item.menu
+                            });
+
+
+                        });
+
+
+                        /*****PARTIEE PRIX*********/
+
+
+                        $.each(response.data['prix'], function (index, item) {
+
+                            $scope.prixs.push({
+                                id:item.id,
+                                prix:item.prix
+
+                            });
+
+
+                        });
+
+                        $scope.difficultees=[];
+
+                        $.each(response.data['difficulte'], function (index, item) {
+
+                            $scope.difficultees.push({
+                                id:item.id,
+                                difficult:item.difficulte
+
+                            });
+
+
+                        });
+
+
+                        /*****PARTIEE PRIX*********/
+
+                        /*********PARTIE NATIONALITE******/
+
+
+
+                        $.each(response.data["nationalite"], function (index, item) {
+
+
+                            $scope.nationalites.push({
+                                id:item.id,
+                                nationalite:item.nationalite
+                            });
+
+
+                        });
+
+                        /*********PARTIE NATIONALITE******/
+
+                        /***********PARTIE THEMES********/
+
+
+                        $.each(response.data["theme"], function (index, item) {
+
+
+                            $scope.themes.push({
+                                id:item.id,
+                                theme:item.theme
+                            });
+
+
+                        });
+
+
+
+                        /***********PARTIE THEMES********/
+
+                        /*********PARTIE INGREDIENTS*************/
+
+
+
+                        $.each(response.data["ingredient"], function (index, item) {
+
+
+                            $scope.ingredients.push({
+                                id:item.id,
+                                ingredient:item.ingredient
+                            });
+
+
+                        });
+
+
+                        /*********PARTIE INGREDIENTS*************/
+
+                        /***********PARTIE SAISONS*********/
+
+
+
+                        $.each(response.data["saison"], function (index, item) {
+
+                            $scope.saisons.push({
+                                id:item.id,
+                                saison:item.saison
+                            });
+
+
+                        });
+
+
+
+                        /***********PARTIE SAISONS*********/
+
+                        /**********PARTIE TYPES CUISSONS**********/
+
+
+
+                        $.each(response.data["cuisson"], function (index, item) {
+
+                            $scope.couisTypes.push({
+                                id:item.id,
+                                couisson:item.couisson
+                            });
+
+
+                        });
+
+
+
+
+
+                        /**********PARTIE TYPES CUISSONS**********/
+
+                        /************PARTIE DES MENUS*****************/
+
+
+
+                        var nbrItMenu=0;
+
+                        $.each(response.data["menu"], function (index, item) {
+
+                            if(nbrItMenu>0){
+
+                                $scope.menus.push({
+                                    id:item.id,
+                                    menu:item.menu,
+                                    checked:false
+                                });
+
+                            }else{
+                                $scope.menus.push({
+                                    id:item.id,
+                                    menu:item.menu,
+                                    checked:true
+                                });
+
+                                $scope.menuToFind=[];
+                                $scope.idMenuPremier=item.id;
+                                $scope.menuToFind.push(item.id);
+
+
+                                $scope.subCatToShow=[];
+
+                                for (ss = 0; ss < $scope.subCat.length; ss++) {
+
+                                    if ($scope.subCat[ss].menu == item.id ) {
+                                        $scope.subCatToShow.push($scope.subCat[ss]);
+                                    }
+                                }
+
+                                /*
+                                 console.log("||||||||||||||||||||||||||||||");
+                                 console.log("Nationa:"+$scope.natToFind);
+                                 console.log("Prix"+$scope.prxToFind);
+                                 console.log("Difficult"+$scope.diffToFind);
+                                 console.log("Themes :"+$scope.thmToFind);
+                                 console.log("Ingredients :"+$scope.ingToFind);
+                                 console.log("Saisons :"+$scope.saisToFind);
+                                 console.log("CouisType :"+$scope.couisTypeToFind);
+                                 console.log("Menus :"+$scope.menuToFind);
+                                 console.log("||||||||||||||||||||||||||||||");
+                                 */
+
+                            }
+
+
+
+                            nbrItMenu++;
+                        });
+
+
+
+
+                        /************PARTIE DES MENUS*****************/
+
+                        /*********FIN DU CHARGEMENT************/
+
+                        document.getElementById("page").style.display="block";
+                        document.getElementById("myCarousel").style.display="block";
+                        document.getElementById("chargementPage").style.display="none";
+
+                        /*********FIN DU CHARGEMENT************/
+
+                    }).then(function(response) {
+
+                /**********ESPACE DE TEST**************/
+
+                setTimeout(function(){
+                    if(document.referrer.substring(0, 65) == "http://localhost/troisfourchettes/web/app_dev.php/recette/details"){
+
+                        //hne:ne5o el idThemeMelLocalStorage w n7otto wa7do fil thmToFind , ncochi el checkBox mté3ha wndhaher les checkBox
+                        //wn3ayét lel database
+                        $scope.thmToFind=[];
+                        $scope.thmToFind.push(localStorage.getItem('thmToFind'));
+                        var idCbthm="thm"+localStorage.getItem('thmToFind');
+                        document.getElementById(idCbthm).checked=true;
+
+                        $scope.callDatabase();
+
+
+
+                    }
+
+
+                }, 10);
+
+
+                setTimeout(function(){
+                    document.getElementById("filterByTheme").style.display="block";
+                    document.getElementById("filterByTheme").style.position="relative";
+                    document.getElementById("filterByTheme").style.overflow="visible";
+
+                },700);
+
+
+
+
+                /**********ESPACE DE TEST**************/
+
+
+
+
+                /**********ESPACE DE TEST**************/
+
+
+
+
+                $scope.pageNumber= 1 ;
+                //Appel pour le premier chargement de la page
+                $scope.callDatabase();
+
+            });
+
+
+
+            /********RESULTAT DES FILTRES EXISTANTS*****************/
+
+            /*
+             $scope.isChecked=function (id,nom) {
+
+             $scope.idIsCheck = nom + id;
+             $scope.checkIsCheck = document.getElementById($scope.idIsCheck);
+
+             if($scope.checkIsCheck.checked){
+             return true;
+             }else{
+             return false;
+             }
+
+
+             }
+             */
+
+
+            $scope.filtreText=function(){
+                $scope.textTofind=$scope.filtrText;
+                if($scope.textTofind.length > -1){
+
+                    $scope.callDatabase();
+
+
+                }
+
+
+            }
+
+
+            $scope.changePage=function(act){
+                window.scrollTo(0, 315);
+                if(act=="prec"){
+                    if($scope.pageNumber > 1){
+
+                        $scope.pageNumber= $scope.pageNumber - 1 ;
+
+                        $scope.callDatabase();
+
+
+                    }
+
+                }
+
+
+                if(act=="suivant"){
+                    if($scope.pageNumber < $scope.nombreDesPages){
+                        $scope.pageNumber= $scope.pageNumber + 1 ;
+
+                        $scope.callDatabase();
+
+
+                    }
+
+                }
+
+                if(act=="first"){
+                    $scope.pageNumber= 1 ;
+                    $scope.callDatabase();
+                }
+
+
+                if(act=="last"){
+                    $scope.pageNumber= $scope.nombreDesPages ;
+                    $scope.callDatabase();
+                }
+
+
+            }
+
+
+            /*************DEBUT DE FONCTION DE COLLECTE DES FILTRES*************/
+            $scope.checkUncheckNat=function(id,grpFltr) {
+
+
+                $scope.pageNumber= 1 ;
+
+
+                var idCheck = grpFltr + id;
+
+                if (grpFltr == "nation") {
+
+                    var checkCheck = document.getElementById(idCheck);
+                    if (checkCheck.checked) {
+                        $scope.natToFind.push(id);
+                        //alert('cochiiit el nationalite'+id);
+                    } else {
+                        var indexId = $scope.natToFind.indexOf(id);
+                        if (indexId > -1) {
+                            $scope.natToFind.splice(indexId, 1);
+                        }
+                        //alert('decochiiit el nationalite'+id);
+                    }
+
+
+                }
+
+
+                if (grpFltr == "prxs") {
+
+                    var checkCheckp = document.getElementById(idCheck);
+
+                    //console.log(checkCheckp.checked);
+                    if (checkCheckp.checked) {
+
+                        var allCbPrix = document.getElementsByName("cbPrix");
+
+                        // ndécochi les checkboxPrix sauf eli nzelt aleha
+
+                        for (bi = 0; bi < allCbPrix.length; bi++) {
+
+                            if (allCbPrix[bi] != checkCheckp) {
+                                allCbPrix[bi].checked = false;
+
+                            }
+
+                        }
+
+                        $scope.prxToFind = [];
+                        $scope.prxToFind.push(id);
+
+
+                    } else {
+
+                        var indexIdp = $scope.prxToFind.indexOf(id);
+                        if (indexIdp > -1) {
+                            $scope.prxToFind.splice(indexIdp, 1);
+                        }
+                    }
+
+                }
+
+
+                if (grpFltr == "diffic") {
+
+                    var checkCheckd = document.getElementById(idCheck);
+                    if (checkCheckd.checked) {
+
+
+                        var allCbDif = document.getElementsByName("cbDif");
+
+                        // ndécochi les checkboxDiff sauf eli nzelt aleha
+
+                        for (di = 0; di < allCbDif.length; di++) {
+
+                            if (allCbDif[di] != checkCheckd) {
+                                allCbDif[di].checked = false;
+
+                            }
+
+                        }
+
+                        $scope.diffToFind = [];
+                        $scope.diffToFind.push(id);
+
+                    } else {
+
+
+                        var indexIdd = $scope.diffToFind.indexOf(id);
+                        if (indexIdd > -1) {
+                            $scope.diffToFind.splice(indexIdd, 1);
+                        }
+
+
+                    }
+
+
+                }
+
+
+                if (grpFltr == "thm") {
+
+                    var checkCheckth = document.getElementById(idCheck);
+                    //var containTh="containerThm"+id;
+                    //var ContainerTh = document.getElementById(containTh);
+
+                    if (checkCheckth.checked) {
+
+                        //ContainerTh.classList.add("checked");
+                        $scope.thmToFind.push(id);
+                    }
+                    else {
+                        var indexIdth = $scope.thmToFind.indexOf(id);
+                        if (indexIdth > -1) {
+                            $scope.thmToFind.splice(indexIdth, 1);
+                        }
+                    }
+
+
+                }
+
+
+                if (grpFltr == "ingr") {
+
+                    var checkCheckIng = document.getElementById(idCheck);
+                    if (checkCheckIng.checked) {
+                        $scope.ingToFind.push(id);
+                    } else {
+                        var indexIding = $scope.ingToFind.indexOf(id);
+                        if (indexIding > -1) {
+                            $scope.ingToFind.splice(indexIding, 1);
+                        }
+                    }
+
+
+                }
+
+
+                if (grpFltr == "sais") {
+
+                    var checkCheckSais = document.getElementById(idCheck);
+                    if (checkCheckSais.checked) {
+                        $scope.saisToFind.push(id);
+                    } else {
+                        var indexIdsais = $scope.saisToFind.indexOf(id);
+                        if (indexIdsais > -1) {
+                            $scope.saisToFind.splice(indexIdsais, 1);
+                        }
+                    }
+
+
+                }
+
+
+                if (grpFltr == "couisType") {
+
+                    var checkCheckCT = document.getElementById(idCheck);
+                    if (checkCheckCT.checked) {
+                        $scope.couisTypeToFind.push(id);
+                    } else {
+                        var indexIdCT = $scope.couisTypeToFind.indexOf(id);
+                        if (indexIdCT > -1) {
+                            $scope.couisTypeToFind.splice(indexIdCT, 1);
+                        }
+                    }
+
+
+                }
+
+
+                if (grpFltr == "menus") {
+
+
+                    $scope.subCatToFind = [];
+
+                    var checkCheckm = document.getElementById(idCheck);
+
+                    if (checkCheckm.checked) {
+
+                        var allCbMenu = document.getElementsByName("cbMenu");
+
+                        // ndécochi les checkboxPrix sauf eli nzelt aleha
+
+                        for (ci = 0; ci < allCbMenu.length; ci++) {
+
+                            if (allCbMenu[ci] != checkCheckm) {
+                                allCbMenu[ci].checked = false;
+                            }
+                        }
+
+                        $scope.menuToFind = [];
+                        $scope.menuToFind.push(id);
+
+                        //n7adher les subCat mta3 el filtre eli bech yetafichew
+                        $scope.subCatToShow = [];
+
+                        for (s = 0; s < $scope.subCat.length; s++) {
+
+                            if ($scope.subCat[s].menu == id) {
+                                $scope.subCatToShow.push($scope.subCat[s]);
+                            }
+                        }
+
+
+
+                        setTimeout(function(){
+
+                            //icheck
+                            /*$('.big-checkbox').iCheck({
+                             checkboxClass: 'icheckbox_minimal-grey',
+                             radioClass: 'iradio_minimal-grey'
+                             });*/ //hedha howa
+
+
+
+                        }, 10);
+
+
+                        setTimeout(function(){
+
+
+
+
+
+                        }, 30);
+
+                    } else {
+                        /*var indexIdm= $scope.menuToFind.indexOf(id);
+                         if (indexIdm > -1) {
+                         $scope.menuToFind.splice(indexIdm, 1);
+                         }*/
+                        checkCheckm.checked = true;
+                    }
+
+
+                }
+
+
+                if (grpFltr == "subcat") {
+
+                    var checkCheckSubC = document.getElementById(idCheck);
+                    if (checkCheckSubC.checked) {
+                        $scope.subCatToFind.push(id);
+                    } else {
+                        var indexIdSc = $scope.subCatToFind.indexOf(id);
+                        if (indexIdSc > -1) {
+                            $scope.subCatToFind.splice(indexIdSc, 1);
+                        }
+                    }
+
+
+                }
+
+
+
+                $scope.callDatabase();
+
+            }
+
+
+            $scope.initialFiltre=function(){
+                $scope.pageNumber=1;
+
+                $scope.textTofind="";
+
+
+                $scope.natToFind=[];
+                $scope.prxToFind=[];
+                $scope.diffToFind=[];
+                $scope.thmToFind=[];
+                $scope.ingToFind=[];
+                $scope.saisToFind=[];
+                $scope.couisTypeToFind=[];
+                $scope.menuToFind=[$scope.idMenuPremier];
+
+                $scope.subCatToFind=[];
+
+
+                var CheckBMenuInit=document.getElementsByName("cbMenu");
+                var idMenuPrm="menus"+$scope.idMenuPremier;
+                for(var InitM=0;InitM<CheckBMenuInit.length;InitM++){
+                    if(CheckBMenuInit[InitM].id==idMenuPrm){
+                        CheckBMenuInit[InitM].checked=true;
+                    }else{
+                        CheckBMenuInit[InitM].checked=false;
+                    }
+                }
+
+                var CheckBPrixInit=document.getElementsByName("cbPrix");
+
+                for(var InitP=0;InitP<CheckBPrixInit.length;InitP++){
+                    CheckBPrixInit[InitP].checked=false;
+                }
+
+
+
+                var CheckBDiffInit=document.getElementsByName("cbDif");
+
+                for(var InitD=0;InitD<CheckBDiffInit.length;InitD++){
+                    CheckBDiffInit[InitD].checked=false;
+                }
+
+                var CheckBanswerInit=document.getElementsByName("answer");
+
+                for(var InitA=0;InitA<CheckBanswerInit.length;InitA++){
+                    CheckBanswerInit[InitA].checked=false;
+                }
+
+
+                /*for(var InitM=1;InitM<=$scope.menus.length;InitM++){
+                 if($scope.menus[InitM].id==$scope.idMenuPremier){
+                 $scope.menus[InitM].checked=true;
+                 alert($scope.menus[InitM].checked+"--"+InitM);
+                 }else{
+                 $scope.menus[InitM].checked=false;
+                 }
+                 }*/
+
+
+
+                $scope.callDatabase();
+
+
+            }
+
+
+            /**************FIN FONCTION DU COLLECTE DES FILTRES********************/
+
+            /*********FONCTION APPELE BASE DE DONNES POUR LE RESULT****************/
+
+            $scope.callDatabase=function(){
+
+                document.getElementById('chargementBlockResult').style.display="block";
+                document.getElementById('blockResult').style.display="none";
+
+
+                var objToSend={
+                    pageNumber:$scope.pageNumber,
+                    textTofind:$scope.textTofind,
+                    natTofind:$scope.natToFind,
+                    prxToFind:$scope.prxToFind,
+                    diffToFind:$scope.diffToFind,
+                    thmToFind:$scope.thmToFind,
+                    ingToFind:$scope.ingToFind,
+                    saisToFind:$scope.saisToFind,
+                    couisTypeToFind:$scope.couisTypeToFind,
+                    menuToFind:$scope.menuToFind,
+                    subCatToFind:$scope.subCatToFind,
+                    ordre:$scope.ordre
+                }
+
+                //console.log("b3atht:");
+                //console.dir(objToSend);
+
+
+                $http.post(Routing.generate('filtredRecette'),objToSend)
+                        .then(function(response) {
+
+                            //console.log("mel base");
+                            //console.dir(response.data);
+
+                            if(response.data.result==0){
+
+
+                                document.getElementById('aucuneR7').style.display="block";
+                                document.getElementById('existeR7').style.display="none";
+                                document.getElementById('paginationResult').style.display="none";
+                                document.getElementById('btnSort').style.display="none";
+
+
+
+                            }else{
+                                document.getElementById('paginationResult').style.display="block";
+                                document.getElementById('aucuneR7').style.display="none";
+                                document.getElementById('existeR7').style.display="block";
+                                document.getElementById('btnSort').style.display="block";
+                                $scope.recettesFilred=response.data.result;
+                                $scope.nombreTotal=response.data.total;
+
+                                $scope.nombreDesPages=Math.ceil($scope.nombreTotal/10);
+
+                            }
+
+                            document.getElementById('chargementBlockResult').style.display="none";
+                            document.getElementById('blockResult').style.display="block";
+
+                            //console.log($scope.nombreDesPages);
+
+
+                        });
+
+            }
+
+
+            /*********FONCTION APPELE BASE DE DONNES POUR LE RESULT****************/
+
+
+
+        });
+
+    </script>
+
+
+{% endblock %}

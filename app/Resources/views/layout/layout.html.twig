@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/plugins/chosen/chosen.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/plugins/clockpicker/clockpicker.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" >
+    </head>
+    <body>
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element text-center"> <span>
+                            {% if app.user.image %}
+                            <img alt="image" class="img-circle" src="{{ asset(app.user.image.webPath) }}" style="height: 70px;width: 70px;border-radius: 70px;border:2px solid white;"/>
+                            {% else %}
+                                <img alt="image" class="img-circle" src="{{ asset('uploads/avatar.jpg') }}" style="height: 70px;width: 70px;border-radius: 70px;border:2px solid white;"/>
+                                {% endif %}
+                             </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold ">{{ app.user.username}}</strong>
+                             </span>  </span> </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="userProfile.php">Profile</a></li>
+
+                                <li><a href="../mailbox.html">Mailbox</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="active">
+                        <a href="{{ path('administration_homepage') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Page principale</span></a>
+                    </li>
+                    {% endif %}
+                    {%  if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a ><i class="fa fa-cogs"></i> <span class="nav-label">Configuration</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{ path('langue_index') }}">Langues</a></li>
+                            <li><a href="{{ path('theme_index') }}">Themes</a></li>
+                            <li><a href="{{ path('topic_index') }}">Topics</a></li>
+                            <li><a href="{{ path('difficulte_index') }}">Difficultés</a></li>
+                            <li><a href="{{ path('typecuisson_index') }}">Type cuisson</a></li>
+                            <li><a href="{{ path('nationalite_index') }}">Nationalité</a></li>
+                            <li><a href="{{ path('ingredient_index') }}">Ingrédients</a></li>
+                            <li><a href="{{ path('theme_index') }}">Themes</a></li>
+                            <li><a href="{{ path('categorie_index') }}">Categories</a></li>
+                            <li><a href="{{ path('menu_index') }}">Menu</a></li>
+                            <li><a href="{{ path('subcategorie_index') }}">Sous Categories</a></li>
+                            <li><a href="{{ path('specialite_index') }}">Spécialités</a></li>
+                            <li><a href="{{ path('filtre_index') }}">Filtres</a></li>
+                            <li><a href="{{ path('ambiance_index') }}">Ambiances</a></li>
+
+                            <li><a href="soutraitance.php">Budgets <b style="color:yellow;">(*)</b></a></li>
+                            <li>
+                                <a href="{{ path('confidentialite_index') }}"> <span class="nav-label">Confidentialités </span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a><i class="fa fa-dashboard"></i> <span class="nav-label">Gestion</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Etablissement</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse">
+
+                                    <li>
+                                        <a href="{{ path('gouvernorat_index') }}">Gouvernorat</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ path('region_index') }}">Region</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ path('etablissement_new') }}">Ajouter un etablissement</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ path('etablissement_index') }}">Afficher tous</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ path('etablissement_demande') }}">Autorisation</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ path('etablissement_sponsorPage') }}">Sponsorisé</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Membres</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse">
+                                    <li><a href="{{ path('memberGestion') }}">Gestion</a></li>
+                                    <li><a href="{{ path('memberNouveau') }}">Nouveaux Membres</a></li>
+                                    <li><a href="{{ path('memberNouveau') }}">Membres Premium</a></li>
+                                    <li><a href="{{ path('memberNouveau') }}">Equipe Administrative</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Rédaction</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            {%  if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="#"> <span class="nav-label">Articles</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse">
+                                    <li><a href="{{ path('article_new') }}">Ajouter nouveau</a></li>
+
+                                    <li><a href="{{ path('article_index') }}">Afficher tous</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o"></i>Statistique Article<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="{{ path('stat_redactionTotal') }}">Statistique total</a></li>
+                                    <li><a href="{{ path('stat_redactionMonth') }}">Statistique Par mois</a></li>
+                                    <li><a href="{{ path('stat_redactionDay') }}">Statistique par jour</a></li>
+
+                                </ul>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a href="#"> <span class="nav-label">Recette</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse">
+                                    <li><a href="{{ path('recette_new') }}">Ajouter nouveau</a></li>
+                                    <li><a href="{{ path('recette_index') }}">Afficher tous</a></li>
+                                    {%  if is_granted('ROLE_ADMIN') %}
+                                    <li><a href="{{ path('signalrecette_index') }}">Signal recette</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                            {%  if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o"></i>Statistique Recette<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="{{ path('stat_redactionRecetteTotal') }}">Statistique total</a></li>
+                                    <li><a href="{{ path('stat_redactionRecetteMonth') }}">Statistique Par mois</a></li>
+
+                                    <li><a href="{{ path('stat_redactionRecetteDay') }}">Statistique par jour</a></li>
+
+                                    <li><a href="{{ path('stat_redactionMembre') }}">Statistique Membre</a></li>
+
+                                </ul>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    {%  if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a ><i class="fa fa-cogs"></i> <span class="nav-label">Top Membre</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="{{ path('photographe') }}">Top Photographes</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('ecrivain') }}">Top Ecrivains </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('gourmand') }}">Top Gourmands</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a ><i class="fa fa-cogs"></i> <span class="nav-label">Top Rank</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="#">Article</a>
+                                </li>
+                                <li>
+                                    <a href="#">Recettes</a>
+                                </li>
+                                <li>
+                                    <a href="#">Etablissement </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Statistique</span><span class="fa arrow"></span></a>
+
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{ path('stat_navigateur') }}">Navigateur</a></li>
+                            <li><a href="{{ path('stat_systeme') }}">Systeme d'exploitation</a></li>
+                            <li><a href="{{ path('stat_pays') }}">Pays</a></li>
+                            <li><a href="{{ path('stat_ville') }}">Régions</a></li>
+                            <li><a href="../soutraitance.php">Genre</a></li>
+                            <li><a href="../soutraitance.php">Age</a></li>
+                            <li><a href="../soutraitance.php">Visite</a></li>
+                            <li><a href="../soutraitance.php">Notes</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href=""><i class="fa fa-eye"></i> <span class="nav-label">Surveillance</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{ path('surveillance_index') }}"><i class="fa fa-bar-chart-o"></i>Tous</a></li>
+                            <li><a href="{{ path('surveillance_mediaArticle') }}"><i class="fa fa-bar-chart-o"></i>Media</a></li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o"></i><span class="nav-label">Déclaration</span></a>
+                            </li>
+                            <li>
+                                <a href="../mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Litige </span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-money"></i> <span class="nav-label">Marketing</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="../mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Sponsorisation </span></a>
+                            </li>
+                            <li>
+                                <a href="../mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Banniere publicitaire </span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+
+
+
+
+
+
+
+
+
+
+                </ul>
+
+            </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg">
+
+            <div class="row border-bottom">
+
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-warning " href="#"><i class="fa fa-bars"></i> </a>
+
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">bienvenu <b>{{ app.user.username }}</b> chez TroisFourchettes</span>
+                        </li>
+
+                        <li class="dropdown">
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a class="count-info" href="{{ path('messagerie_index') }}">
+                                <i class="fa fa-envelope"></i>  <span class="label label-warning" >0</span>
+                            </a>
+                            {% endif %}
+
+                            <ul class="dropdown-menu dropdown-messages">
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="../profile.html" class="pull-left">
+                                            <img alt="image" class="img-circle" src="{{ asset('dist/img/p7.jpg') }}">
+                                        </a>
+                                        <div>
+                                            <small class="pull-right">46h ago</small>
+                                            <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                            <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="../profile.html" class="pull-left">
+                                            <img alt="image" class="img-circle" src="{{ asset('dist/img/ami4.jpg') }}">
+                                        </a>
+                                        <div>
+                                            <small class="pull-right text-navy">5h ago</small>
+                                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                            <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="../profile.html" class="pull-left">
+                                            <img alt="image" class="img-circle" src="../img/profile.jpg">
+                                        </a>
+                                        <div>
+                                            <small class="pull-right">23h ago</small>
+                                            <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                            <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="../mailbox.html">
+                                            <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="count-info"  href="#">
+                                <i class="fa fa-bell"></i>  <span class="label label-danger" id="nbrnotification">0</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="mailbox.html">
+                                        <div>
+                                            <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                            <span class="pull-right text-muted small">4 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="profile.html">
+                                        <div>
+                                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                            <span class="pull-right text-muted small">12 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="grid_options.html">
+                                        <div>
+                                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                            <span class="pull-right text-muted small">4 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="notifications.html">
+                                            <strong>See All Alerts</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="count-info" href="#">
+                                <i class="fa fa-comments-o"></i>  <span class="label label-success" id="nbrnotificationCommentaire">0</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="mailbox.html">
+                                        <div>
+                                            <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                            <span class="pull-right text-muted small">4 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="profile.html">
+                                        <div>
+                                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                            <span class="pull-right text-muted small">12 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="grid_options.html">
+                                        <div>
+                                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                            <span class="pull-right text-muted small">4 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="notifications.html">
+                                            <strong>See All Alerts</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                <i class="fa fa-sign-out"></i> Se Déconnecter
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+
+
+            </div>
+
+        {% block body %}{% endblock %}
+            <div class="footer">
+                <div class="pull-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>
+                <div>
+                    <strong>Copyright</strong> troisfourchettes &copy; 2015-2016
+                </div>
+            </div>
+        </div>
+
+        </div>
+        <script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+        <script src='{{ asset('js/playsound.js') }}'></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/plugins/chosen/chosen.jquery.js') }}"></script>
+        <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
+        <script src="{{ asset('js/plugins/clockpicker/clockpicker.js') }}"></script>
+        <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}"></script>
+
+
+        <script>
+            /*$(document).ready(function(){
+
+                $("#form").validate({
+                    rules: {
+                        nomRecette: {
+                            required: true,
+                            minlength: 3
+                        },
+                        preparationRecette: {
+                            required: true,
+                            minlength: 3
+                        },
+                        descriptionRecette: {
+                            required: true,
+                            minlength: 3
+                        },
+                        cuissonRecette: {
+                            required: true,
+                            minlength: 3
+                        },
+                        ingredient: {
+                            required: true,
+                            remote: true
+                        },
+                        difficulte: {
+                            required: true,
+                            selectcheck: true,
+                            remote: true
+                        },
+                        nationalite: {
+                            required: true,
+                            minlength: 3
+                        },
+                        theme: {
+                            required: true,
+                            minlength: 3
+                        }
+                    }
+                });
+            });*/
+        </script>
+        <script>
+            $('.clockpicker').clockpicker();
+        </script>
+        <script>
+            $(document).ready(function(){
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            });
+        </script>
+        <script>
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+        </script>
+
+        <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+        <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+        <!-- Peity -->
+        <script src="{{ asset('js/plugins/peity/jquery.peity.min.js') }}"></script>
+        <script src="{{ asset('js/demo/peity-demo.js') }}"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="{{ asset('js/inspinia.js') }}"></script>
+        <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
+
+        <!-- jQuery UI -->
+        <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
+        <!-- Jvectormap -->
+        <script src="{{ asset('js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
+        <script src="{{ asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+
+        <!-- EayPIE -->
+        <script src="{{ asset('js/plugins/easypiechart/jquery.easypiechart.js') }}"></script>
+
+        <!-- Sparkline -->
+        <script src="{{ asset('js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
+        <!-- Sparkline demo data  -->
+        <script src="{{ asset('js/demo/sparkline-demo.js') }}"></script>
+
+        <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
+
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+        <script>
+            CKEDITOR.on('instanceReady', function(evt) {
+                $(evt.editor.container.$).find('iframe').contents()
+                        .bind({
+                            copy : function(){
+                                console.log('copie');
+                            },
+                            paste : function(){
+                                console.log('paste');
+                            },
+                            cut : function(){
+                                console.log('cut');
+                            }
+                        });
+            });
+        </script>
+    <script>
+        
+    </script>
+        <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        <script src="{{ asset('js/notification.js') }}"></script>
+        <script src="{{ asset('js/notificationCommentaire.js') }}"></script>
+        <script src="{{ asset('js/plugin.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+
+    </body>
+</html>

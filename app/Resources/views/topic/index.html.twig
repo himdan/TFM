@@ -1,0 +1,68 @@
+{% extends 'layout/layout.html.twig' %}
+{% block body %}
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+
+                        <h2>Liste des topics
+                            <a href="{{ path('topic_new') }}">
+                                <button class="btn btn-sm btn-danger">Ajouter nouvelle topic</button>
+                            </a>
+                        </h2>
+                        <div class="clients-list">
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="full-height-scroll">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                    </td>
+
+                                                    <td align="center" class="client-link">Titre topic</td>
+                                                    <td align="center" class="client-link"> Date d'ajout topic</td>
+                                                    <td class="client-link" align="center">
+                                                        Statut topic
+                                                    </td>
+                                                    <td align="center" class="client-link">
+                                                        Operation
+                                                    </td>
+                                                </tr>
+                                                {% for topic in topics %}
+                                                    <tr>
+                                                        <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                        </td>
+
+                                                        <td align="center">{{ topic.nomTopic }}</td>
+                                                        <td align="center"> {{ topic.dateTopic|date("m/d/Y") }}</td>
+                                                        <td  align="center">
+                                                            {% if(topic.statutTopic == 1) %}
+                                                                <span class="label label-primary">Activé</span>
+                                                            {% else %}
+                                                                <span class="label label-danger">Désactivé</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td align="center">
+                                                            <a href="{{ path('topic_edit', { 'id': topic.id }) }}">
+                                                                <button class="btn btn-xs btn-success">modifier</button>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+lieux:
+    path:     /lieux
+    defaults: { _controller: "ClientBundle:Lieux:index" }
+
+lieuxJson:
+    path:     /lieux/lieuxJson
+    defaults: { _controller: "ClientBundle:Lieux:lieuxJson" }
+    options:
+        expose: true

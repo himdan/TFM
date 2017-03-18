@@ -1,0 +1,27 @@
+message:
+    path:     /message
+    defaults: { _controller: "ClientBundle:Message:index" }
+
+messageRelation:
+    path:     /message/messageRelation
+    defaults: { _controller: "ClientBundle:Message:messageRelation" }
+    options:
+        expose: true
+
+discussion:
+    path:     /message/discussion/{message}
+    defaults: { _controller: "ClientBundle:Message:discussion" }
+    options:
+        expose: true
+
+addMessage:
+    path:     /message/addMessage
+    defaults: { _controller: "ClientBundle:Message:addMessage" }
+    options:
+        expose: true
+
+setLuMessage:
+    path:     /message/setLuMessage/{message}
+    defaults: { _controller: "ClientBundle:Message:setLuMessage" }
+    options:
+        expose: true

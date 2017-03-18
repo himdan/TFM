@@ -1,0 +1,191 @@
+
+
+#connexion-modal.modal-wide .modal-dialog {
+  width: 80%; /* or whatever you wish */
+  max-width: 710px; 
+  margin: 30px auto;
+}
+#connexion-modal .partRight{
+	background: url(../img/cx-modal-separation-bg.png) left center no-repeat;
+	padding-left: 30px;
+}
+#connexion-modal .partLeft{
+	padding-right: 30px;
+}
+#connexion-modal .para-principal{
+	font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+  	color: rgb( 34, 34, 34 );
+}
+#connexion-modal #inputEmail{
+	background: url(../img/cx-email.png) right center no-repeat;
+	background-size: contain;
+	padding-left: 57px;
+	color: #eabeb0;
+	font-size: 13px;
+	width: 100%;
+	max-width: 305px;
+	height: 50px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+
+#connexion-modal #inputEmail::-webkit-input-placeholder {
+    color: #eabeb0;
+	font-size: 13px;
+	margin-left: 57px;
+}
+
+#connexion-modal #inputEmail:-moz-placeholder { /* Firefox 18- */
+    color: #eabeb0;
+	font-size: 13px;
+	margin-left: 57px;  
+}
+
+#connexion-modal #inputEmail::-moz-placeholder {  /* Firefox 19+ */
+    color: #eabeb0;
+	font-size: 13px; 
+	margin-left: 57px; 
+}
+
+#connexion-modal #inputEmail:-ms-input-placeholder {  
+   color: #eabeb0;
+	font-size: 13px; 
+	margin-left: 57px;
+}
+
+#connexion-modal #inputPassword{
+	background: url(../img/cx-pass.png) right center no-repeat;
+	background-size: contain;
+	padding-left: 57px;
+	color: #eabeb0;
+	font-size: 13px;
+	width: 100%;
+	max-width: 305px;
+	height: 50px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+#connexion-modal #inputPassword::-webkit-input-placeholder {
+    color: #eabeb0;
+	font-size: 13px;
+	margin-left: 57px;
+}
+
+#connexion-modal #inputPassword:-moz-placeholder { /* Firefox 18- */
+    color: #eabeb0;
+	font-size: 13px;
+	margin-left: 57px;  
+}
+
+#connexion-modal #inputPassword::-moz-placeholder {  /* Firefox 19+ */
+    color: #eabeb0;
+	font-size: 13px; 
+	margin-left: 57px; 
+}
+
+#connexion-modal #inputPassword:-ms-input-placeholder {  
+   color: red;  
+}
+#connexion-modal  .checkbox .radio label, #connexion-modal  .checkbox label{
+	color: #222;
+    font-size: 9px;
+    display: block;
+    padding-left: 0;
+    float: left;
+}
+.checkbox span{
+	color: #222;
+    font-size: 9px;
+    display: inline-block;
+    float: left;
+    margin-left: 20px;
+}
+#connexion-modal .checkbox input {
+    width: 21px;
+    height: 15px;
+    padding: 0;
+    margin: 0;
+    vertical-align: bottom;
+    top: -1px;
+}
+#connexion-modal a.forgottenPass{
+	color: #297fb8;
+	font-size: 9px;
+
+}
+#connexion-modal .btn-submit-cx{
+	background: #c9532f;
+    width: 100%;
+    color: white;
+    font-size: 17px;
+    height: 47px;
+    border-radius: 6px;
+    outline: none;
+    border: 0px solid transparent;
+}
+#connexion-modal .btn-fb-cx{
+	display: block;
+	background: url(../img/connect-fb.png) right center no-repeat;
+	background-size: 100%;
+	width: 100%;
+	max-width: 297px;
+	height: 42px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+#connexion-modal .btn-gl-cx{
+	display: block;
+	background: url(../img/connect-gl.png) right center no-repeat;
+	background-size: 100%;
+	width: 100%;
+	max-width: 299px;
+	height: 40px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+#connexion-modal .partRight .para-principal{
+	margin-bottom: 45px;
+}
+
+
+
+
+/**********************************************************************/
+
+#connexion-modal .modal-header {
+	background-color: #c9532f;
+	max-height: 49px;
+}
+#connexion-modal .modal-header p {
+	font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    color: white;
+    line-height: 16px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+
+@media (max-width: 768px) {
+	#connexion-modal .partRight{
+		background: none left center no-repeat;
+		padding-left: 30px;
+	}
+	#connexion-modal #inputEmail {
+	    margin: 0 auto;
+	}
+	#connexion-modal #inputPassword {
+	    margin: 0 auto;
+	}
+	#connexion-modal .btn-fb-cx {
+	    margin: 0 auto;
+	}
+	#connexion-modal .btn-gl-cx {
+	    margin: 0 auto;
+	}
+}

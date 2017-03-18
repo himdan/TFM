@@ -1,0 +1,961 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <div id="advSearch" class="modal fade advSearch">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body center-block text-center">
+                    <h1 class="heading1-search">
+                        <img src="{{ asset('dist/img/loop-adv.png') }}" alt="">Recherche avancée
+                    </h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form class="form-horizontal form-search-adv">
+                                <div class="form-group">
+                                    <label for="inputEmail" class="control-label col-xs-3">Nom</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control" id="inputNom" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="control-label col-xs-3">ville</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control" id="inputVille" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSexe" class="control-label col-xs-3">Sexe</label>
+                                    <div class="col-xs-9">
+                                        <select class="form-control">
+                                            <option>Homme</option>
+                                            <option>Femme</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAge" class="control-label col-xs-3">Age</label>
+                                    <div class="col-xs-9" style="padding-top: 12px;">
+                                        <!-- slider -->
+                                        <div id="slider-range"></div>
+                                        <div class="row">
+                                            <div class="col-xs-6" style="text-align:left">
+                                                <span id="rangeMin">0</span>
+                                            </div>
+                                            <div class="col-xs-6"  style="text-align:right">
+                                                <span id="rangeMax">500</span> <span>+</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="control-label col-xs-3"
+                                           style="padding-top:21px;">Niveau</label>
+                                    <div class="col-xs-9">
+                                        <img src="{{ asset('dist/img/level.png') }}" class="img-responsive" alt="level">
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                   <div class="col-xs-offset-3 col-xs-9">
+                                       <button type="submit" class="btn btn-primary">Login</button>
+                                   </div>
+                                   </div> -->
+                            </form>
+                        </div>
+                        <!-- col-md-6 -->
+                        <div class="col-md-6" style="margin-top:65px;">
+                            <p>
+                                <a href="#" class="btn btn-search-fb"></a>
+                            </p>
+                            <p>
+                                <a href="#" class="btn btn-search-gl"></a>
+                            </p>
+                        </div>
+                        <!-- col-md-6 -->
+                    </div>
+                    <div class="row res_search">
+                        <h1>Resultat de recherche...</h1>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/avatar-modal-search.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/1.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/2.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/2.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/avatar-modal-search.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/3.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/4.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/4.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/5.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/1.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/4.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="{{ asset('dist/img/3.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <p class="info_perso_serch">
+                                                James Doe <br>
+                                                56 <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="partage-modal" class="modal fade modal-wide">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="text-center">Partager l’article </p>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-center para">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodtempor incididunt ut labore et dolore magna
+                            </p>
+                            <p class="text-center">
+                                <a href="#" class="btn btn-primary fb-btn"></a>
+                            </p>
+                            <p class="text-center">
+                                <a href="#" class="btn btn-info tw-btn"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="container">
+        <div class="pub-h">
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+        </div>
+    </section>
+    <div class="container outerWrapper" ng-app="appDetailsArt" ng-controller="articleDetailsController">
+        <div class="col-md-3 menu-left menu-left-etab">
+            <!-- right column (268px) -->
+            <h3 class="menu-left-heading">
+                <img src="{{ asset('dist/img/ico-langue.png') }}" alt="langue">
+                Langue
+            </h3>
+            <section class="languages">
+                <div class="row center-block">
+                    <div class="col-xs-12">
+                        {{ article.langue }}
+                    </div>
+                </div>
+            </section>
+            <h3 class="menu-left-heading">
+                <img src="{{ asset('dist/img/ico-idea.png') }}" alt="idee">
+                Topics
+            </h3>
+            <section class="adress-etbl">
+                <p>
+                    {{ article.topic}}<br>
+                </p>
+            </section>
+            <section>
+                <div class="row">
+                    <p style="text-align:center">
+                        <b>Partager sur :</b>
+                    </p>
+                    <p style="margin:0 auto;">
+                    <ul class="list-inline center-block text-center">
+                        <li> <a href="#" alt="fb">
+                                <img src="{{ asset('dist/img/facebook.png') }}" class="img-responsive" width="32" height="32" alt=""> </a>
+                        </li>
+                        <li> <a href="#" alt="tw">
+                                <img src="{{ asset('dist/img/twitter.png') }}" class="img-responsive" width="32" height="32" alt=""> </a>
+                        </li>
+                        <li> <a href="#" alt="gl">
+                                <img src="{{ asset('dist/img/google-plus.png') }}" class="img-responsive" width="32" height="32" alt=""> </a>
+                        </li>
+                        <li> <a href="#" alt="pr">
+                                <img src="{{ asset('dist/img/pinterest.png') }}" class="img-responsive" width="32" height="32" alt=""> </a>
+                        </li>
+                    </ul>
+                    </p>
+                </div>
+            </section>
+            <!--  -->
+            <div class="pub">
+                <img src="{{ asset('dist/img/banner-exemple.jpg') }}" class="img-responsive">
+            </div>
+        </div>
+        <!-- menu-left -->
+        <div class="col-md-6 center-content">
+            <section class="article-principal">
+                <h1 class="center-block text-center"> {{ article.nomArticle }}</h1>
+                <div class="row center-block text-center">
+                    <div id="rankRecette" style="display: none;margin-bottom: 30px">
+                        <div class="col-md-3">
+                            <div id="famaVote" ng-hide="nbrVoteForThisRecette==0">
+                                <div class='starrr' ng-click="openModalVote({{ article.id }})">
+                                    <a href=""  ng-class="{'fa fa-star': 1<=noteForThisRecette,'fa-star-o fa':1>noteForThisRecette}" style="margin-right:-5px"></a>
+                                    <a href="" ng-class="{'fa fa-star': 2<=noteForThisRecette,'fa-star-o fa':2>noteForThisRecette}" style="margin-right:-5px"></a>
+                                    <a href="" ng-class="{'fa fa-star': 3<=noteForThisRecette,'fa-star-o fa':3>noteForThisRecette}" style="margin-right:-5px"></a>
+                                    <a href="" ng-class="{'fa fa-star': 4<=noteForThisRecette,'fa-star-o fa':4>noteForThisRecette}" style="margin-right:-5px"></a>
+                                    <a href="" ng-class="{'fa fa-star': 5<=noteForThisRecette,'fa-star-o fa':5>noteForThisRecette}"></a>
+                                </div>
+                            </div>
+                            <div id="famechVote" ng-show="nbrVoteForThisRecette==0">
+                                <div class='starrr' ng-click="openModalVote({{ article.id }})">
+                                    <a href="" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" class="fa fa-star-o"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" >
+                            <div class="votes-sr"># 2*noteForThisRecette# /10 (# nbrVoteForThisRecette # votes )</div>
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    <img class="img-responsive" src="{{ asset(article.image.webPath) }}" alt="single article">
+                </p>
+                <p>
+                    {{ article.descriptionArticle|raw }}
+                </p>
+            </section>
+            <section>
+                <article class="row exprimezVous exprimPublied thePost">
+                    <!-- ------------------------------- -->
+                    <div class="postInformations">
+                        <div class="row">
+                            <div class="col-xs-4">
+                            </div>
+                            <div class="col-xs-8">
+                                <!-- rating -->
+                                <ul class="list-inline infstats">
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">#nbrLikes#</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">#nbrDisLikes#</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">#nbrTotalcomments#</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% if app.user %}
+                        <ul class="list-inline postUtilities postUtilities-online" >
+               <span id="ChargeAppr" style=" display: block">
+                  <h4>Spinner Chargement En cours...</h4>
+               </span>
+                            <span id="appr" style=" display: none">
+                  <li>
+                     <a class="likeBtn" ng-click="aime({{ article.id }})"> <img ng-src="#shownAime#" alt="" > J’aime </a>
+                  </li>
+                  <li>
+                     <a class="dislikeBtn" ng-click="aimepas({{ article.id }})"> <img ng-src="#shownAimePas#" alt=""> J’aime pas </a>
+                  </li>
+                  <li>
+                     <a href="" class="cmtBtn" ng-click="goToCommenter()"> <img src="{{ asset('dist/img/online-cmtBtn.png') }}" alt=""> Commenter </a>
+                  </li>
+                  <li>
+                     <a href="#partage-modal" data-toggle="modal" class="shareBtn"> <img src="{{ asset('dist/img/online-shareBtn.png') }}" alt=""> Partage </a>
+                  </li>
+               </span>
+                        </ul>
+                    {% else %}
+                        <div id="ChargeAppr"></div>
+                        <div id="appr"></div>
+                    {% endif %}
+                    <h4 class="title-owl text-center"> Voir aussi... </h4>
+                    <div id="owl-demo">
+                        {% for voirAutreArticle in voirAutreArticles %}
+                            <div  class="item">
+                                <a href="{{ path('articledetails', {'article':voirAutreArticle.id}) }}">
+                                    <img src="{{ asset(voirAutreArticle.image.webPath) }}" alt="Owl Image" style="height: 150px;">
+                                    <p>{{ voirAutreArticle.nomArticle[:15] }} ...</p>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="chargementComments" style="display: block">
+                        Chargement en cours . . .
+                    </div>
+                    <div id="commentsList" style="display: none" class="showComment">
+                        <div class="col-lg-6">
+                            <a href="" ng-click="moreComments()" id="afficherplus" style="display: block;">
+                                <h5>afficher les commentaires précédents</h5>
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                            <img id="loadingComments" style="display:none" src="{{ asset('dist/img/loadingComments.gif') }}" alt="loading...">
+                        </div>
+                        <br>
+                        <div class="media" ng-repeat="comment in commentsToShow">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img src="#comment.image#" height="50p" width="50px" class="media-object" alt="Sample Image">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <span id="btnDell#comment.commentId#" class="pull-right" style="color:red" ng-show="comment.deletable" ng-click="deleteComment(comment.commentId)">x</span>
+                                <span id="spinDell#comment.commentId#" class="pull-right" style="color:Blue;display:none" ng-show="comment.deletable">O</span>
+                                <h4 class="media-heading">#comment.nomClient#</h4>
+                                <p>#comment.commentText#</p>
+                            </div>
+                        </div>
+                        {% if app.user %}
+                            <form class="form-inline center-block text-center">
+                                <textarea id="commentToSend" style="width:100%" class="form-control inputAddComment" placeholder="Ajouter un commentaire..."></textarea>
+                                <!-- <input type="submit" class="btn-commenter-online pull-right" value="commenter">   -->
+                            </form>
+                        {% endif %}
+                        {% if app.user %}
+                            <p class="theLast">
+                                <img src="{{ asset('dist/img/exclamtionPoint.png') }}" alt="exc">
+                                <span>
+                                  Ecrire un commentaire, utiliser @ pour taguer des amis
+                                </span>
+                            </p>
+                        {% else %}
+                            <p class="theLast">
+                                <img src="{{ asset('dist/img/exclamtionPoint.png') }}" alt="exc">
+                                <span>
+                                  Veuillez <a href="{{ path('fos_user_security_login') }}">se connecter</a> pour pouvoir commenter !
+                                </span>
+                            </p>
+                        {% endif %}
+                    </div>
+                    <!-- ------------------------------- -->
+                </article>
+            </section>
+        </div>
+        <!-- center-content -->
+        <div class="col-md-3 menu-right">
+            <!-- right column (268px) -->
+            <section class="block-spnsirise center-block text-center">
+                <div class="pub">
+                    <img src="{{ asset('dist/img/banner-exemple.jpg') }}" class="img-responsive">
+                </div>
+            </section>
+            <h3 class="menu-right-heading"><img src="{{ asset('dist/img/m-n1.png') }}" alt="">  Mieux Noté </h3>
+            <div id="loadingMostRanked">
+                <h5>loading...</h5>
+            </div>
+            <section id="MostRanked" style="display: none;">
+                <div class="row img-proximite" ng-repeat="mrr in mostRankedRecettes">
+                    <div class="col-xs-5">
+                        <a href="#mrr.id#"><img ng-src="#mrr.image#" style="height: 100px;width: 100px;" alt="prox"></a>
+                    </div>
+                    <div class="col-xs-7">
+                        <div class="name">#mrr.recette#</div>
+                        <div class="note">#2*mrr.note#/10 (#mrr.nbrVote# votes )</div>
+                        <!-- rating -->
+                        <div class='starrr'>
+                            <a href=""  ng-class="{'fa fa-star': 1<=mrr.note,'fa-star-o fa':1>mrr.note}" style="margin-right:-5px"></a>
+                            <a href="" ng-class="{'fa fa-star': 2<=mrr.note,'fa-star-o fa':2>mrr.note}" style="margin-right:-5px"></a>
+                            <a href="" ng-class="{'fa fa-star': 3<=mrr.note,'fa-star-o fa':3>mrr.note}" style="margin-right:-5px"></a>
+                            <a href="" ng-class="{'fa fa-star': 4<=mrr.note,'fa-star-o fa':4>mrr.note}" style="margin-right:-5px"></a>
+                            <a href="" ng-class="{'fa fa-star': 5<=mrr.note,'fa-star-o fa':5>mrr.note}"></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        {% if app.user %}
+                            <div id="partieVote" style="display: block">
+                                <div class='starrr star2'>
+                                    <a href="" ng-click="voter(1)"  class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(2)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(3)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(4)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(5)" class="fa fa-star-o"></a>
+                                </div>
+                                <div id="messagePartieVote"></div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            </div>
+                            <div id="chargementPartieVote" style="display: none">
+                                <h4>Vote En Cours...</h4>
+                            </div>
+                        {% else %}
+                            <h2>Vous devez se connecter pour pouvoir voter</h2>
+                        {% endif  %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        var appDetailsArt = angular.module('appDetailsArt',[])
+                .config(function($interpolateProvider){
+                    $interpolateProvider.startSymbol('#').endSymbol('#');
+
+
+
+
+                })
+                .directive('loading', function () {
+                    return {
+                        restrict: 'E',
+                        replace:true,
+                        template: '<div class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="20" height="20" />LOADING...</div>',
+                        link: function (scope, element, attr) {
+                            scope.$watch('loading', function (val) {
+                                if (val)
+                                    $(element).show();
+                                else
+                                    $(element).hide();
+                            });
+                        }
+                    }
+                });
+
+
+        appDetailsArt.controller('articleDetailsController', function($scope,$http) {
+
+
+            var textAriaComment = document.getElementById('commentToSend');
+            $scope.goToCommenter=function(){
+                textAriaComment.scrollIntoView(true);
+            }
+
+            $scope.idArticle="{{ article.id }}";
+
+
+            $scope.getThisAppreciation=function () {
+
+                $scope.objAppr={
+                    idr:$scope.idArticle
+                };
+                $http.post(Routing.generate('nbrLikeDislikeJSONArticle'),$scope.objAppr)
+                        .then(function(response) {
+                            //console.log('repmta3 el appreciation');
+                            //console.log(response.data);
+                            $scope.nbrLikes=response.data.likes;
+                            $scope.nbrDisLikes=response.data.dislikes;
+
+
+                            //document.getElementById("rankRecette").style.display="block";
+
+                        });
+
+
+            }
+
+            $scope.getThisAppreciation();
+
+
+
+
+            $scope.getThisRank=function () {
+                $scope.objRank={
+                    idr:$scope.idArticle
+                };
+                $http.post(Routing.generate('rankOneArticleJSON'),$scope.objRank)
+                        .then(function(response) {
+                            //alert('note: '+response.data[0].note+" wel nbrvote: "+response.data[0].nbrVote);
+                            $scope.noteForThisRecette=response.data[0].note;
+                            $scope.nbrVoteForThisRecette=response.data[0].nbrVote;
+
+                            document.getElementById("rankRecette").style.display="block";
+
+                        });
+
+
+            }
+
+            $scope.getThisRank();
+
+            $scope.openModalVote=function(id){
+
+                {% if(app.user) %}
+
+                $scope.idRecetteAvoter=id;
+                $('#myModal3').modal('show');
+
+                /*******************************/
+
+                $('.star2').starrr();
+                /*******************************/
+
+
+                {% else %}
+                toastr.warning('Vous devez <a href="http://localhost/troisfourchettes/web/app_dev.php/login">se connecter</a> pour pouvoir voter','notification',2000);
+                {% endif %}
+
+
+            }
+
+
+
+
+
+
+            $scope.voter=function(NbrVote){
+                document.getElementById("partieVote").style.display="none";
+                document.getElementById("chargementPartieVote").style.display="block";
+                document.getElementById("messagePartieVote").innerHTML="";
+                $http.post(Routing.generate('Addrank', { id: $scope.idRecetteAvoter , type: "article",nbr:NbrVote }))
+                        .then(function(response) {
+                            //console.log(response.data);
+                            document.getElementById("partieVote").style.display="block";
+                            document.getElementById("chargementPartieVote").style.display="none";
+                            document.getElementById("messagePartieVote").innerHTML=response.data.success;
+
+                            $scope.getThisRank();
+
+                        }).then(function(response){
+
+
+                    setTimeout(function(){
+                        $('#myModal3').modal('hide');
+                    },2000);
+                });
+
+
+            }
+
+
+
+
+            $scope.img='{{ asset('dist/img/likerouge.png') }}';
+            $scope.img2='{{ asset('dist/img/online-likeBtn.png') }}';
+
+            $scope.img1AimePas="{{ asset('dist/img/pnline-dislikeBtn.png') }}";
+            $scope.img2AimePas="{{ asset('dist/img/deslikerouge.png') }}";
+
+            $scope.recetteLiked=false;
+            $scope.recetteNotLiked=false;
+
+
+
+            $scope.aime = function(id){
+                document.getElementById("ChargeAppr").style.display="block";
+                document.getElementById("appr").style.display="none";
+
+                $scope.loading = true;
+                $http.post(Routing.generate('Addappreciation', { id: id , type: "article" }))
+                        .then(function(response) {
+                            //console.log(response.data);
+                        }).then(function(response) {
+                    $scope.getAppr();
+                    $scope.getThisAppreciation();
+
+
+                });
+
+            };
+
+
+
+            $scope.aimepas = function(id){
+                document.getElementById("ChargeAppr").style.display="block";
+                document.getElementById("appr").style.display="none";
+                $scope.loading = true;
+                $http.post(Routing.generate('deleteappreciation', { id: id , type: "article" }))
+                        .then(function(response) {
+                            //console.log(response.data);
+                        }).then(function(response) {
+                    $scope.getAppr();
+                    $scope.getThisAppreciation();
+
+                });
+
+            };
+
+
+
+
+            $scope.getAppr = function(){
+                document.getElementById("ChargeAppr").style.display="block";
+                document.getElementById("appr").style.display="none";
+
+                $http.post(Routing.generate('Getappreciation', { id: {{ article.id }} , type: "article" }))
+                        .then(function(response) {
+
+                            document.getElementById("ChargeAppr").style.display="none";
+                            document.getElementById("appr").style.display="block";
+                            $scope.recetteLiked=response.data.aime;
+                            $scope.recetteNotLiked=response.data.aimepas;
+                            $scope.nbraimespas=response.data.nbraimespas;
+                            $scope.nbraimes=response.data.nbraimes;
+
+                            /*
+                             console.log('---------------');
+                             console.log("aime pas: "+$scope.nbraimespas);
+                             console.log("aimes: "+$scope.nbraimes);
+                             console.log('---------------')*/
+
+
+                            if($scope.recetteLiked==1){
+                                $scope.shownAime=$scope.img;
+                            }
+                            if($scope.recetteLiked==0){
+                                $scope.shownAime=$scope.img2;
+                            }
+
+
+                            if($scope.recetteNotLiked==0){
+                                $scope.shownAimePas=$scope.img1AimePas;
+                            }
+                            if($scope.recetteNotLiked==1){
+                                $scope.shownAimePas=$scope.img2AimePas;
+                            }
+
+
+
+                        });
+
+            };
+
+
+            $scope.getAppr();
+
+
+
+
+            $scope.trancheComment=1;
+
+            $scope.mostRankedRecettes=[];
+
+
+            $('#commentToSend').keydown(function (e){
+
+                $scope.commentaire=document.getElementById("commentToSend").value;
+                if((e.shiftKey) && (e.keyCode == 13)){
+                    var newText= $(this).val() + '<br>';
+
+
+                }
+                else if((!e.shiftKey) && (e.keyCode == 13)){
+
+                    if($scope.commentaire.trim().length === 0){
+                        setTimeout(function(){
+                            //document.getElementById('commentToSend').value="";
+                            $('#commentToSend').val('');
+                        },100);
+
+                    }else{
+
+                        setTimeout(function(){
+
+                            $scope.objComment={
+                                id:{{ article.id }},
+                                commentaire:$scope.commentaire,
+                                type:"article"
+                            };
+
+                            $('#commentToSend').val('');
+
+                            document.getElementById("commentToSend").disabled = true;
+                            //$scope.disabledComment=true;
+                            //ne5dem bil getelementbyid.disabled
+
+                            $http.post(Routing.generate('sendComment'),$scope.objComment)
+                                    .then(function(response) {
+                                        //console.dir($scope.objComment);
+                                        document.getElementById("commentToSend").disabled = false;
+                                    }).then(function(response){
+                                $scope.getComments();
+                            });
+
+
+                        },10);
+
+
+
+
+                    }
+
+                }
+
+
+            })
+
+            $scope.commentsToShow=[];
+            $scope.getComments= function(){
+
+
+
+                $scope.objToGetComments={
+                    id:{{ article.id }},
+                    tranche:$scope.trancheComment,
+                    type:"article"
+                }
+
+                $http.post(Routing.generate('getComments'),$scope.objToGetComments)
+                        .then(function(response) {
+                            $scope.nbrTotalcomments=response.data.nbrTotal;
+                            $scope.commentsToShow=response.data.comments;
+
+
+                            document.getElementById("chargementComments").style.display="none";
+                            document.getElementById("commentsList").style.display="block";
+
+
+                            //console.log("nbrTotalMelBase: "+response.data.nbrTotal);
+                            //console.log("nbr affiché: "+$scope.commentsToShow.length);
+                            if(response.data.nbrTotal > $scope.commentsToShow.length){
+                                document.getElementById("afficherplus").style.display="block";
+
+                            }else{
+                                document.getElementById("afficherplus").style.display="none";
+                            }
+                            document.getElementById('loadingComments').style.display="none";
+                            /*$.each(response.data.comments, function (index, item) {
+
+                             $scope.commentsToShow.push({
+                             commentId: item.commentId,
+                             commentText: item.commentText,
+                             commentDate: item.commentDate
+                             });
+                             })*/
+                            /*if(response.data.comments.length== response.data.nbrTotal){
+                             document.getElementById("afficherplus").style.display="none";
+                             alert("el kol afiche");
+                             }else{*/
+
+
+                            //}
+
+
+
+                        });
+
+            }
+
+            $scope.getComments();
+            $scope.moreComments=function(){
+                document.getElementById('loadingComments').style.display="block";
+                $scope.trancheComment++;
+                $scope.getComments();
+
+
+            }
+
+            $scope.deleteComment=function(idC){
+                var idBtnToDell="btnDell"+idC;
+                var idBtnSpinn="spinDell"+idC;
+
+                document.getElementById(idBtnToDell).style.display="none";
+                document.getElementById(idBtnSpinn).style.display="block";
+                $scope.objDel={
+                    id:idC,
+                    type:"article"
+                }
+
+                $http.post(Routing.generate('deleteComment'),$scope.objDel)
+                        .then(function(response) {
+
+                        }).then(function(response){
+                    $scope.getComments();
+
+                });
+            }
+
+
+
+
+            setInterval(function(){
+                $scope.getComments();
+            },2000);
+
+
+
+            $http.post(Routing.generate('mostRankedArticleJSON'))
+                    .then(function(response) {
+                        $scope.mostRankedRecettes=response.data.result;
+
+                        document.getElementById("loadingMostRanked").style.display="none";
+                        document.getElementById("MostRanked").style.display="block";
+
+                    });
+
+
+
+
+        });
+
+
+    </script>
+{% endblock %}

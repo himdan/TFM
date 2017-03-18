@@ -1,0 +1,127 @@
+{% extends 'layout/layout.html.twig' %}
+{% block body %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Liste des membres <a href="{{ path('client_new') }}">Ajouter nouveau utilisateur</a></h2>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content mailbox-content">
+                        <div class="file-manager">
+
+
+                            <h5>Tous les types</h5>
+                            <ul class="folder-list m-b-md" style="padding: 0">
+                                <li><a href="{{ path('memberGestion') }}"> <i class="fa fa-user "></i> Membres </a></li>
+                                <li><a href="{{ path('memberNouveau') }}"> <i class="fa fa-user-plus"></i>Nouveau membre</a></li>
+                                <li><a href="{{ path('memberPremium') }}"> <i class="fa fa-eur"></i>Membres premium</a></li>
+
+                                <li><a href="{{ path('memberAdmin') }}"> <i class="fa fa-user-md"></i> Administrateur</a></li>
+                                <li><a href="{{ path('memberRedacteur') }}"> <i class="fa fa-pencil-square"></i> Redacteur</a></li>
+                                <li><a href="{{ path('memberBloque') }}"> <i class="fa fa-ban"></i> Bloqué</a></li>
+
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="ibox">
+                    <div class="ibox-content">
+
+
+                        <div class="clients-list">
+                            <div class="tab-content">
+
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" class="client-link">Image</td>
+                                            <td align="center" class="client-link">Nom & Prenom</td>
+                                            <td align="center" class="client-link">Email</td>
+                                            <td align="center" class="client-link">Pays</td>
+                                            <td align="center" class="client-link">Sexe</td>
+                                            <td align="center" class="client-link">Date d'inscrit</td>
+
+                                            <td align="center" class="client-link">Activé ?</td>
+                                            <td align="center" class="client-link">premium ?</td>
+                                            <td align="center" class="client-link">Operation</td>
+                                        </tr>
+                                        {% for membre in membres %}
+                                            <tr>
+                                                <td align="center">
+                                                    {% if membre.image %}
+                                                    <img src="{{ asset(membre.image.webPath) }}" class="img-responsive img-thumbnail" style="height: 100px;width: 100px;">
+                                                    {% else %}
+                                                    <img src="{{ asset('uploads/avatar.png') }}" class="img-responsive img-thumbnail" style="height: 100px;width: 100px;">
+                                                    {% endif %}
+                                                </td>
+                                                <td align="center">{{ membre.nomClient }} {{ membre.prenomClient }}</td>
+                                                <td align="center">{{ membre.email }}</td>
+                                                <td align="center">
+                                                    {% if(membre.region) %}
+                                                    {{ membre.region.nomRegion }}
+                                                    {% endif %}
+                                                </td>
+                                                <td align="center">
+                                                    {% if(membre.gender) %}
+                                                    {{ membre.gender.nomGender }}
+                                                    {% endif %}
+                                                </td>
+                                                <td align="center">{{ membre.dateAjoutClient|date("m/d/Y") }} </td>
+
+                                                <td align="center">
+                                                    {% if membre.enabled == 1 %}
+                                                        <span class="badge badge-primary">Oui</span>
+                                                    {% else %}
+                                                        <span class="badge badge-danger">Non</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td align="center">
+                                                    {% if membre.premiumClient == 'active' %}
+                                                        <span class="badge badge-primary">Active</span>
+                                                    {% else %}
+                                                        <span class="badge badge-danger">Desacitve</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td align="center">
+                                                    <div class="ibox-tools">
+                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+                                                            <button class="btn btn-sm btn-success center-block"><i class="fa fa-cogs"></i></button>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-user">
+                                                            <li><a href="{{ path('memberSupprimer',{'id':membre.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;Bloqué</a>
+                                                            </li>
+                                                            <li><a href="{{ path('memberActiver',{'id':membre.id}) }}"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Débloqué</a>
+                                                            </li>
+                                                            <li><a href="{{ path('memberActiver',{'id':membre.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;Supprimé</a>
+                                                            </li>
+                                                            <li><a href="{{ path('memberPremiumActive',{'id':membre.id}) }}"><i class="fa fa-euro" aria-hidden="true"></i>&nbsp;&nbsp;premium</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

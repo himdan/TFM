@@ -1,0 +1,183 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <section class="container">
+
+
+
+        <div class="pub-h">
+
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+
+
+
+        </div>
+
+
+
+    </section>
+    <div class="container outerWrapper">
+        <div class="col-md-3 menu-left">
+            <!-- right column (268px) -->
+
+
+            <h3 class="commentmarche-heading text-center"> <img src="dist/img/commencamarche.png" alt=""> Comment ça marche </h3>
+
+
+            <section class="commentmarche-section">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </section>
+
+            <hr>
+
+            <section class="commentmarche-section">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div> <!-- menu-left -->
+
+
+        <div class="col-sm-9 center-content">
+
+
+
+
+
+            <div class="text-center">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" class="btnRecette  btn btn-sm btn-default btn-warning btn-block"><span>TOP Gourmands</span></button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btnArticle btn btn-sm btn-default btn-block"><span>TOP Ecrivains</span></button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btnEtablissement btn btn-sm btn-default btn-block"><span>TOP Photographes</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="memberArea recetteBlock row center-block text-center">
+
+            </div>
+
+            <div class="memberArea articleBlock row center-block text-center" style="margin-top: 20px;">
+                articleBlock
+
+            </div>
+
+            <div class="memberArea etablissementBlock row center-block text-center" style="margin-top: 20px;">
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(function(){
+            $('.articleBlock').hide();
+            $('.etablissementBlock').hide();
+
+
+
+            $('.btnRecette').click(function(){
+                $('.btnArticle').removeClass('btn-warning');
+                $('.btnEtablissement').removeClass('btn-warning');
+                $('.btnRecette').addClass('btn-warning');
+                $('.articleBlock').fadeOut(0);
+                $('.etablissementBlock').fadeOut(0);
+                $('.recetteBlock').fadeIn(200);
+
+            });
+
+            $('.btnArticle').click(function(){
+                $('.btnRecette').removeClass('btn-warning');
+                $('.btnEtablissement').removeClass('btn-warning');
+                $('.btnArticle').addClass('btn-warning');
+                $('.recetteBlock').fadeOut(0);
+                $('.etablissementBlock').fadeOut(0);
+                $('.articleBlock').fadeIn(200);
+            });
+
+            $('.btnEtablissement').click(function(){
+                $('.btnRecette').removeClass('btn-warning');
+                $('.btnArticle').removeClass('btn-warning');
+                $('.btnEtablissement').addClass('btn-warning');
+                $('.recetteBlock').fadeOut(0);
+                $('.articleBlock').fadeOut(0);
+                $('.etablissementBlock').fadeIn(200);
+            });
+
+
+        });
+    </script>
+    <script>
+        function recetteFavoris() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('topPhotographe'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+                                if (item.note == null) var note = '0'; else var note = item.note;
+                                block += ''+
+                                    '<div class="theMember">'+
+                                    '<a href="#" class="btn-add"></a>'+
+                                    '<ul class="list-inline">'+
+                                    '<li> <img src="'+item.image+'" alt="member image" style="width: 75px;height: 75px;"> </li>'+
+                                    '<li>'+
+                                    '<span class="name">'+item.nom+' '+item.prenom+'</span><br>'+
+                                    '<span class="points">'+item.nbrpoint+'</span><br>'+
+                                    '<span class="country">'+item.region+'</span><br>'+
+                                    '<a href="#" class="btn-topMember"></a>'+
+                                    '</li>'+
+                                    '</ul>'+
+                                    '</div>';
+
+
+
+                            });
+
+                            $('.etablissementBlock').html(block);
+                        }else{
+                            $('.etablissementBlock').html('' +
+                                    '<div class="alert alert-danger" style="margin-top: 10px;">'+
+                                    '<b>aucune photographe</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(recetteFavoris,2000);
+    </script>
+{% endblock %}

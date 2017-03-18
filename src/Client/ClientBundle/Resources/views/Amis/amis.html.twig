@@ -1,0 +1,154 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <section class="container">
+
+
+
+        <div class="pub-h">
+
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+
+
+
+        </div>
+
+
+
+    </section>
+    <div class="container outerWrapper" ng-app="myAppAmis" ng-controller="amisController">
+        {#
+                {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': user.id })) }}<!-- menu-left -->
+
+        #}
+
+
+
+
+
+        <div class="col-md-11 center-content profil">
+
+            <!-- here goes the content -->
+            <div class="text-center amis">
+
+
+                <div class="ck-button">
+                    <label>
+                        <input type="checkbox" class="DivChecked" id="cbttAmis" ng-click="checkUncheck('cbttAmis')"><span>Tous Amis</span>
+
+                    </label>
+
+                </div>
+                <div class="ck-button">
+                    <label>
+                        <input type="checkbox" id="cbrecent" ng-click="checkUncheck('cbrecent')"><span>Ajouter récentes</span>
+
+                    </label>
+
+                </div>
+                <div class="ck-button">
+                    <label>
+                        <input type="checkbox" id="cbdemande" ng-click="checkUncheck('cbdemande')"><span>Demandes envoyés</span>
+
+                    </label>
+
+                </div>
+                <div class="ck-button">
+                    <label>
+                        <input type="checkbox" id="cbrecu" ng-click="checkUncheck('cbrecu')"><span>Demande récus</span>
+
+                    </label>
+
+                </div>
+
+                <div class="ck-button">
+                    <label>
+                        <input type="checkbox" id="cbblock" ng-click="checkUncheck('cbblock')"><span>Bloqué</span>
+
+                    </label>
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <div id="chargementAmis" style="display: block">
+                <h4>Chargement Amigos</h4>
+            </div>
+
+            <div id="resultAmis" class="row memberArea" style="display: none">
+
+                <div id="notFound" style="display: none">
+                    <div class="alert alert-danger" style="margin-top: 50px">
+
+                        aucune resultat trouvé
+
+                    </div>
+                </div>
+
+                <div class="theMember" ng-repeat="amis in amisAffiche">
+                    <a href="#" class="btn-add" ng-click="deleteAmis(amis.id)"></a>
+                    <ul class="list-inline">
+                        <li> <img src="#amis.image#" height="70px" width="70px" alt="member image"> </li>
+                        <li>
+                            <span class="name">#amis.nom# #amis.prenom#</span><br>
+                            <span class="points">2200 pts</span><br>
+                            <span class="country">#amis.ville#</span><br>
+                            <a href="#" class="btn-topMember"></a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
+
+            </div>
+
+
+            {#
+
+            <h3 class="center-blobk text-center blocedFriend">
+                Liste d’amis Bloquer
+            </h3>
+            <div class="row memberArea">
+
+                <!-- 1 -->
+                <div class="theMember">
+                    <a href="#" class="btn-add"></a>
+                    <ul class="list-inline">
+                        <li> <img src="dist/img/topmem2.jpg" alt="member image"> </li>
+                        <li>
+                            <span class="name">James Doe</span><br>
+                            <span class="points">2200 pts</span><br>
+                            <span class="country">Tunis</span><br>
+                            <a href="#" class="btn-topMember"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div> <!-- end -->
+
+
+            #}
+            <!-- ---------------------------------------------------- -->
+
+
+        </div>  <!-- center-content -->
+
+
+
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+
+
+    <script src="{{ asset('js/angularJS/amisController.js') }}"></script>
+
+
+
+{% endblock %}

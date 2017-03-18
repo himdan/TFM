@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="UTF-8" />
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+        <style>
+                @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+                body {
+                        -moz-animation: bgscroll 10s infinite linear;
+                        -ms-animation: bgscroll 10s infinite linear;
+                        -o-animation: bgscroll 10s infinite linear;
+                        -webkit-animation: bgscroll 10s infinite linear;
+                        -webkit-font-smoothing: antialiased;
+                        animation: bgscroll 10s infinite linear;
+                        background-image: url({{ asset('under/images/bg.png') }});
+                        background-position: center center;
+                        font-family: 'Montserrat', sans-serif;
+                        font-size: 12px;
+                }
+        </style>
+</head>
+<body>
+
+{% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                        <div class="flash-{{ type }}">
+                                {{ message }}
+                        </div>
+                {% endfor %}
+        {% endfor %}
+{% endif %}
+
+<div>
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+</div>
+<script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+
+    });
+</script>
+</body>
+</html>

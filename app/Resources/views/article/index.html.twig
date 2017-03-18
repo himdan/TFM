@@ -1,0 +1,75 @@
+{% extends 'layout/layout.html.twig' %}
+{% block body %}
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+
+                        <h2>Liste des articles
+                            <a href="{{ path('article_new') }}">
+                                <button class="btn btn-sm btn-danger">Ajouter nouveau article</button>
+                            </a>
+                        </h2>
+                        <div class="clients-list">
+                            <div class="tab-content">
+
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <tbody>
+                                        <tr>
+                                            <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                            </td>
+
+                                            <td align="center" class="client-link">Image</td>
+                                            <td align="center" class="client-link">Titre</td>
+
+                                            <td align="center" class="client-link">langue</td>
+                                            <td align="center" class="client-link">Topic</td>
+                                            <td align="center" class="client-link">Type</td>
+
+                                            <td align="center" class="client-link"> Operation</td>
+                                        </tr>
+                                        {% for article in articles %}
+                                            <tr>
+                                                <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                </td>
+
+                                                <td align="center"><img src="{{ asset(article.image.WebPath) }}" class="img-responsive img-thumbnail" style="width: 100px;height: 100px;"> </td>
+                                                <td align="center">{{ article.nomArticle }}</td>
+
+                                                <td align="center"><div class="label label-info">{{ article.langue }}</div></td>
+
+                                                <td align="center"><div class="label label-info">{{ article.topic }}</div></td>
+                                                <td align="center"><div class="label label-primary">{{ article.typeArticle }}</div></td>
+
+
+
+                                                <td align="center">
+
+                                                    <a href="{{ path('article_show', { 'id': article.id }) }}">
+                                                        <button class="btn btn-xs btn-info"><i class="fa fa-eye" aria-hidden="true"></i>
+                                                        </button>
+                                                    </a>
+                                                    <a href="{{ path('article_edit', { 'id': article.id }) }}">
+                                                        <button class="btn btn-xs btn-info"><i class="fa fa-pencil" aria-hidden="true"></i>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

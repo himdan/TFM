@@ -1,0 +1,18 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+    my_user_provider.class: HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider
+
+services:
+    my_user_provider:
+        class: "%my_user_provider.class%"
+        #this is the place where the properties are passed to the UserProvider - see config.yml
+        arguments: [@fos_user.user_manager,{facebook: facebook_id, google: google_id}]
+
+    redirect.after.login:
+        class: Client\ClientBundle\Redirection\AfterLoginRedirection
+        arguments: [@router]
+
+    authentication_handler:
+        class:        Client\ClientBundle\Handler\AuthenticationHandler
+        arguments:    [@router, @security.context, @fos_user.user_manager, @service_container]

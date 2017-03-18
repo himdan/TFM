@@ -1,0 +1,16 @@
+/web/bundles/
+/web/uploads_last/
+/app/bootstrap.php.cache
+/app/cache/*
+/app/config/parameters.yml
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/app/phpunit.xml
+/build/
+/app/cache/
+/app/logs/
+/vendor/
+/bin/
+/composer.phar
+.idea/*

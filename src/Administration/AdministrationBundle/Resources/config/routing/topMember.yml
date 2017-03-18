@@ -1,0 +1,11 @@
+photographe:
+    path:     /photographe
+    defaults: { _controller: AdministrationBundle:topMember:index }
+
+ecrivain:
+    path:     /ecrivain
+    defaults: { _controller: AdministrationBundle:topMember:ecrivain }
+
+gourmand:
+    path:     /gourmand
+    defaults: { _controller: AdministrationBundle:topMember:gourmand }

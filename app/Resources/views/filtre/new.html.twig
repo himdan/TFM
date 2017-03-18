@@ -1,0 +1,107 @@
+{% extends 'layout/layout.html.twig' %}
+{% block body %}
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                <h2>Liste des Specialites
+                                    <a href="{{ path('filtre_new') }}">
+                                        <button class="btn btn-sm btn-danger">Ajouter nouvelle specialite</button>
+                                    </a>
+                                </h2>
+                                <div class="clients-list">
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="full-height-scroll">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                            </td>
+
+                                                            <td align="center" class="client-link">Titre Filtre</td>
+                                                            <td align="center" class="client-link"> Date d'ajout Filtre</td>
+                                                            <td class="client-link" align="center">
+                                                                Statut Filtre
+                                                            </td>
+                                                            <td class="client-link" align="center">
+                                                                Categorie Associé
+                                                            </td>
+                                                            <td align="center" class="client-link">
+                                                                Operation
+                                                            </td>
+                                                        </tr>
+                                                        {% for filtre in filtres %}
+                                                            <tr>
+                                                                <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                                </td>
+
+                                                                <td align="center">{{ filtre.nomFiltre }}</td>
+                                                                <td align="center"> {{ filtre.dateFiltre|date("m/d/Y") }}</td>
+                                                                <td  align="center">
+                                                                    {% if(filtre.statutFiltre == 1) %}
+                                                                        <span class="label label-primary">Activé</span>
+                                                                    {% else %}
+                                                                        <span class="label label-danger">Désactivé</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td align="center">
+                                                                    {% for cat in filtre.categorie %}
+                                                                        <span class="badge badge-info">{{ cat.nomCategorie }}</span>
+                                                                    {% endfor %}
+                                                                </td>
+                                                                <td align="center">
+                                                                    <a href="{{ path('filtre_edit', { 'id': filtre.id }) }}">
+                                                                        <button class="btn btn-xs btn-success">modifier</button>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="well well-sm">
+                                    <h2>Liste des Filtres</h2>
+                                    {{ form_start(form) }}
+                                    <div class="form-group"><label>Titre Filtre</label>
+                                        {{ form_widget(form.nomFiltre) }}
+                                    </div>
+                                    <div class="form-group"><label>Categorie Filtre</label>
+                                        {{ form_widget(form.categorie) }}
+                                    </div>
+                                    <div class="form-group"><label>Statut Filtre</label>
+                                        {{ form_widget(form.statutFiltre) }}
+                                    </div>
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs btn-block" type="submit"><strong>Ajouter</strong></button>
+                                            </div>
+                                            {{ form_end(form) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

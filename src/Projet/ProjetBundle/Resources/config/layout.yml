@@ -1,0 +1,17 @@
+nombreAmis:
+    path:     /nombreAmis
+    defaults: { _controller: "ProjetBundle:Layout:nombreAmis" }
+    options:
+        expose: true
+
+nombreMessage:
+    path:     /nombreMessage
+    defaults: { _controller: "ProjetBundle:Layout:nombreMessage" }
+    options:
+        expose: true
+
+categories:
+    path:     /categories
+    defaults: { _controller: "ProjetBundle:Layout:listCategories" }
+    options:
+        expose: true

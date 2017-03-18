@@ -1,0 +1,394 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+
+    <div class="container outerWrapper" ng-app="myAppDetails" ng-controller="recetteDetailsController">
+        <div class="col-md-3 menu-left menu-left-etab">
+            <!-- right column (268px) -->
+
+            <h3 class="menu-left-heading">
+                <img src="{{ asset('dist/img/ing.png') }}" alt="">
+                Ingrédients
+            </h3>
+
+
+            <section class="numerotel">
+
+                <div class="row center-block">
+                    <div class="col-xs-12 text-left" >
+                        {{ recette.descriptionIngredientRecette|raw }}
+                    </div>
+                </div>
+
+            </section>
+
+
+            <h3 class="menu-left-heading"><img src="{{ asset('dist/img/preparation.png') }}" alt="">  Préparation  </h3>
+
+
+            <section class="numerotel">
+
+                <div class="row center-block">
+                    <div class="col-xs-12">
+                        <strong>xxx</strong>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <h3 class="menu-left-heading"><img src="{{ asset('dist/img/cuisson.png') }}" alt="">  Cuisson </h3>
+            <section class="adress-etbl">
+                <p style="">
+                    <strong>{{ recette.cuissonRecette }}</strong>
+                </p>
+
+            </section>
+
+            <h3 class="menu-left-heading"><img src="{{ asset('dist/img/difu.png') }}" alt="">  Difficulté </h3>
+            <section class="adress-etbl">
+                <p style="">
+                    <strong>{{ recette.difficulte }}</strong>
+                </p>
+
+            </section>
+
+            <h3 class="menu-left-heading"><img src="{{ asset('dist/img/prix.png') }}" alt="">  Prix </h3>
+            <section class="adress-etbl">
+                <p style="">
+                    <strong>{{ recette.prix }}</strong>
+                </p>
+
+            </section>
+
+            <h3 class="menu-left-heading"><img src="{{ asset('dist/img/subcategorie-ico.png') }}" alt="">  Subcategories  </h3>
+            <section class="adress-etbl">
+                {% for rec in recette.subcategorie %}
+                    <p style="">
+                        <strong> {{ rec.nomSubCategorie }}</strong>
+                    </p>
+                {% endfor %}
+
+            </section>
+
+
+            <section>
+
+                <div class="row">
+                    <p style="text-align:center">
+                        <b>Partager sur :</b>
+                    </p>
+                    <p style="margin:0 auto;">
+                    <ul class="list-inline center-block text-center">
+                        <li> <a href="#" alt="fb">
+                                <img src="{{ asset('dist/img/facebook.png') }}" class="img-responsive" width="32" height="32" alt=""> </a>
+                        </li>
+                        <li> <a href="#" alt="tw">
+                                <img src="{{ asset('dist/img/twitter.png') }}" class="img-responsive" width="32" height="32" alt=""> </a>
+                        </li>
+                        <li> <a href="#" alt="gl">
+                                <img src="{{ asset('dist/img/google-plus.png') }}" class="img-responsive" width="32" height="32" alt=""> </a>
+                        </li>
+                        <li> <a href="#" alt="pr">
+                                <img src="{{ asset('dist/img/pinterest.png') }}" class="img-responsive" width="32" height="32" alt=""> </a>
+                        </li>
+                    </ul>
+                    </p>
+                </div>
+            </section>
+
+
+
+
+
+        </div> <!-- menu-left -->
+
+
+
+
+
+        <div class="col-md-6 center-content">
+
+
+
+            <section class="article-principal">
+                <h1 class="center-block text-center"> {{ recette.nomRecette }} </h1>
+
+                <!-- buttons -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="btn-single-gr center-block">
+
+                            {% for th in recette.theme %}
+
+                                    <a class="btn-single">{{ th.nomTheme }}</a>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="add-photo">
+                            <span class="glyphicon glyphicon-plus"></span> Ajouter votre photo
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="row center-block text-center">
+                    <div class="col-md-3">
+                        <div class="raty ratingClass"></div>
+                    </div>
+                    <div class="col-md-3" >
+                        <div class="votes-sr">8.9/10 (25 votes )</div>
+                    </div>
+
+                    <div class="col-md-6 price">
+                        <p class="price-sc">{{ recette.prix }}</p>
+                    </div>
+                </div>
+
+
+                <p>
+
+                    <a class="fancybox img-responsive center-block text-center" rel="group" href="{{ asset(recette.image.WebPath) }}" alt="single article">
+                        <img class="img-responsive" src="{{ asset(recette.image.WebPath) }}" alt="single article">
+                        <span class = "loop"></span>
+                    </a>
+
+                <div  class="hidden">
+                    <a class="fancybox" href="{{ asset('dist/img/single2.jpg') }}" rel="group"></a>
+                    <a class="fancybox" href="{{ asset('dist/img/single2.jpg') }}" rel="group"></a>
+                </div>
+                </p>
+                <p>
+                    {{ recette.descriptionRecette|raw }}
+                </p>
+                <!-- social -->
+
+            </section>
+            <section>
+                <article class="row exprimezVous exprimPublied thePost">
+
+                    <!-- ------------------------------- -->
+                    <div class="postInformations">
+                        <div class="row">
+                            <div class="col-xs-4">
+
+                            </div>
+                            <div class="col-xs-8">
+                                <!-- rating -->
+                                <ul class="list-inline infstats">
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">3</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">7</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">5</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="list-inline postUtilities postUtilities-online">
+                        <li>
+                            {% if aime == '0' %}
+                                <a class="likeBtn" ng-click="aime({{ recette.id }})"> <img src="{{ asset('dist/img/online-likeBtn.png') }}" alt="" > J’aime </a>
+                            {% else %}
+                                <a class="likeBtn" ng-click="aime({{ recette.id }})" > <img src="{{ asset('dist/img/likerouge.png') }}" alt="" > J’aime </a>
+                            {% endif %}
+
+                        </li>
+                        <li>
+                            {% if naimepas == '0' %}
+                                <a class="dislikeBtn" ng-click="aimepas({{ recette.id }})"> <img src="{{ asset('dist/img/pnline-dislikeBtn.png') }}" alt=""> J’aime pas </a>
+                            {% else %}
+                                <a class="dislikeBtn" ng-click="aimepas({{ recette.id }})"> <img src="{{ asset('dist/img/deslikerouge.png') }}" alt=""> J’aime pas </a>
+                            {% endif %}
+
+                        </li>
+                        <li>
+                            <a href="#" class="cmtBtn"> <img src="{{ asset('dist/img/online-cmtBtn.png') }}" alt=""> Commenter </a>
+                        </li>
+                        <li>
+                            <a href="#partage-modal" data-toggle="modal" class="shareBtn"> <img src="{{ asset('dist/img/online-shareBtn.png') }}" alt=""> Partage </a>
+                        </li>
+                    </ul>
+                    <h4 class="title-owl text-center"> Voir aussi... </h4>
+
+                    <div id="owl-demo">
+
+                        <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide1.jpg') }}" alt="Owl Image"><p>Recette special 1 pour bla blaaaaa...</p></a></div>
+                        <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide2.jpg') }}" alt="Owl Image"><p>Recette special 1 pour bla blaaaaa....</p></a></div>
+                        <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide3.jpg') }}" alt="Owl Image"><p>Recette special 1 pour bla blaaaaa...</p></a></div>
+                        <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide4.jpg') }}" alt="Owl Image"><p>Recette special 1 pour bla blaaaaa...</p></a></div>
+                        <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide5.jpg') }}" alt="Owl Image"><p>Recette special 1 pour bla blaaaaa...</p></a></div>
+                        <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide6.jpg') }}" alt="Owl Image"><p>Recette special 1 pour bla blaaaaa...</p></a></div>
+                        <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide7.jpg') }}" alt="Owl Image"><p>Recette special 1 pour bla blaaaaa...</p></a></div>
+                        <div  class="item"><a href="#"><img src="{{ asset('dist/img/owl/slide1.jpg') }}" alt="Owl Image"><p>Recette special 1 pour bla blaaaaa...</p></a></div>
+
+                    </div>
+
+                    <div class="showComment">
+                        <a href=""><h5>afficher les commentaires précédents</h5></a>
+
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img src="{{ asset('dist/img/avatar-tiny.jpg') }}" class="media-object" alt="Sample Image">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Mme Doe</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor... ..
+                                    incididunt ulabore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+
+
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img src="{{ asset('dist/img/avatar-tiny1.jpg') }}" class="media-object" alt="Sample Image">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Mme Doe</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor... ..incididunt ut labore
+                                    et dolore magna aliqua.</p>
+                            </div>
+                        </div><!-- end media -->
+
+                        <form class="form-inline center-block text-center">
+                            <input type="text" class="form-control inputAddComment" placeholder="Ajouter un commentaire...">
+                            <!-- <input type="submit" class="btn-commenter-online pull-right" value="commenter">   -->
+                        </form>
+                        <p class="theLast">
+                            <img src="{{ asset('dist/img/exclamtionPoint.png') }}" alt="exc">
+                <span>
+                  Ecrire un commentaire, utiliser @ pour taguer des amis
+                </span>
+                        </p>
+
+                    </div>
+                    <!-- ------------------------------- -->
+                </article>
+
+            </section>
+
+        </div>  <!-- center-content -->
+
+
+        <div class="col-md-3 menu-right">
+            <!-- right column (268px) -->
+
+
+
+
+            <section class="block-spnsirise center-block text-center">
+
+                <div class="pub">
+                    <img src="{{ asset('dist/img/banner-exemple.jpg') }}" class="img-responsive">
+
+                </div>
+
+            </section>
+
+
+
+
+
+            <h3 class="menu-right-heading"><img src="{{ asset('dist/img/m-n1.png') }}" alt="">  Mieux Noté </h3>
+
+            <section>
+
+                <div class="row img-proximite">
+
+                    <div class="col-xs-5">
+                        <a href=""><img src="{{ asset('dist/img/vaussi1.jpg') }}" alt="prox"></a>
+                    </div>
+                    <div class="col-xs-7">
+
+                        <div class="name">Le carrot special de jour !</div>
+                        <div class="note">8.9/10 (25 votes )</div>
+                        <!-- rating -->
+                        <div class="raty ratingClass"></div>
+
+                    </div>
+                </div>
+
+                <div class="row img-proximite">
+                    <div class="col-xs-5">
+                        <a href=""><img src="{{ asset('dist/img/vaussi2.jpg') }}" alt="prox"></a>
+                    </div>
+                    <div class="col-xs-7">
+
+                        <div class="name">Le carrot special de jour !</div>
+                        <div class="note">8.9/10 (25 votes )</div>
+                        <!-- rating -->
+                        <div class="raty ratingClass"></div>
+
+                    </div>
+                </div>
+
+                <div class="row img-proximite">
+                    <div class="col-xs-5">
+                        <a href=""><img src="{{ asset('dist/img/vaussi3.jpg') }}" alt="prox"></a>
+                    </div>
+                    <div class="col-xs-7">
+
+                        <div class="name">Le carrot special de jour !</div>
+                        <div class="note">8.9/10 (25 votes )</div>
+                        <!-- rating -->
+                        <div class="raty ratingClass"></div>
+
+                    </div>
+                </div>
+
+                <div class="row img-proximite">
+                    <div class="col-xs-5">
+                        <a href=""><img src="{{ asset('dist/img/vaussi4.jpg') }}" alt="prox"></a>
+                    </div>
+                    <div class="col-xs-7">
+
+                        <div class="name">Le carrot special de jour !</div>
+                        <div class="note">8.9/10 (25 votes )</div>
+                        <!-- rating -->
+                        <div class="raty ratingClass"></div>
+
+                    </div>
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('js/angularJS/recetteDetailsController.js') }}"></script>
+{% endblock %}

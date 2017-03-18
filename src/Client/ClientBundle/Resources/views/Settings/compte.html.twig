@@ -1,0 +1,229 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <section class="container">
+
+
+
+        <div class="pub-h">
+
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+
+
+
+        </div>
+
+
+
+    </section>
+
+    <div class="container outerWrapper">
+        {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': app.user.id })) }}
+
+
+
+
+
+        <div class="col-md-6 center-content">
+
+
+            <div class="text-center">
+                <div class="btn-group">
+                    <a href="{{ path('information') }}"> <button type="button" class="btn btn-primary btn-filter">Information</button></a>
+                    <a href="{{ path('compte') }}"> <button type="button" class="btn btn-primary btn-filter active">Compte</button></a>
+                    <a href="{{ path('securite') }}"><button type="button" class="btn btn-primary btn-filter ">sécurité</button></a>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p class="setting-sub">
+                    Parametre du compte
+                </p>
+            </div>
+
+            <div class="row center-block text-center secu-form">
+
+                <form>
+                    <div class="form-group">
+                        <label class="pull-left" for="settingVille">Quelle est votre Pays</label>
+
+                        <select class="form-control settingVille" id="pays">
+
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="settingVille">Quelle est votre gouv</label>
+
+                        <select class="form-control settingVille" id="settingGouv">
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="pull-left" for="settingVille">Quelle est votre region</label>
+
+                        <select class="form-control settingVille" id="settingRegion">
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="pull-left" for="settingWeb">Votre lien de site ( Blog, page facebook...)</label>
+                        <input type="input" class="form-control settingWeb" id="settingWeb">
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="settingWeb">Votre Numéro de Téléphone</label>
+                        <input type="input" class="form-control settingNum" id="settingNum">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-settings pull-right" id="saveCompte">Enregistrer</button>
+                    </div>
+                </form>
+
+            </div>
+
+
+
+
+
+
+        </div>  <!-- center-content -->
+
+
+        {{ render(controller('ClientBundle:Profile:layoutRight', { 'userId': app.user.id })) }}
+
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+
+            $.ajax({
+                url: Routing.generate('getGouv'),
+
+                type: 'POST',
+                dataType: 'JSON',
+                success: function(result) {
+
+                    domaine = "<option value='Tous'>Choisir une gouv</option>";
+
+                    $.each(result, function (index, item) {
+
+                        domaine += "<option value='" + item.id + "'>" + item.nom +"</option>";
+
+                        $('#settingGouv').html(domaine);
+
+                    });
+
+                }
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+
+
+                url: Routing.generate('getRegion'),
+                dataType: 'JSON',
+                success: function(result) {
+                    console.log(result);
+                    domaine = "<option value='Tous'>Choisir une region</option>";
+
+                    $.each(result, function (index, item) {
+
+                        domaine += "<option value='" + item.id + "'>" + item.nom +"</option>";
+
+                        $('#settingRegion').html(domaine);
+
+                    });
+
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+
+
+                url: Routing.generate('getPays'),
+                dataType: 'JSON',
+                success: function(result) {
+
+                    pays = "<option value='Tous'>Choisir un pays</option>";
+
+                    $.each(result, function (index, item) {
+
+                        pays += "<option value='" + item.id + "'>" + item.nom +"</option>";
+
+                        $('#pays').html(pays);
+
+                    });
+
+                }
+            });
+
+        });
+    </script>
+    <script>
+        $(function(){
+
+
+
+            $('#saveCompte').click(function(){
+                var settingPays = $('#pays').val();
+                var settingGouv = $('#settingGouv').val();
+                var settingRegion = $('#settingRegion').val();
+                var settingWeb = $('#settingWeb').val();
+                var settingNum = $('#settingNum').val();
+                $.ajax({
+                    url         : Routing.generate('saveCompte'),
+                    type        : 'POST',
+                    data        : {
+                        settingPays:settingPays,
+                        settingGouv:settingGouv,
+                        settingRegion:settingRegion,
+                        settingWeb:settingWeb,
+                        settingNum:settingNum
+                    },
+                    success     : function(data) {
+                        toastr.success('vos informations du compte ont ete enregistrés avec succée','Notification');
+                    },
+                    error:function(e){
+                        toastr.danger('erreur lors de l\'insertion des informations du compte','Notification');
+                    }
+
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            $.ajax({
+                url: Routing.generate('getCompteInformation'),
+                dataType: 'JSON',
+                success: function(result) {
+                    console.log(result);
+                    $('#pays').val(result.paysId);
+                    $('#settingGouv').val(result.gouvId);
+                    $('#settingRegion').val(result.regionId);
+                    $('#settingWeb').val(result.site);
+                    $('#settingNum').val(result.num);
+
+                }
+            });
+
+        });
+    </script>
+
+{% endblock %}

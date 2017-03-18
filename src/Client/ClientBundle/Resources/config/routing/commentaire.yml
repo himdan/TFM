@@ -1,0 +1,17 @@
+sendComment:
+    path:     /sendComment
+    defaults: { _controller: "ClientBundle:Commentaire:commenter" }
+    options:
+        expose: true
+
+getComments:
+    path:     /getComments
+    defaults: { _controller: "ClientBundle:Commentaire:getComments" }
+    options:
+        expose: true
+
+deleteComment:
+    path:     /deleteComment
+    defaults: { _controller: "ClientBundle:Commentaire:deleteComment" }
+    options:
+        expose: true

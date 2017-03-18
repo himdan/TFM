@@ -1,0 +1,259 @@
+
+
+#ajout-etablissement-modal.modal-wide .modal-dialog {
+  width: 80%; /* or whatever you wish */
+  max-width: 1282px; 
+  margin: 30px auto;
+}
+#ajout-etablissement-modal .modal-body .heading {
+  font-size: 19px;
+  color: rgb( 201, 83, 47 ) !important;
+  font-weight: bold;
+  line-height: 20px;
+}
+#ajout-etablissement-modal .modal-body .heading img{
+	margin-right: 10px;
+}
+#ajout-etablissement-modal .box-etablissement{
+    width: 200px;
+    height: 25px;
+    float: left;
+
+}
+#ajout-etablissement-modal .etablissement article{
+  border: 1px solid #f9f1ee;
+  border-bottom: 2px solid #f4dbd3;
+  background: #fbfbfb;
+  padding: 24px 50px;
+}
+#ajout-etablissement-modal .etablissement .radio{
+  margin-right: 36px;
+}
+#ajout-etablissement-modal .etablissement article label{
+    font-size: 13px;
+    color: #000;
+}
+#ajout-etablissement-modal .etablissement h2,
+#ajout-etablissement-modal .etablissement-inf h2{
+  font-size: 14px;
+  color: rgb( 0, 0, 0 );
+  font-weight: bold;
+  line-height: 15px;
+  letter-spacing: 1.2px;
+}
+#ajout-etablissement-modal .firstInf label{
+    color: #000;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    /* letter-spacing: 1.2px; */
+}
+#ajout-etablissement-modal .firstInf  .form-group{
+  display: block;
+}
+#ajout-etablissement-modal .firstInf  input[type="text"]{
+    display: block;
+    height: 28px;
+}
+
+#ajout-etablissement-modal .secondInf{
+  border:1px solid #c1c1c1;
+  margin-right: 18px;
+}
+
+
+#ajout-etablissement-modal .secondInf label{
+font-size: 13px;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    width: 100%;
+}
+#ajout-etablissement-modal .secondInf h2{
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+}
+#ajout-etablissement-modal .secondInf  .icheckbox_minimal-grey {
+  float: right;
+}
+#ajout-etablissement-modal .secondInf .checkbox{
+   width: 100%;
+       margin-bottom: 5px;
+  }   
+.etablissement-inf.form-inline .radio input[type="radio"], .form-inline .checkbox input[type="checkbox"] {
+    position: absolute;
+    margin-left: 0;
+}
+.RadioDesigned:not(old):checked +  label > span > span{
+
+                display: block;
+    width: 11px;
+    height: 11px;;
+    margin: 2px;
+    border: 0.0625em solid rgb(115,153,77);
+    border-radius: 1.125em;
+    background: rgb(205, 83, 43);
+
+            background       : rgb(205, 83, 43);
+
+            background-image :    -moz-linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+            background-image :     -ms-linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+            background-image :      -o-linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+            background-image : -webkit-linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+            background-image :         linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+        }
+
+.optgroup{
+    margin-top: 54px;
+}
+
+#ajout-etablissement-modal .btn-valider{
+    background: #CD532B;
+    font-weight: bold;
+    font-size: 18px;
+    width: 375px;
+    height: 47px;
+    line-height: 48px;
+    color: #FFF !important;
+    margin: 19px 0px;
+    padding: 0px;
+        border-radius: 0px;
+}
+
+
+.obtn1 .btn{
+    display: block;
+
+    background: #f5815e;
+ color: #FFF;
+    font-size: 14px;
+
+
+ 
+}
+.obtn1{
+    width: 173px;
+        position: relative;
+   
+}
+.obtn2{
+    width: 173px;
+        position: relative;
+   
+}
+.obtn2 .btn{
+    display: block;
+
+    background: #8f79a6;
+    color: #FFF;
+    font-size: 14px;
+  
+}
+.obtn2 .fileselector .btn{
+  display: inline-block;
+    height: 33px;
+    border: none;
+    border-radius: 1px;
+    color: #ffffff;
+    line-height: 16px;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-right: -2px;
+    font-weight: 100;
+    font-size: 13px;
+    float: right;
+    background: #e66e49;
+    font-size: 14px;
+    margin-bottom: 11px;
+}
+.fileselector .btn {
+display: inline-block;
+    height: 33px;
+    border: none;
+    border-radius: 1px;
+    color: #ffffff;
+    line-height: 16px;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-right: -2px;
+    font-weight: 100;
+    font-size: 13px;
+    float: right;
+    background: #5e566f;
+    font-size: 14px;
+    margin-bottom: 11px;
+}
+
+#ajout-etablissement-modal .btn-valider {
+
+    font-size: 16px;
+    width: 403px;
+
+}
+
+@media (max-width: 532px){
+.btn-photos-et{
+
+    font-size: 12px;
+
+    width: 111px;
+
+ 
+}
+.btn-prix-et{
+
+    font-size: 12px;
+
+    width: 111px;
+}
+.btn btn-valider{
+  width: 200px;
+}
+}
+
+@media (max-width: 680px){
+.optgroup {
+    top: 12px;
+    margin-bottom: 35px;
+}
+}
+
+@media (min-width: 768px){
+  #ajout-etablissement-modal .form-inline .form-control {
+      display: block;
+      width: 100%;
+      border-radius: 0;
+      border:1px solid #b7b7b7;
+  }
+  #ajout-etablissement-modal .form-inline .form-group {
+     display: block; 
+     width: 100%;
+     margin: 10px 0;
+    }
+}
+
+@media (max-width: 768px){
+  #ajout-etablissement-modal .secondInf {
+    max-width:none !important;
+    width: 100% !important;
+  }
+
+}
+
+@media (max-width: 991px){
+.optgroup {
+    top: 12px;
+    margin-bottom: 35px;
+}
+#ajout-etablissement-modal .btn-valider {
+
+    font-size: 16px;
+    width: 288px;
+
+}
+}

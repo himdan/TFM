@@ -1,0 +1,1249 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+
+
+
+{% block body %}
+
+    <style>
+
+
+
+    .disableArrow{
+
+            display:none !important;
+
+        }
+
+    </style>
+
+
+
+
+
+    <div ng-app="myApp" ng-controller="recetteController">
+
+
+
+
+
+
+
+
+
+
+        <div id="chargementPage" style="display: block">
+
+            <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;">
+
+        </div>
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" style="display:none" ng-init="usernameCo='{{ app.user }}'">
+
+            <!-- Wrapper for slides -->
+
+            {#
+
+           <div id="chargementPage" style="display: block">
+
+            <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;">
+
+            </div>
+            #}
+
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+
+            <div class="carousel-inner" role="listbox">
+
+                <div class="item active">
+
+                    <img src="{{ asset('dist/img/slider-filter.jpg') }}" alt="Chania">
+
+                    <div class="carousel-caption">
+
+                        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit<br> Lorem ipsum dolor sit amet </h3>
+
+                        <p class="titleTwo"></p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- form inside carrousel -->
+
+            <form class="form-inline center-block text-center formInsideCarrousel">
+
+                <div class="container">
+
+                    <div class="row">
+
+                            <input type="text" ng-model="filtrText" placeholder="Nom de la Recette" ng-change="filtreText()">
+
+                        {#
+
+                            <div class="col-sm-10">
+
+                            <!-- <label class="sr-only" for="inputSearch">search</label>
+
+                               <input type="text" class="form-control" id="inputSearch"> -->
+
+                            <select class="js-example-basic-multiple" id="inputSearch"  multiple="multiple">
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-sm-2">
+
+                            <button type="submit" class="btn-search">
+
+                                <!-- <span class="glyphicon glyphicon-search"></span> --> Rechercher
+
+                            </button>
+
+                        </div>
+
+                        #}
+
+
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+
+        </div>
+
+
+
+        <div class="container outerWrapper" id="page" style="display: none">
+
+
+
+            <div class="col-md-3 menu-left">
+
+
+
+                <!-- right column (268px) -->
+
+
+
+                <h3 class="menu-left-heading-primary">
+
+
+
+                    <img src="{{ asset('dist/img/prix.png') }}" alt="">
+
+
+
+                    Prix
+
+
+
+                </h3>
+
+
+
+                <div class="menu-filter1">
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="ck-button" ng-repeat="prx in prixs">
+
+
+
+
+
+
+
+                        <label>
+
+
+
+                            <input ng-click="checkUncheckNat(prx.id,'prxs')" name="cbPrix" id="prxs#prx.id#" type="checkbox"><span>#prx.prix#</span>
+
+
+
+                        </label>
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div style="padding: 20px"></div>
+
+
+
+                <h3 class="menu-left-heading-primary">
+
+
+
+                    <img src="{{ asset('dist/img/difu.png') }}" alt="">
+
+
+
+                    Difficulté
+
+
+
+                </h3>
+
+
+
+                <div class="menu-filter2">
+
+
+
+
+
+
+
+                    <div class="ck-button" ng-repeat="dfclt in difficultees">
+
+
+
+                        <label>
+
+
+
+                            <input ng-click="checkUncheckNat(dfclt.id,'diffic')" name="cbDif" id="diffic#dfclt.id#" type="checkbox"><span>#dfclt.difficult#</span>
+
+
+
+                        </label>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <!--  -->
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/theme.png') }}" alt="">
+
+
+
+                    Thème
+
+
+
+                    <a href="#" id="expandContractFilter2" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section class="themes">
+
+
+
+                    <div class="filterByinside filterByMore filterBysubcategorie " id="filterByTheme">
+
+
+
+                        <form class="form-inline">
+
+
+
+                            {#themesHne#}
+
+
+
+                            <div class="col-xs-12" ng-repeat="th in themes">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+
+
+
+
+                                    <input type="checkbox" value="yes" id="thm#th.id#" ng-click="checkUncheckNat(th.id,'thm')" name="answer"> <label for="thm#th.id#">#th.theme#</label>
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <!--  -->
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/subcategorie-ico.png') }}" alt="">
+
+
+
+                    subcategorie
+
+
+
+                    <a href="#" id="expandContractFilter" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section>
+
+
+
+                    <div class="filterByinside filterByMore filterBysubcategorie " id="filterByMore">
+
+
+
+                        <form class="form-inline">
+
+
+
+
+
+
+
+                            <div class="col-xs-12" ng-repeat="sc in subCatToShow">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+                                    <input ng-click="checkUncheckNat(sc.id,'subcat')" type="checkbox" class="big-checkbox"  value="yes" id="subcat#sc.id#" name="answer"> <label for="subcat#sc.id#">#sc.subcategorie#</label>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+
+
+                        <div id="chargementSubCat" style="display: none">
+
+
+
+                            Chargement...
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <!--  -->
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/flag.png') }}" alt="">
+
+
+
+                    Nationalité
+
+
+
+                    <a href="#" id="expandContractFilter0" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section>
+
+
+
+                    <div class="filterByinside filterByMore filterBysubcategorie " id="filterByNAT">
+
+
+
+                        <form class="form-inline">
+
+
+
+                            <div class="col-xs-12" ng-repeat="national in nationalites">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+
+
+
+
+                                    <input ng-click="checkUncheckNat(national.id,'nation')" type="checkbox" class="big-checkbox" value="yes" type="checkbox" name="answer" id="nation#national.id#"/><label for="nation#national.id#">#national.nationalite#</label>
+
+
+
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/ing.png') }}" alt="">
+
+
+
+                    Ingrédients
+
+
+
+                    <a href="#" id="expandContractFilter1" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section>
+
+
+
+                    <div class="filterByinside filterByMore filterBysubcategorie " id="filterByIngredient">
+
+
+
+                        <form class="form-inline">
+
+
+
+
+
+
+
+                            <div class="col-xs-12" ng-repeat="ingr in ingredients">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+                                    <input ng-click="checkUncheckNat(ingr.id,'ingr')" type="checkbox" class="big-checkbox"  value="yes" id="ingr#ingr.id#" name="answer"> <label for="ingr#ingr.id#"> #ingr.ingredient# </label>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <!--  -->
+
+
+
+                <!--  -->
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/meat.png') }}" alt="">
+
+
+
+                    Type de Cuisson
+
+
+
+                    <a href="#" id="expandContractFilter3" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section>
+
+
+
+                    <div class="filterByinside filterBysubcategorie " id="filterByCuisson"
+
+
+
+                         style="height:300px">
+
+
+
+                        <form class="form-inline">
+
+
+
+                            <div class="col-xs-12" ng-repeat="c in couisTypes">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+                                    <input ng-click="checkUncheckNat(c.id,'couisType')" type="checkbox" class="big-checkbox"  value="yes" id="couisType#c.id#" name="answer"><label for="couisType#c.id#"> #c.couisson# </label>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <h3 class="menu-left-heading">
+
+
+
+                    <img src="{{ asset('dist/img/sun.png') }}" alt="">
+
+
+
+                    Saison
+
+
+
+                    <a href="#" id="expandContractFilter5" class="expandContractFilter"></a>
+
+
+
+                </h3>
+
+
+
+                <!-- more filters -->
+
+
+
+                <section class="weather">
+
+
+
+                    <div class="filter-weather" id="filterBySaisson">
+
+
+
+                        <form class="form-inline">
+
+
+
+                            <div class="col-xs-12" ng-repeat="s in saisons">
+
+
+
+                                <div class="checkbox checkbox-default">
+
+
+
+                                    <input ng-click="checkUncheckNat(s.id,'sais')" type="checkbox" class="big-checkbox"  value="yes" id="sais#s.id#" name="answer"> <label for="sais#s.id#"> #s.saison#</label>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </form>
+
+
+
+                    </div>
+
+
+
+                    <!-- </div> -->
+
+
+
+                </section>
+
+
+
+                <section class="start-f">
+
+                    <button class="init" ng-click="initialFiltre()">
+
+
+
+                        <a href="" ng-click="" class="active filterBtn">
+
+
+
+                            <img src="{{ asset('dist/img/refresh-ico.png') }}" alt="Article Filter"> Initialiser</a>
+
+
+
+                    </button>
+
+
+
+
+
+
+
+                </section>
+
+
+
+            </div>
+
+
+
+            <!-- menu-left -->
+
+
+
+            <div class="col-md-9 center-content">
+
+
+
+                <div class="row text-center">
+
+
+
+                    <div class="col-md-10 col-md-offset-1 menu-r">
+
+
+
+                        <div class="ck-button" ng-repeat="m in menus" >
+
+
+
+                            <label>
+
+
+
+                                <input ng-click="checkUncheckNat(m.id,'menus')" ng-checked="m.checked" id="menus#m.id#" name="cbMenu" type="checkbox"><span>#m.menu#</span>
+
+
+
+                            </label>
+
+
+
+                        </div>
+                         <div class="trier-r">
+
+                            <ul class="nav navbar-nav">
+
+                                <li class="dropdown">
+
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th"></span></a>
+
+                                    <ul class="dropdown-menu">
+
+                                        <li><a href="#" ng-click="changeOrdre('recent')">Plus récents</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li><a href="#">plus visite</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li><a href="#" ng-click="changeOrdre('rank')">Mieux notés</a></li>
+
+
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!--small menu select -->
+
+                    
+
+
+
+                </div>
+
+
+
+
+
+
+
+                <div id="chargementBlockResult" style="display: none">
+
+
+
+                    <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;top:50%">
+
+
+
+                </div>
+
+
+
+                <div id="blockResult" style="display: block">
+
+
+
+                    <div>
+
+
+
+                        <div id="aucuneR7" style="display: none">
+
+
+
+                            <div class="alert alert-danger" style="margin-top: 50px">
+
+
+
+                                aucune resultat trouvé
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div id="existeR7" class="row all-items">
+
+
+
+                            <div class="row" ng-init="vote=3">
+
+
+
+                                <div class="col-sm-6 block-item" ng-repeat="recette in recettesFilred">
+
+
+
+                                    <a href="#" class="icon-bookmark-red"></a>
+
+
+
+                                    <a href="details/#recette.id#" target="_blank">
+
+
+
+                                        <img src="#recette.image#" class="img-responsive" alt="" style="width: 401px;height: 253px;">
+
+
+
+                                    </a>
+
+
+
+                                    <!--<h4>Nom de recette</h4>-->
+
+
+
+                                    <div  class="item-info">
+
+
+
+                                        <div class="row prixe">
+
+
+
+                                            <div class="col-xs-12">
+
+
+
+                                                <a href="http://www.troisfourchettes.com/recette/details/#recette.id#" target="_blank">
+
+
+
+                                                    <h6>#recette.recette#</h6>
+
+
+
+                                                </a>
+
+
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+                                        <div class="row">
+
+
+
+                                            <div class="col-xs-6">
+
+
+
+                                                <h6>#recette.difficulte#</h6>
+
+
+
+                                            </div>
+
+
+
+                                            <div class="col-xs-6">
+
+
+
+                                                <h6>#recette.prix#</h6>
+
+
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+                                        <div class="row">
+
+
+
+                                            <div class="col-xs-6">
+
+
+
+                                                <!-- rating -->
+
+
+
+                                                {#
+                                                    <div class='starrr star1'></div>
+                                                #}
+
+                                                {% set x='#recette.id#' %}
+
+                                                <div class='starrr' ng-click="openModalVote(recette.id)">
+
+                                                <a href=""  ng-class="{'fa fa-star': 1<=recette.note,'fa-star-o fa':1>recette.note}" style="margin-right:-5px"></a>
+                                                <a href="" ng-class="{'fa fa-star': 2<=recette.note,'fa-star-o fa':2>recette.note}" style="margin-right:-5px"></a>
+                                                <a href="" ng-class="{'fa fa-star': 3<=recette.note,'fa-star-o fa':3>recette.note}" style="margin-right:-5px"></a>
+                                                <a href="" ng-class="{'fa fa-star': 4<=recette.note,'fa-star-o fa':4>recette.note}" style="margin-right:-5px"></a>
+                                                <a href="" ng-class="{'fa fa-star': 5<=recette.note,'fa-star-o fa':5>recette.note}"></a>
+                                                </div>
+
+
+                                            </div>
+
+
+
+                                            <div class="col-xs-6 notes">#4*recette.note#/20(#recette.nbrVote# votes)</div>
+
+
+
+                                        </div>
+
+
+
+                                        <div class="row">
+
+
+
+                                            <div class="col-xs-6 prepa">Préparation: #recette.preparation#</div>
+
+
+
+                                            <div class="col-xs-6 cuiss">Cuisson: #recette.cuisson#</div>
+
+
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+
+                                    <!--  -->
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <!-- all-items -->
+
+
+
+                    </div>
+
+
+
+                    <div class="center-block text-center pagination-filter" id="paginationResult">
+
+
+
+                        <ul class="list-inline">
+
+
+
+                            <li ng-class="{'disableArrow': pageNumber == 1}"> <a href="#" ng-click="changePage('first')" > |< </a> </li>
+
+
+
+                            <li ng-class="{'disableArrow': pageNumber == 1}"> <a href="#" ng-click="changePage('prec')" > < </a> </li>
+
+
+
+                            <li> <a href="">#pageNumber#</a> </li>
+
+
+
+                            <li ng-class="{'disableArrow': pageNumber == nombreDesPages}"> <a href="#" ng-click="changePage('suivant')"> > </a> </li>
+
+
+
+                            <li ng-class="{'disableArrow': pageNumber == nombreDesPages}"> <a href="#" ng-click="changePage('last')"> >| </a> </li>
+
+
+
+                        </ul>
+
+
+
+
+
+
+
+                        Sur #nombreDesPages# Pages
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <!-- </div> -->
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+{#-----------TEST MODAL----------#}
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+          {% if app.user %}
+            <div id="partieVote" style="display: block">
+              <div class='starrr star1'>
+                  <a href="" ng-click="voter(1)"  class="fa fa-star-o" style="margin-right:-5px"></a>
+                  <a href="" ng-click="voter(2)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                  <a href="" ng-click="voter(3)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                  <a href="" ng-click="voter(4)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                  <a href="" ng-click="voter(5)" class="fa fa-star-o"></a>
+
+              </div>
+              <div id="messagePartieVote"></div>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          </div>
+          <div id="chargementPartieVote" style="display: none">
+              <h4>Vote En Cours...</h4>
+          </div>
+
+          {% else %}
+           <h2>Vous devez se connecter pour pouvoir voter</h2>
+          {% endif  %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{#-----------TEST MODAL----------#}
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block javascripts %}
+
+
+
+    <script src="{{ asset('js/angularJS/recetteController.js') }}"></script>
+
+
+
+{% endblock %}

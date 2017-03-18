@@ -1,0 +1,100 @@
+locationPage:
+    path:     /map/locationPage
+    defaults: { _controller: "ProjetBundle:Etablissement:locationMap" }
+
+location:
+    path:     /map/location
+    defaults: { _controller: "ProjetBundle:Etablissement:location" }
+    options:
+        expose: true
+
+saveLocationClient:
+    path:     /map/saveLocationClient/{lat}/{long}
+    defaults: { _controller: "ClientBundle:Client:saveLocationClient" }
+    options:
+        expose: true
+
+userNear:
+    path:     /map/userNear
+    defaults: { _controller: "ClientBundle:Profile:userNear" }
+    options:
+        expose: true
+
+etablissement:
+    path:     /
+    defaults: { _controller: "ProjetBundle:Etablissement:etablissement" }
+
+detailsEtablissement:
+    path:     /details/{etablissement}
+    defaults: { _controller: "ProjetBundle:Etablissement:detailsEtablissement" }
+
+EtablissementfiltreJSON:
+    path:     /eJson/EtablissementfiltreJSON
+    defaults: { _controller: "ProjetBundle:Etablissement:filtreJSON" }
+    options:
+        expose: true
+
+EtablissementFiltredJson:
+    path:     /eJson/EtablissementFiltredJson
+    defaults: { _controller: "ProjetBundle:Etablissement:filtredJson" }
+    options:
+        expose: true
+
+TestEtablissementFiltredJson:
+    path:     /eJson/TestEtablissementFiltredJson
+    defaults: { _controller: "ProjetBundle:Etablissement:testFiltredJson" }
+
+
+
+rankOneEtabJSON:
+    path:     /eJson/rankOneEtabJSON
+    defaults: { _controller: "ProjetBundle:Etablissement:rankOneEtabJSON" }
+    options:
+        expose: true
+
+
+nbrLikeDislikeEtabJSON:
+    path:     /eJson/nbrLikeDislikeEtabJSON
+    defaults: { _controller: "ProjetBundle:Etablissement:nbrLikeDislikeEtabJSON" }
+    options:
+        expose: true
+
+getDataForAddEtabJson:
+    path:     /eJson/getDataForAddEtabJson
+    defaults: { _controller: "ProjetBundle:Etablissement:getDataForAddEtabJson" }
+    options:
+        expose: true
+
+
+getGovsJson:
+    path:     /eJson/getGovsJson
+    defaults: { _controller: "ProjetBundle:Etablissement:getGovsJson" }
+    options:
+        expose: true
+
+
+
+getRegionSelonGovJson:
+    path:     /eJson/getRegionSelonGovJson/{idGov}
+    defaults: { _controller: "ProjetBundle:Etablissement:getRegionSelonGovJson" }
+    options:
+        expose: true
+
+
+addEtablissement:
+    path:     /eJson/addEtablissement
+    defaults: { _controller: "ProjetBundle:Etablissement:addEtablissement" }
+    options:
+        expose: true
+
+etablissement_getAll:
+    path:     /etab/etablissement_getAll
+    defaults: { _controller: AdministrationBundle:Etablissement:etablissement_getAll }
+    options:
+        expose: true
+
+etablissementSignal:
+    path:     /etab/etablissementSignal/{id}
+    defaults: { _controller: "ProjetBundle:Etablissement:etablissementSignal" }
+    options:
+        expose: true

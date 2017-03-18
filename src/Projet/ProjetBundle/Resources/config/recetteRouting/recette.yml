@@ -1,0 +1,105 @@
+recetteTest2:
+    path:     /test2
+    defaults: { _controller: "ProjetBundle:Recette:test2" }
+
+recetteJSON:
+    path:     /recetteJSON
+    defaults: { _controller: "ProjetBundle:Recette:recetteJSON" }
+    options:
+        expose: true
+
+filtredRecette:
+    path:     /filtredRecette
+    defaults: { _controller: "ProjetBundle:Recette:filtredRecette" }
+    options:
+        expose: true
+
+recette:
+    path:     /
+    defaults: { _controller: "ProjetBundle:Recette:recette" }
+
+filtreJSON:
+    path:     /filtreJSON
+    defaults: { _controller: "ProjetBundle:Recette:filtreJSON" }
+    options:
+        expose: true
+
+recettedetails:
+    path:     /details/{recette}
+    defaults: { _controller: "ProjetBundle:Recette:detailsRecette" }
+
+mostRankedJSON:
+    path:     /mostRankedJSON
+    defaults: { _controller: "ProjetBundle:Recette:mostRankedJSON" }
+    options:
+        expose: true
+
+
+
+prixJSON:
+    path:     /prixJSON
+    defaults: { _controller: "ProjetBundle:Recette:prixJSON" }
+    options:
+        expose: true
+
+difficulteJSON:
+    path:     /difficulteJSON
+    defaults: { _controller: "ProjetBundle:Recette:difficulteJSON" }
+    options:
+        expose: true
+
+nationaliteJSON:
+    path:     /nationaliteJSON
+    defaults: { _controller: "ProjetBundle:Recette:nationaliteJSON" }
+    options:
+        expose: true
+
+menuJSON:
+    path:     /menuJSON
+    defaults: { _controller: "ProjetBundle:Recette:menuJSON" }
+    options:
+        expose: true
+
+themeJSON:
+    path:     /themeJSON
+    defaults: { _controller: "ProjetBundle:Recette:themeJSON" }
+    options:
+        expose: true
+
+subcategorieJSON:
+    path:     /subcategorieJSON
+    defaults: { _controller: "ProjetBundle:Recette:subcategorieJSON" }
+    options:
+        expose: true
+
+ingredientJSON:
+    path:     /ingredientJSON
+    defaults: { _controller: "ProjetBundle:Recette:ingredientJSON" }
+    options:
+        expose: true
+
+couissonJSON:
+    path:     /couissonJSON
+    defaults: { _controller: "ProjetBundle:Recette:couissonJSON" }
+    options:
+        expose: true
+
+saisonJSON:
+    path:     /saisonJSON
+    defaults: { _controller: "ProjetBundle:Recette:saisonJSON" }
+    options:
+        expose: true
+
+
+rankOneRecetteJSON:
+    path:     /rankOneRecetteJSON
+    defaults: { _controller: "ProjetBundle:Recette:rankOneRecetteJSON" }
+    options:
+        expose: true
+
+
+nbrLikeDislikeJSON:
+    path:     /nbrLikeDislikeJSON
+    defaults: { _controller: "ProjetBundle:Recette:nbrLikeDislikeJSON" }
+    options:
+        expose: true

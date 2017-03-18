@@ -1,0 +1,254 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block body %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2><b>"{{ recette.nomRecette }}"</b>
+                <a href="{{ path('recette_edit', {'id':recette.id}) }}">Modifier la recette</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    OU
+                    <a href="{{ path('signalrecette_new', {'id':recette.id}) }}"> <b class="text-danger">Signaler la recette</b></a>
+                {% endif %}
+                |
+                <a href="{{ path('recette_active_method', {'id':recette.id}) }}"><button class="btn btn-sm btn-primary"> Activer la recette</button></a>
+                |
+                <a href="{{ path('recette_desactive_method', {'id':recette.id}) }}"><button class="btn btn-sm btn-danger"> desactiver la recette</button></a>
+            </h2>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content  animated fadeInRight article">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Saison :
+                                            {% for saison in recette.saison %}
+                                                <button class="btn btn-warning btn-xs" type="button">
+                                                    {{ saison.nomSaison }}
+                                                </button>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Difficulte :
+                                            {% if recette.difficulte != null  %}
+                                                <button class="btn btn-warning btn-xs" type="button">{{ recette.difficulte.nomDifficulte }} </button>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Theme :
+                                            {% for theme in recette.theme %}
+                                                <button class="btn btn-warning btn-xs" type="button">
+                                                    {{ theme.nomTheme }}
+                                                </button>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Prix :
+                                            {% if recette.prix != null  %}
+                                                <button class="btn btn-warning btn-xs" type="button">{{ recette.prix.nomPrix }} </button>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Nationalite :
+                                            {% if recette.nationalite != null  %}
+                                                <button class="btn btn-warning btn-xs" type="button">{{ recette.nationalite.nomNationalite }} </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> menu :
+                                            <button class="btn btn-warning btn-xs" type="button">{{ recette.menu.nomMenu }}</button>
+                                        </div>
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Subcategorie :
+                                            {% for sub in recette.subcategorie %}
+                                                <button class="btn btn-warning btn-xs" type="button">
+                                                    {{ sub.nomSubCategorie }}
+                                                </button>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> type Cuisson :
+                                            {% for cuisson in recette.typecuisson %}
+                                                <button class="btn btn-warning btn-xs" type="button">
+                                                    {{ cuisson.nomTypeCuisson }}
+                                                </button>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> ingredient :
+                                            {% for ing in recette.ingredient %}
+                                                <button class="btn btn-warning btn-xs" type="button">
+                                                    {{ ing.nomIngredient }}
+                                                </button>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Rendement :
+                                            {% if recette.rendementRecette != null  %}
+                                                <button class="btn btn-warning btn-xs" type="button">{{ recette.rendementRecette }} </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="text-center article-title">
+                            <span class="text-muted"><i class="fa fa-clock-o"></i> {{  recette.dateRecette|date("d / M / Y à H:i:s") }}</span>
+                            <h2>
+                                <b>{{ recette.nomRecette }} <b style="font-size: 10px;">(Par : {{ recette.auteur.username }})</b></b><br>
+                                {% if recette.activeRecette == 0 %}
+                                    <div class="badge badge-danger">
+                                        Recette pas encore publiée
+                                    </div>
+                                {% else %}
+                                    <div class="badge badge-info">
+                                        Recette est publiée
+                                    </div>
+                                {% endif %}
+                            </h2>
+
+                        </div>
+                        <div class="" style="margin-bottom:50px;margin-top:-50px;">
+                            <img src="{{ asset(recette.image.WebPath) }}" class="img-responsive img-thumbnail center-block" style="width: 300px;height: 300px;">
+                        </div>
+                        <h3 style="color: #1C84C6;">Cuisson de la recette :</h3>
+                        <p style="font-size: 12px;">
+                            {{ recette.cuissonRecette|raw }}
+                        </p>
+                        <h3 style="color: #1C84C6;">Préparation de la recette :</h3>
+                        <p style="font-size: 12px;">
+                            {{ recette.preparationRecette|raw }}
+                        </p>
+                        <h3 style="color: #1C84C6;">Details Ingredient :</h3>
+                        <p style="font-size: 12px;">
+                            {{ recette.descriptionIngredientRecette|raw }}
+                        </p>
+                        <h3 style="color: #1C84C6;">Description de la recette :</h3>
+                        <p style="font-size: 12px;">
+                            {{ recette.descriptionRecette|raw }}
+                        </p>
+                        <hr>
+                        <!--<div class="row">
+                            <div class="col-md-12">
+                                <div class="small text-right">
+                                    <h5>Stats:</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 56 comments </div>
+                                    <i class="fa fa-eye"> </i> 144 views
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <h2>Comments:</h2>
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="img/a1.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                Andrew Williams
+                                            </a>
+                                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            default model text.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="img/a2.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                Michael Novek
+                                            </a>
+                                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                                            default model text.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="img/a3.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                Alice Mediater
+                                            </a>
+                                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                                            default model text.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="img/a5.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                Monica Flex
+                                            </a>
+                                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                                            default model text.
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>-->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

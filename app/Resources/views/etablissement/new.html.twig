@@ -1,0 +1,352 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block body %}
+    <style>
+        .controls {
+            margin-top: 10px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #pac-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 300px;
+        }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+        .pac-container {
+            font-family: Roboto;
+        }
+
+        #type-selector {
+            color: #fff;
+            background-color: #4d90fe;
+            padding: 5px 11px 0px 11px;
+        }
+
+        #type-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+        #target {
+            width: 345px;
+        }
+    </style>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Etablissement ( <a href="{{ path('etablissement_index') }}">Afficher tous</a> )</h2>
+
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+    {{ form_start(form) }}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5><i class="fa fa-pencil-square-o"></i> Information de recherche</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="well well-sm">
+                                            <div class="form-group"><label>Categorie</label>
+                                                {{ form_widget(form.categorie) }}
+                                            </div>
+                                            <div class="form-group"><label>Specialite</label>
+                                                {{ form_widget(form.specialite) }}
+                                            </div>
+                                            <div class="form-group"><label>Ambiance</label>
+                                                {{ form_widget(form.ambiance) }}
+                                            </div>
+                                            <div class="form-group"><label>Filtre</label>
+                                                {{ form_widget(form.filtre) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5><i class="fa fa-pencil-square-o"></i> Horraire de travail</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="well well-sm">
+                                            <h3>Lundi - Vendredi</h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label><i style="font-weight: normal">Du</i></label>
+                                                    <div class="input-group clockpicker" data-autoclose="true">
+                                                        {{ form_widget(form.horraireFromFirstEtablissement) }}
+                                                        <span class="input-group-addon">
+                                                            <span class="fa fa-clock-o"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label><i style="font-weight: normal">Du</i></label>
+                                                    <div class="input-group clockpicker" data-autoclose="true">
+                                                        {{ form_widget(form.horraireToFirstEtablissement) }}
+                                                        <span class="input-group-addon">
+                                                            <span class="fa fa-clock-o"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="well well-sm">
+                                            <h3>Samedi - Dimanche</h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label><i style="font-weight: normal">Du</i></label>
+                                                    <div class="input-group clockpicker" data-autoclose="true">
+                                                        {{ form_widget(form.horraireFromSecondEtablissement) }}
+                                                        <span class="input-group-addon">
+                                                            <span class="fa fa-clock-o"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label><i style="font-weight: normal">Du</i></label>
+                                                    <div class="input-group clockpicker" data-autoclose="true">
+                                                        {{ form_widget(form.horraireToSecondEtablissement) }}
+                                                        <span class="input-group-addon">
+                                                            <span class="fa fa-clock-o"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5><i class="fa fa-pencil-square-o"></i> Coordonnées geolocalisation</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="well well-sm">
+                                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                                            <div id="map" style="height: 300px;width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="well well-sm">
+                                            <div class="form-group"><label>Lat</label>
+                                                {{ form_widget(form.latEtablissement, {'id': 'latE'}) }}
+                                            </div>
+                                            <div class="form-group"><label>Long</label>
+                                                {{ form_widget(form.longEtablissement, {'id': 'longE'}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5><i class="fa fa-pencil-square-o"></i> Information de base</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="well well-sm">
+                                            <div class="form-group"><label>Photo de couverture</label>
+                                                {{ form_widget(form.image) }}
+                                            </div>
+                                            <div class="form-group"><label>Budget Pour Deux Personnes</label>
+                                                {{ form_widget(form.budgetEtablissement) }}
+                                            </div>
+                                            <div class="form-group"><label>Nom</label>
+                                                {{ form_widget(form.nomEtablissement) }}
+                                            </div>
+                                            <div class="form-group"><label>Adresse</label>
+                                                {{ form_widget(form.adresseEtablissement) }}
+                                            </div>
+                                            <div class="form-group"><label>Gouvernorat</label>
+                                                {{ form_widget(form.gouvernorat) }}
+                                            </div>
+                                            <div class="form-group"><label>Region</label>
+                                                {{ form_widget(form.region) }}
+                                            </div>
+                                            <div class="form-group"><label>Code postale</label>
+                                                {{ form_widget(form.postaleEtablissement) }}
+                                            </div>
+                                            <div class="form-group"><label>Tel 1</label>
+                                                {{ form_widget(form.telOneEtablissement) }}
+                                            </div>
+                                            <div class="form-group"><label>tel 2</label>
+                                                {{ form_widget(form.telTwoEtablissement) }}
+                                            </div>
+                                            <div class="form-group"><label>Tel 3</label>
+                                                {{ form_widget(form.telThreeEtablissement) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5><i class="fa fa-pencil-square-o"></i> Information Internet</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="well well-sm">
+                                            <div class="form-group"><label>email</label>
+                                                {{ form_widget(form.emailEtablissement) }}
+                                            </div>
+                                            <div class="form-group"><label>Site internet</label>
+                                                {{ form_widget(form.webEtablissement) }}
+                                            </div>
+                                            <div class="form-group"><label>Page Facebook</label>
+                                                {{ form_widget(form.facebookEtablissement) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-md btn-primary pull-right m-t-n-xs btn-block" type="submit"><strong>Ajouter un établissement</strong></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 36.7609309, lng: 10.0129408},
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function() {
+                searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            // [START region_getplaces]
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+
+                // Clear out the old markers.
+                markers.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+
+                places.forEach(function(place) {
+                    var icon = {
+                        url: place.icon,
+                        size: new google.maps.Size(100, 100),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25)
+                    };
+
+
+                    //console.log(place.geometry.location.lat);
+
+                    // Create a marker for each place.
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: icon,
+                        title: place.name,
+                        position: place.geometry.location
+                    }));
+
+
+                    if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+
+
+            });
+            // [END region_getplaces]
+            google.maps.event.addListener(map, "click", function(event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                // populate yor box/field with lat, lng
+                $('#latE').val(lat);
+                $('#longE').val(lng);
+            });
+        }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGD36zjRpUtvJwdTTpChcxm5qxhdcBBCg&libraries=places&callback=initAutocomplete">
+    </script>
+{% endblock %}

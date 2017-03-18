@@ -1,0 +1,1218 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <style>
+
+        @-webkit-keyframes rotating {
+            from{
+                -webkit-transform: rotate(0deg);
+            }
+            to{
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        .rotating {
+            -webkit-animation: rotating 2s linear infinite;
+        }
+
+
+    </style>
+    <div ng-app="myAppEtab" ng-controller="etablissementController">
+        <div id="chargementPage" style="display: block">
+            <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;">
+        </div>
+
+        <div id="page" style="display: none;">
+            <!-- slider -->
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="{{ asset('dist/img/slider-filter.jpg') }}" alt="Chania">
+                        <div class="carousel-caption">
+                            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit<br> Lorem ipsum dolor sit amet </h3>
+                            <p class="titleTwo"></p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- form inside carrousel -->
+                <form class="form-inline center-block text-center formInsideCarrousel">
+
+                    <div class="container">
+                        <div class="row">
+
+
+                            <input type="text" id="topPage" ng-model="filtrText" placeholder="Lancer une recherche" ng-change="filtreText()">
+
+
+
+                            {#
+
+                            <div class="col-sm-5">
+                                <select class="js-example-basic-hide-search"  id="inputProximite">
+                                    <option value="Tunis" > Tunis</option>
+                                    <option value="Tunis" > Bizerte</option>
+                                    <option value="Tunis" > Ariana</option>
+                                    <option value="Tunis" > Nabul</option>
+                                    <option value="Tunis" > Ben Arous</option>
+                                    <option value="Tunis" > Sousse</option>
+                                    <option value="Tunis" > Manouba</option>
+                                    <option value="Sfax" > Sfax</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-5">
+                                <!-- <label class="sr-only" for="inputSearch">search</label>
+                                <input type="text" class="form-control" id="inputSearch"> -->
+                                <select class="js-example-basic-multiple" id="inputSearch"  multiple="multiple">
+                                    <option value="Restaurants"
+                                            data-image="{{ asset('dist/img/ambianceico.png') }}"> Restaurants</option>
+                                    <option value="the"
+                                            data-image="{{ asset('dist/img/aproximite.png') }}">Salons de thé & Brasseries</option>
+                                    <option value="pizzas"
+                                            data-image="{{ asset('dist/img/budgeticon.png') }}">Snacks & Pizzerias</option>
+                                    <option value="pati"
+                                            data-image="{{ asset('dist/img/cuisson.png') }}">Patisseries</option>
+                                    <option value="clubs"
+                                            data-image="{{ asset('dist/img/diffcult.png') }}">Bars & Clubs</option>
+                                    <option value="yaourt"
+                                            data-image="{{ asset('dist/img/Horaires.png') }}">Glaciers & Yaourties</option>
+                                    <option value="chokolat"
+                                            data-image="{{ asset('dist/img/ico-langue.png') }}">Dragées & chocolat</option>
+                                    <option value="recette"
+                                            data-image="{{ asset('dist/img/ico-left-etab1.png') }}">Recette</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn-search">
+                                    <!-- <span class="glyphicon glyphicon-search"></span> --> Rechercher
+                                </button>
+                            </div>
+
+                            #}
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <!-- end slider -->
+
+            <div class="container outerWrapper">
+                <div class="col-md-3 menu-left">
+                    <!-- right column (268px) -->
+
+                    <section>
+
+                        <h5 class="text-center titleBlock">
+                            <img src="{{ asset('dist/img/aproximite.png') }}" alt=""> à proximité de
+                        </h5>
+                        <!-- <div class="outerscroll"> -->
+                        <div class="filterByRegion" id="filterByRegion">
+                            <form class="form-inline proximi">
+
+                                <!-- <div class="radio">
+                                    <label>
+                                      <input type="radio" class="big-radio" name="quux[1]"> Restaurant
+                                    </label>
+                                </div>
+
+
+                                <div class="col-xs-12" ng-repeat="sp in specialite">
+                                    <div class="checkbox checkbox-default">
+                                        <input type="checkbox" value="yes" id="sp#sp.id#" ng-click="checkuncheck(sp.id,'sp')" name="answer">
+                                        <label for="sp#sp.id#">#sp.specialite#</label>
+
+                                    </div>
+                                </div>
+
+
+                                -->
+
+                                <div class="col-xs-6" ng-repeat="g in govs">
+                                    <div>
+                                        <input id="g#g.id#" class="RadioDesigned" type="radio" name="govCB" ng-click="checkuncheck(g.id,'g')"><label for="g#g.id#" class="ng-binding"><span><span></span></span>#g.nomgov#</label>
+                                    </div>
+
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                        <!-- </div> -->
+                    </section>
+
+
+
+
+                    <!-- slider -->
+                    <section>
+                        <h5 class="text-center titleBlock">
+                            <img src="{{ asset('dist/img/budgeticon.png') }}" alt=""> Budget pour deux (TND)
+                        </h5>
+
+                        <div class="text-center paddingWrapper">
+
+                            {#
+                                 <div ng-click="tester()" ng-keydown="tester()" id="slider-range"></div>
+                            <div class="row">
+                                <div class="col-xs-6" style="text-align:left">
+                                    <span id="rangeMin">0</span>
+                                </div>
+                                <div class="col-xs-6"  style="text-align:right">
+                                    <span id="rangeMax">500</span> <span>+</span>
+                                </div>
+                            </div>
+                            #}
+
+                            <div range-slider min="0" max="100"  model-min="demo1.min" model-max="demo1.max"></div>
+
+                            Min<span ng-bind="demo1.min"></span>||
+                            Max<span ng-bind="demo1.max"></span>
+
+                        </div>
+                    </section>
+
+
+                    <!-- specialité -->
+                    <section>
+                        <h5 class="text-center titleBlock">
+                            <img src="{{ asset('dist/img/kaskrout.png') }}" alt=""> Spécialité
+                        </h5>
+                        <!-- <div class="outerscroll"> -->
+                        <div class="filterByRegion filterByCuisine" id="filterByCuisine">
+                            <form class="form-inline spec">
+
+                                <div class="col-xs-12" ng-repeat="sp in specialite">
+                                    <div class="checkbox checkbox-default">
+                                        <input type="checkbox" value="yes" id="sp#sp.id#" ng-click="checkuncheck(sp.id,'sp')" name="answer">
+                                        <label for="sp#sp.id#">#sp.specialite#</label>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <!-- </div> -->
+                    </section>
+
+
+
+
+
+                    <!-- ambiance -->
+                    <section>
+                        <h5 class="text-center titleBlock">
+                            <img src="{{ asset('dist/img/ambianceico.png') }}" alt=""> Ambiance
+                        </h5>
+                        <!-- <div class="outerscroll"> -->
+                        <div class="filterByRegion filterByAmbiance" id="filterByAmbiance">
+                            <form class="form-inline ambi">
+
+                                <div class="col-xs-12" ng-repeat="am in ambiance">
+                                    <div class="checkbox checkbox-default">
+                                        <input type="checkbox" value="yes" id="am#am.id#" ng-click="checkuncheck(am.id,'am')" name="answer">
+                                        <label for="am#am.id#">#am.ambiance#</label>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- </div> -->
+                    </section>
+
+
+
+                    <h3 class="menu-left-heading">
+                        <img src="{{ asset('dist/img/morefilters.png') }}" alt="">
+                        Plus de Filtres
+                        <a href="#" id="expandContractFilter" class="expandContractFilter"></a>
+                    </h3>
+
+                    <!-- more filters -->
+                    <section>
+
+                        <div class="filterByRegion filterByPlus" id="filterByPlus">
+                            <form class="form-inline plusf">
+
+                                <div class="col-xs-12" ng-repeat="fl in filtre">
+                                    <div class="checkbox checkbox-default">
+                                        <input type="checkbox" value="yes" id="fl#fl.id#" ng-click="checkuncheck(fl.id,'fl')" name="answer">
+                                        <label for="fl#fl.id#">#fl.filtre#</label>
+
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                        <!-- </div> -->
+                    </section>
+
+                    <section>
+                        <button class="init btn-block" ng-click="initalizeFilter()">
+
+
+                            <a href="" ng-click="" class="active filterBtn">
+
+
+
+                                <img src="{{ asset('dist/img/refresh-ico.png') }}" alt="Article Filter"> Initialiser</a>
+
+                        </button>
+                    </section>
+
+                </div> <!-- menu-left -->
+
+
+                <div class="col-sm-9 center-content">
+
+                    <div id="chargementBlockResult" style="display: none">
+                        <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;top:50%">
+                    </div>
+
+                    <div id="blockResult" style="display: block">
+
+
+
+                        <div id="aucuneR7" style="display: none">
+                            <div class="alert alert-info">
+                                aucune resultat trouvé
+                            </div>
+                        </div>
+
+                        <div id="existeR7">
+
+                            <!-- the map -->
+                            <div name="PasTebaaResult" id="map-responsive">
+
+                            </div>
+
+                            <!-- filter par ville -->
+                            <div id="filtreRegion" class="filterByCity text-center">
+                                <form class="form-inline">
+
+                                    <div class="checkbox checkbox-default" ng-repeat="reg in regionsAff">
+                                        <input type="checkbox" ng-checked="ischeckedReg(reg.id)" id="rega#reg.id#" ng-click="checkRegion(reg.id,'rega')" name="regionCB">
+                                        <label for="rega#reg.id#">#reg.nomreg#</label>
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+
+
+
+                            <div name="tebaaResult" class="row text-center">
+                                <div class="col-md-9 col-center menu-e sngr">
+
+                                    <div class="ck-button">
+
+
+
+                                        <label>
+
+                                            <input type="checkbox" id="prixAsc" ng-click="changeAscOrDesc('asc')" ng-checked="AscOrDesc == 'prixAsc'"><span>Prix Ascendant</span>
+
+                                        </label>
+
+                                    </div>
+                                    <div class="ck-button">
+
+
+
+                                        <label>
+
+                                            <input type="checkbox" id="prixDesc" ng-click="changeAscOrDesc('desc')" ng-checked="AscOrDesc == 'prixDesc'"><span>Prix Discendant</span>
+
+                                        </label>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="trier">
+                                        <ul class="nav navbar-nav">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-th"></span></a>
+                                                <ul class="dropdown-menu">
+
+                                                    <li><a href="" ng-click="changeOrdre('recent')">Plus récents</a></li>
+
+                                                    <li class="divider"></li>
+
+                                                    <li><a href="" ng-click="changeOrdre('visite')">plus visite</a></li>
+
+                                                    <li class="divider"></li>
+
+                                                    <li><a href="" ng-click="changeOrdre('rank')">Mieux notés</a></li>
+
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div name="tebaaResult" class="all-items">
+                                <div class="row">
+                                    <div class="col-sm-6 block-item" ng-repeat="et in etablissementFiltred">
+                                        <a id="btnFav#et.id#" class="#et.fav#" ng-click="addFavorie(et.id)"></a>
+                                        <a href="details/#et.id#" target="_blank">
+                                            <img src="#et.img#" class="img-responsive" alt="" style="width: 401px;height: 253px;">
+                                        </a>
+                                        <h4>#et.nom_etablissement#</h4>
+                                        <div  class="item-info">
+                                            <div class="row">
+                                                <div class="col-xs-6">Localisation</div>
+                                                <div class="col-xs-6">Sousse <a href="#" class="carte" alt="cart">, carte</a></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">Budget moyen</div>
+                                                <div class="col-xs-6">#et.budget_etablissement# TND</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6" ng-click="openModalVote(et.id)">
+                                                    <!-- rating -->
+                                                    <div class="starrr">
+                                                        <a href=""  ng-class="{'fa fa-star': 1<=et.note,'fa-star-o fa':1>et.note}" style="margin-right:-5px"></a>
+                                                        <a href="" ng-class="{'fa fa-star': 2<=et.note,'fa-star-o fa':2>et.note}" style="margin-right:-5px"></a>
+                                                        <a href="" ng-class="{'fa fa-star': 3<=et.note,'fa-star-o fa':3>et.note}" style="margin-right:-5px"></a>
+                                                        <a href="" ng-class="{'fa fa-star': 4<=et.note,'fa-star-o fa':4>et.note}" style="margin-right:-5px"></a>
+                                                        <a href="" ng-class="{'fa fa-star': 5<=et.note,'fa-star-o fa':5>et.note}"></a>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-xs-6"><p>#2*et.note#/10(#et.nbrVote# votes)</p></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div> <!-- all-items -->
+
+
+
+
+
+                            <div name="tebaaResult" class="center-block text-center pagination-filter" id="paginationResult">
+                                <ul class="list-inline">
+                                    <li ng-class="{'disableArrow': pageNumber == 1}"> <a href="" ng-click="changePage('first')" > |< </a> </li>
+                                    <li ng-class="{'disableArrow': pageNumber == 1}"> <a href="" ng-click="changePage('prec')" > < </a> </li>
+                                    <li> <a>#pageNumber#</a> </li>
+                                    <li ng-class="{'disableArrow': pageNumber == nombreDesPages}"> <a href="" ng-click="changePage('suivant')"> > </a> </li>
+                                    <li ng-class="{'disableArrow': pageNumber == nombreDesPages}"> <a href="" ng-click="changePage('last')"> >| </a> </li>
+                                </ul>
+
+                                Sur #nombreDesPages# Pages
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <input type="hidden" id="latt" ng-model="latt">
+            <input type="hidden" id="longg" ng-model="longg">
+            <!--<button id="testMap" onclick="initMap()">test Map</button>
+            <div><b>TEST LOCALSTORAGE YOUSSEL : #testLocalStorage#</b></div>-->
+
+        </div>
+
+
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        {% if app.user %}
+                            <div id="partieVote" style="display: block">
+                                <div class='starrr star1'>
+                                    <a href="" ng-click="voter(1)"  class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(2)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(3)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(4)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(5)" class="fa fa-star-o"></a>
+
+                                </div>
+                                <div id="messagePartieVote"></div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            </div>
+                            <div id="chargementPartieVote" style="display: none">
+                                <h4>Vote En Cours...</h4>
+                            </div>
+
+                        {% else %}
+                            <h2>Vous devez se connecter pour pouvoir voter</h2>
+                        {% endif  %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {#
+    <script src="{{ asset('js/angularJS/etablissementController.js') }}"></script>
+    #}
+
+
+    <script>
+
+        var appEtab = angular.module('myAppEtab',['ui-rangeSlider'])
+                .config(function($interpolateProvider){
+                    $interpolateProvider.startSymbol('#').endSymbol('#');
+
+
+
+
+                })
+                .directive('loading', function () {
+                    return {
+                        restrict: 'E',
+                        replace:true,
+                        template: '<div class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="20" height="20" />LOADING...</div>',
+                        link: function (scope, element, attr) {
+                            scope.$watch('loading', function (val) {
+                                if (val)
+                                    $(element).show();
+                                else
+                                    $(element).hide();
+                            });
+                        }
+                    }
+                });
+        appEtab.controller('etablissementController', function($scope,$http) {
+            $scope.textTofind="";
+
+            $scope.ordre="recent";
+            $scope.futurUn=0;
+            $scope.futurDeux=0;
+
+            //localStorage.setItem("test","nidhal");
+
+            if(document.referrer){
+                $scope.testLocalStorage=localStorage.getItem('categorieEtab');
+
+            }
+
+
+
+
+            $scope.latt=36.7605422;
+            $scope.longg=10.0127649;
+            $scope.filtrePret=false;
+
+            $scope.demo1 = {
+                min: 0,
+                max: 100
+            };
+
+            $scope.nbrExecuteFromSlide=0;
+
+
+
+
+            $scope.$watch("demo1.min", function(newValue, oldValue){
+                $scope.minBudget=newValue;
+                $scope.nbrExecuteFromSlide++;
+                $scope.calldatabaseEtab($scope.nbrExecuteFromSlide);
+
+            });
+
+            $scope.$watch("demo1.max", function(newValue, oldValue){
+                $scope.maxBudget=newValue;
+
+                $scope.nbrExecuteFromSlide++;
+                $scope.calldatabaseEtab($scope.nbrExecuteFromSlide);
+
+            });
+
+            //$scope.$watch($scope.demo1.min, $scope.tester);
+
+            $scope.specialite=[];
+            $scope.ambiance=[];
+            $scope.filtre=[];
+            $scope.govs=[];
+            $scope.pageNumber= 1 ;
+
+
+            $scope.specToFind=[];
+            $scope.ambToFind=[];
+            $scope.filToFind=[];
+            $scope.regToFind=[];
+
+
+            /******HEDHI TETBADEL APRES KI TWALLI BEL GEOLOCALISATION*******/
+            $scope.govToFind=[1];
+
+            $scope.initalizeFilter=function(){
+                $scope.textTofind="";
+
+                $scope.specToFind=[];
+                $scope.ambToFind=[];
+                $scope.filToFind=[];
+                $scope.regToFind=[];
+                $scope.pageNumber= 1 ;
+
+                /*HEDHI NORMALEMENT TET3ABA SELON GEOLOCALISATION*/
+                /*HEDHI NORMALEMENT TET3ABA SELON GEOLOCALISATION*/
+                /*************/ $scope.govToFind=[]; /************/
+
+
+                var ElementsGouv=document.getElementsByName("govCB");
+
+                for(var egi=0;egi< ElementsGouv.length ; egi++){
+                    ElementsGouv[egi].checked=false;
+
+                }
+
+                $scope.govToFind=[1];
+                var CBTunisGov=document.getElementById('g1');
+
+                setTimeout(function(){
+
+                    CBTunisGov.checked=true;
+                },100);
+
+
+                /*HEDHI NORMALEMENT TET3ABA SELON GEOLOCALISATION*/
+                /*HEDHI NORMALEMENT TET3ABA SELON GEOLOCALISATION*/
+
+
+
+                var ElementsFiltre=document.getElementsByName("answer");
+
+                for(var i=0;i< ElementsFiltre.length ; i++){
+                    ElementsFiltre[i].checked=false;
+
+                }
+
+
+
+                $scope.calldatabaseEtab(99);
+            }
+
+            //$scope.initalizeFilter();
+
+
+
+
+
+
+
+            $scope.filtreText=function(){
+                $scope.textTofind=$scope.filtrText;
+                if($scope.textTofind.length > -1){
+
+                    $scope.calldatabaseEtab(99);
+
+
+                }
+
+
+            }
+
+
+
+
+            $scope.addFavorie = function(idR){
+                $http.post(Routing.generate('Addfavoris', { id: idR , type: "etablissement"}))
+                        .success(function(response) {
+
+                            if(response.success){
+                                var idBtnFav="btnFav"+idR;
+                                var btnFav=document.getElementById(idBtnFav);
+
+                                if(btnFav.className=="icon-bookmark-gris"){
+                                    btnFav.className="icon-bookmark-red";
+                                }else if(btnFav.className=="icon-bookmark-red"){
+                                    btnFav.className="icon-bookmark-gris";
+
+                                }
+                            }else{
+                                toastr.warning('Vous devez <a href="http://localhost/troisfourchettes/web/app_dev.php/login">se connecter</a> pour pouvoir mettre en favoris','notification',2000);
+                            }
+
+
+                        });
+
+            }
+
+
+
+
+
+
+            $scope.changePage=function(act){
+                if(act=="prec"){
+                    if($scope.pageNumber > 1){
+
+                        $scope.pageNumber= $scope.pageNumber - 1 ;
+
+                        $scope.calldatabaseEtab(99);
+
+
+                    }
+
+                }
+
+
+                if(act=="suivant"){
+                    if($scope.pageNumber < $scope.nombreDesPages){
+                        $scope.pageNumber= $scope.pageNumber + 1 ;
+
+                        $scope.calldatabaseEtab(99);
+
+
+                    }
+
+                }
+
+                if(act=="first"){
+                    $scope.pageNumber= 1 ;
+                    $scope.calldatabaseEtab(99);
+                }
+
+
+                if(act=="last"){
+                    $scope.pageNumber= $scope.nombreDesPages ;
+                    $scope.calldatabaseEtab(99);
+                }
+
+
+            }
+
+
+            $scope.nbrExcCallDataBase = 0;
+
+
+            $scope.calldatabaseEtab=function(nbrFromSlide){
+
+                if(nbrFromSlide == 1){
+                    $scope.futurUn=1;
+                }
+
+                if(nbrFromSlide == 2){
+                    $scope.futurDeux=2;
+                }
+
+
+                if($scope.futurUn==1 && $scope.futurDeux==2){
+                    $scope.nbrExcCallDataBase++;
+                    if($scope.nbrExcCallDataBase == 1){
+                        $scope.initalizeFilter();
+                    }
+                    document.getElementById('chargementBlockResult').style.display="block";
+                    document.getElementById('blockResult').style.display="none";
+                    $scope.tblCat=[];
+
+
+                    if(document.referrer){
+                        if (localStorage.getItem("categorieEtab") === null) {
+                            //...
+                        }else{
+                            $scope.tblCat.push(localStorage.getItem("categorieEtab"));
+                        }
+                    }
+
+                    var objToSend={
+                        categorie:$scope.tblCat,
+                        textTofind:$scope.textTofind,
+                        specToFind:$scope.specToFind,
+                        ambToFind:$scope.ambToFind,
+                        filToFind:$scope.filToFind,
+                        govToFind:$scope.govToFind,
+                        regToFind:$scope.regToFind,
+                        minBudToFind:$scope.minBudget,
+                        maxBudToFind:$scope.maxBudget,
+                        pageNumber:$scope.pageNumber,
+                        ordre:$scope.ordre
+
+                    }
+
+
+
+
+                    setTimeout(function(){
+
+
+                        $http.post(Routing.generate('EtablissementFiltredJson'),objToSend)
+                                .then(function(response) {
+                                    $scope.regionsAff=response.data.regions;
+                                    if(response.data.result==0){
+
+
+                                        document.getElementById('aucuneR7').style.display="block";
+
+
+                                        document.getElementById('existeR7').style.display="none"; //name="tebaaResult"
+
+                                        var DivsResult=document.getElementsByName("tebaaResult");
+                                        for(dvi=0;dvi<DivsResult.length;dvi++){
+                                            DivsResult[dvi].style.display="none";
+                                        }
+
+
+
+                                    }else{
+                                        document.getElementById('aucuneR7').style.display="none";
+                                        document.getElementById('existeR7').style.display="block";
+
+
+                                        var DivsResult=document.getElementsByName("tebaaResult");
+                                        for(dvi=0;dvi<DivsResult.length;dvi++){
+                                            DivsResult[dvi].style.display="block";
+                                        }
+
+
+                                        $scope.etablissementFiltred=response.data.result;
+                                        $scope.nombreTotal=response.data.total;
+
+                                        $scope.nombreDesPages=Math.ceil($scope.nombreTotal/10);
+
+                                    }
+
+                                    document.getElementById('chargementBlockResult').style.display="none";
+                                    document.getElementById('blockResult').style.display="block";
+
+
+
+
+                                });
+
+
+                    },500);
+
+
+                }
+
+
+
+
+
+
+            }
+
+
+
+            $scope.checkRegion=function(id,quoi) {
+
+                var idCheckReg = quoi + id;
+                var checkCheckReg = document.getElementById(idCheckReg);
+
+                if (checkCheckReg.checked) {
+                    $scope.regToFind.push(id);
+
+                } else {
+                    var indexIdReg = $scope.regToFind.indexOf(id);
+                    if (indexIdReg > -1) {
+                        $scope.regToFind.splice(indexIdReg, 1);
+                    }
+                }
+
+                $scope.calldatabaseEtab(99);
+
+
+
+            }
+
+
+            $scope.ischeckedReg=function(id){
+                var indexIdRegIsChecked = $scope.regToFind.indexOf(id);
+
+                if(indexIdRegIsChecked> -1){
+                    return true;
+                }else{
+                    return false;
+                }
+
+            }
+
+
+
+
+            $scope.checkuncheck=function(id,quoi) {
+                var idCheck = quoi + id;
+
+
+
+                /*********MTA3 EL GOVERNERAT*****************/
+
+
+
+                if(quoi=="g"){
+
+                    /*NFARAGH LES REGIONS W NDECOCHEHOM*/
+                    $scope.regToFind=[];
+                    //regionCB
+                    var regionsCBToDec=document.getElementsByName("regionCB");
+                    for(var ri=0;ri<regionsCBToDec.length;ri++ ){
+                        regionsCBToDec[ri].checked=false;
+                    }
+
+                    /*NFARAGH LES REGIONS W NDECOCHEHOM*/
+
+
+
+
+                    var checkCheckG = document.getElementById(idCheck);
+                    var indexIdG = $scope.govToFind.indexOf(id);
+
+                    if (indexIdG > -1) {
+                        $scope.govToFind.splice(indexIdG, 1);
+                        checkCheckG.checked=false;
+                    } else {
+                        $scope.govToFind=[];
+                        $scope.govToFind.push(id);
+                    }
+
+
+
+
+
+
+                }
+
+                /*********MTA3 EL GOVERNERAT*****************/
+
+
+
+
+
+                if(quoi=="sp"){
+
+                    var checkChecksp = document.getElementById(idCheck);
+
+                    if (checkChecksp.checked) {
+                        $scope.specToFind.push(id);
+
+                    } else {
+                        var indexIdSP = $scope.specToFind.indexOf(id);
+                        if (indexIdSP > -1) {
+                            $scope.specToFind.splice(indexIdSP, 1);
+                        }
+                    }
+
+                }
+
+                if(quoi=="am"){
+
+                    var checkCheckam = document.getElementById(idCheck);
+
+                    if (checkCheckam.checked) {
+                        $scope.ambToFind.push(id);
+
+                    } else {
+                        var indexIdAM = $scope.ambToFind.indexOf(id);
+                        if (indexIdAM > -1) {
+                            $scope.ambToFind.splice(indexIdAM, 1);
+                        }
+                    }
+
+                }
+
+                if(quoi=="fl"){
+
+                    var checkCheckfl = document.getElementById(idCheck);
+
+                    if (checkCheckfl.checked) {
+                        $scope.filToFind.push(id);
+
+                    } else {
+                        var indexIdFL = $scope.filToFind.indexOf(id);
+                        if (indexIdFL > -1) {
+                            $scope.filToFind.splice(indexIdFL, 1);
+                        }
+                    }
+
+                }
+
+
+                $scope.pageNumber= 1 ;
+
+                $scope.calldatabaseEtab(99);
+
+            }
+
+            //$scope.pathFilre="http://localhost/last/web/app_dev.php/etablissement/eJson/EtablissementfiltreJSON";
+            $http.post(Routing.generate('EtablissementfiltreJSON'))
+                    .then(function(response) {
+
+                        /*********PARTIE Langues*************/
+
+
+
+                        $.each(response.data["specialite"], function (index, item) {
+
+
+                            $scope.specialite.push({
+                                id:item.id,
+                                specialite:item.specialite
+                            });
+
+
+                        });
+
+                        $.each(response.data["ambiance"], function (index, item) {
+
+
+                            $scope.ambiance.push({
+                                id:item.id,
+                                ambiance:item.ambiance
+                            });
+
+
+                        });
+
+
+                        $.each(response.data["filtre"], function (index, item) {
+
+
+                            $scope.filtre.push({
+                                id:item.id,
+                                filtre:item.filtre
+                            });
+
+
+                        });
+
+
+
+                        $.each(response.data["gov"], function (index, item) {
+
+
+                            $scope.govs.push({
+                                id:item.id,
+                                nomgov:item.nomgov
+                            });
+
+
+                        });
+
+                        setTimeout(function(){
+                            var CBTunisGov=document.getElementById('g1');
+                            CBTunisGov.checked=true;
+
+                        },100)
+
+
+
+                        /*********FIN DU CHARGEMENT************/
+                        $scope.filtrePret=true;
+                        document.getElementById("chargementPage").style.display="none";
+                        document.getElementById("page").style.display="block";
+
+                        /*********FIN DU CHARGEMENT************/
+
+                    }).then(function(response) {
+
+
+
+            });
+
+
+            $scope.openModalVote=function(idRV){
+
+                {% if(app.user) %}
+
+                $scope.idEtabAvoter=idRV;
+                $('#myModal').modal('show');
+
+                {% else %}
+                toastr.warning('Vous devez <a href="http://localhost/troisfourchettes/web/app_dev.php/login">se connecter</a> pour pouvoir voter','notification',2000);
+                {% endif %}
+
+            }
+
+
+
+            $scope.voter=function(NbrVote){
+                document.getElementById("partieVote").style.display="none";
+                document.getElementById("chargementPartieVote").style.display="block";
+                document.getElementById("messagePartieVote").innerHTML="";
+                $http.post(Routing.generate('Addrank', { id: $scope.idEtabAvoter, type: "etablissement",nbr:NbrVote }))
+                        .then(function(response) {
+                            document.getElementById("partieVote").style.display="block";
+                            document.getElementById("chargementPartieVote").style.display="none";
+                            document.getElementById("messagePartieVote").innerHTML=response.data.success;
+                            //$scope.callDatabase();
+                            $scope.calldatabaseEtab(99);
+                        }).then(function(response){
+                    setTimeout(function(){
+                        $('#myModal').modal('hide');
+                    },2000);
+                });
+
+
+            }
+
+
+            $scope.changeOrdre=function(quoi){
+                //window.scrollTo(0, 315);
+
+                $scope.pageNumber=1;
+                $scope.ordre=quoi;
+                $scope.calldatabaseEtab(99);
+            }
+
+
+            $scope.descOrAsc=[];
+
+            $scope.changeAscOrDesc=function(quoi){
+                if(quoi=='asc'){
+
+                    var indexIdVA = $scope.descOrAsc.indexOf("prixAsc");
+
+                    if (indexIdVA > -1) {
+                        $scope.AscOrDesc="";
+                        $scope.descOrAsc=[];
+                        $scope.ordre="recent";
+                    } else {
+                        $scope.AscOrDesc="prixAsc";
+                        $scope.descOrAsc=[];
+                        $scope.descOrAsc.push("prixAsc");
+                        $scope.ordre="prixAsc";
+                    }
+
+                }
+
+                if(quoi=='desc'){
+
+                    var indexIdAV = $scope.descOrAsc.indexOf("prixDesc");
+
+                    if (indexIdAV > -1) {
+                        $scope.AscOrDesc="";
+                        $scope.descOrAsc=[];
+                        $scope.ordre="recent";
+                    } else {
+
+                        $scope.AscOrDesc="prixDesc";
+                        $scope.descOrAsc=[];
+                        $scope.descOrAsc.push("prixDesc");
+                        $scope.ordre="prixDesc";
+
+                    }
+
+
+
+                }
+
+                $scope.pageNumber= 1 ;
+                $scope.calldatabaseEtab(99);
+
+            }
+
+
+
+        });
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+
+
+        var map;
+        function initMap() {
+            setTimeout(function(){
+                var myLatLng = {lat: 36.7605422, lng: 10.0127649};
+                map = new google.maps.Map(document.getElementById('map-responsive'), {
+                    center: myLatLng,
+                    zoom: 8,
+                    width:818,
+                    height : 378
+                });
+
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Hello World!',
+                    icon:'{{ asset('dist/img/mapM.png') }}'
+                });
+
+
+
+
+
+                $.ajax({
+
+                    url: Routing.generate('location'),
+                    success:function(data) {
+
+                        //Loop through each location.
+                        $.each(data, function () {
+
+                            var point = new google.maps.LatLng(this.lat, this.long);
+
+                            var marker = new google.maps.Marker({
+                                position: point,
+                                map: map,
+                                animation: google.maps.Animation.DROP,
+
+                                icon:'{{ asset('dist/img/maps.png') }}'
+                            });
+                            marker.addListener('click', toggleBounce);
+                        });
+                    }
+
+                });
+            },2000);
+
+        }
+
+        function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGD36zjRpUtvJwdTTpChcxm5qxhdcBBCg&callback=initMap">
+    </script>
+
+{% endblock %}

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.css') }}"><!-- All website -->
+        <link rel="stylesheet" href="{{ asset('dist/css/jquery.raty.css') }}"><!--Home + profil + Blog + recettes + etablissements + single etablissement + single-recette + single article + restaut de semaine  -->
+        <link rel="stylesheet" href="{{ asset('dist/css/jquery.mCustomScrollbar.css') }}" /><!-- profil + blog + recettes + etablissements -->
+        <link rel="stylesheet" href="{{ asset('dist/css/jquery-ui.css') }}"><!-- All website -->
+        <link rel="stylesheet" href="{{ asset('dist/css/all.css') }}" /><!-- Blog + recettes + etablissements + single etablissement  -->
+        <link rel="stylesheet" href="{{ asset('dist/css/datepicker3.css') }}" />
+        <link rel="stylesheet" href="{{ asset('dist/css/select2.min.css') }}" /><!-- All website -->
+        <link rel="stylesheet" href="{{ asset('dist/css/jquery.fancybox.css') }}"><!-- single recette + single etablissement -->
+        <link rel="stylesheet" href="{{ asset('dist/css/owl.carousel.css') }}"><!-- single recette + single etablissement + single article -->
+        <link rel="stylesheet" href="{{ asset('dist/css/owl.theme.css') }}"><!-- single recette + single etablissement + single article -->
+        <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}"><!-- All website -->
+        <link rel="stylesheet" href="{{ asset('dist/css/recipes.css') }}"><!-- only recettes -->
+        <link rel="stylesheet" href="{{ asset('dist/css/blog.css') }}">
+        <link rel="stylesheet" href="{{ asset('dist/css/single-recette.css') }}">
+        <link rel="stylesheet" href="{{ asset('dist/css/single-article.css') }}"><!-- single recette -->
+        <link rel="stylesheet" href="{{ asset('dist/css/group.css') }}"><!-- single recette -->
+        <link rel="stylesheet" href="{{ asset('dist/css/angular.rangeSlider.css') }}"><!-- single recette -->
+        <link rel="stylesheet" href="{{ asset('dist/css/build.css') }}"><!-- single recette -->
+        <link rel="stylesheet" href="{{ asset('dist/css/single-etablissement.css') }}"><!-- single recette -->
+        <link rel="stylesheet" href="{{ asset('dist/css/e-modal.css') }}">
+        <link rel="stylesheet" href="{{ asset('dist/bower/Font-Awesome/css/font-awesome.css') }}"/>
+        <link href="{{ asset('css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('dist/css/fbphotobox.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('dist/css/profil.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('dist/css/bookmark.css') }}">
+        <link rel="stylesheet" href="{{ asset('dist/css/messages.css') }}">
+
+
+        <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" >
+        <style>
+            body{
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -o-user-select: none;
+                user-select: none;
+            }
+        </style>
+    </head>
+    <body>
+
+    <!-- connexion/inscription modal -->
+    <div id="connexion-modal" class="modal fade modal-wide">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="text-center" id="titleModal">Connexion </p>
+                </div>
+
+                <div class="modal-body">
+                    <!-- 1st -->
+                    <div class="row" id="cx-modal-open">
+                        <div class="col-sm-6 partLeft">
+
+                            <p class="text-center para-principal"> J'ai déjà un compte </p>
+                            <a href="{{ path('fos_user_security_login') }}"><button class="btn btn-sm btn-primary">Connexion</button></a>
+                        </div>
+                        <div class="col-sm-6 partRight">
+                            <p class="text-center  para-principal" > Je suis un nouvel utilisateur <a href="#" class="insc-vous" id="openConnexion">Incrivez-vous</a> </p>
+                            <button class="btn btn-sm btn-primary">INscription</button>
+                        </div>
+                    </div>
+                    <!-- end 2nd -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+        {% if app.user %}
+            <header>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <!-- logo -->
+                            <a href="{{ path('homepage') }}"> <img src="{{ asset('dist/img/logo-web.png') }}" class="img-responsive logo" alt="logo"> </a>
+                        </div>
+                        <div class="col-md-8" >
+                            <!-- <a href="#" class="btn-compt pull-right"> <span class="btn-compt-icon"></span> Mon compte </a> -->
+                            <div class="social pull-right">
+                                <ul class="list-inline pull-left theNavigation">
+                                    <li class="theName"> Bonjour Monsieur <span><a href="{{ path('favoris', {'userId':app.user.id}) }}">{{ app.user }}</a></span> </li>
+                                    <li class="myNavigation">
+                                        <!-- <div> <a href="#"> <img src="dist/img/online-profil.png" alt="profil"> <span>Profile</span></a> </div> -->
+                                        <div>  <a href="{{ path('message') }}"><span class="notifs" id="nombreMessage">0</span><img src="{{ asset('dist/img/online-messages.png') }}" alt="messages"> <span>Message</span></a> </div>
+                                        <div> <a href="{{ path('notification') }}"><img src="{{ asset('dist/img/online-notif.png') }}" alt="notif"><span>Notification</span></a> </div>
+
+                                                                                <div> <a href="{{ path('pageAmis') }}"><span id="nombreAmis" class="notifs">0</span><img src="{{ asset('dist/img/online-amis.png') }}" alt="notif"><span>Amis</span></a> </div>
+
+
+
+
+
+                                    </li>
+
+
+
+                                    {% if(app.user.image) %}
+                                    <li class="list-inline  theNavigationIMG">
+                                        <a href="{{ path('profile',{'userId':app.user.id}) }}"><img src="{{ asset(app.user.image.webPath) }}" alt="image profile" style="width: 70px;height: 70px;"></a>
+                                    </li>
+                                    {% else %}
+                                    <li class="list-inline  theNavigationIMG">
+                                        <a href="{{ path('profile',{'userId':app.user.id}) }}"><img src="{{ asset('uploads/avatar.png') }}"alt="image profile" style="width: 70px;height: 70px;"></a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                                <!-- <ul class="list-inline  theNavigationIMG">
+                                   <li> <img src="dist/img/user-foto.png" alt=""> </li>
+                                   </ul> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+    {% else %}
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <a href="{{ path('homepage') }}"> <img src="{{ asset('dist/img/logo-web.png') }}" class="img-responsive logo" alt="logo"> </a>
+                </div>
+                <div class="col-sm-6">
+                    <a href="#connexion-modal"  data-toggle="modal" class="btn-compt pull-right"> <span class="btn-compt-icon"></span> Mon compte </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% endif %}
+
+    <nav role="navigation" class="navbar navbar-default ">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-left">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a href="#" class="navbar-brand">Brand</a> -->
+        </div>
+        <!-- Collection of nav links and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav theNav" id="categories">
+            
+              <!--  -->
+                    <li class="dropdown-r">
+                      <a  href="{{ path('recette') }}">Recettes</a>
+                      <ul class="dropdown-menu hidden-sm hidden-xs">
+                        <li><a href="#">Entrée</a></li>
+                        <li><a href="#">Plat principal</a></li>
+                        <li><a href="#">Dissert & coktails</a></li>
+                        <li><a href="#">ingrédients</a></li>
+                        <li><a href="#">Entrée</a></li>
+                        <li><a href="#">Plat principal</a></li>
+                        <li><a href="#">Dissert & coktails</a></li>
+                        <li><a href="#">ingrédients</a></li>
+                        <li><a href="#">ingrédients</a></li>
+                        <ul class="imgs-menu-r">
+                           <li class="link-imgs-r">
+                              <a href=""><img src="{{ asset('dist/img/menu-img1.jpg') }}" alt="">titre d'une rectte</a>
+                           </li>
+                            <li class="link-imgs-r">
+                              <a href=""><img src="{{ asset('dist/img/menu-img1.jpg') }}" alt="">titre d'une rectte</a>
+                           </li>
+                            <li class="link-imgs-r">
+                              <a href=""><img src="{{ asset('dist/img/menu-img1.jpg') }}" alt="">titre d'une rectte</a>
+                           </li>
+
+                        </ul>
+
+
+                      </ul>
+
+
+                    </li>
+
+               <li class="divider-vertical"></li>
+                {#
+
+
+                <li><a href="{{ path('pages', {'page':'Restaurants'}) }}">Restaurants</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="{{ path('pages', {'page':'Salons de thé & Brasseries'}) }}">Salons de thé & Brasseries</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="{{ path('pages', {'page':'Snacks & Pizzerias'}) }}">Snacks & Pizzerias</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="{{ path('pages', {'page':'Patisseries'}) }}">Patisseries</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="{{ path('pages', {'page':'Bars & Clubs'}) }}">Bars & Clubs</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="{{ path('pages', {'page':'Glaciers & Yaourties'}) }}">Glaciers & Yaourties</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="{{ path('pages', {'page':'Dragées & chocolat'}) }}">Dragées & chocolat</a></li>
+                <li class="divider-vertical"></li>
+
+                #}
+
+
+
+            </ul>
+        </div>
+    </nav>
+
+
+        {% block body %}{% endblock %}
+
+    <footer>
+        <div class="container">
+            <p class="center-block text-center rejoin">Rejoignez-nous sur</p>
+
+            <ul class="list-inline center-block text-center footerSocials">
+                <li> <a href="#"> <img src="{{ asset('dist/img/icfb.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icogm.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icotwiter.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icopLin.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icoprin.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icoYou.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icoy.png') }}" alt=""> </a> </li>
+            </ul>
+
+
+            <ul class="list-inline center-block text-center footerLinks">
+                <li> <a href="#"> Qui somme nous </a> </li>
+                <li> - </li>
+                <li> <a href="#"> Contactez­-nous </a> </li>
+                <li> - </li>
+                <li> <a href="#"> Plan du site </a> </li>
+            </ul>
+
+
+        </div>
+
+        <div class="subFooter">
+            Copyright © 2016 trois-fourchettes.com.all rights reserved.
+        </div>
+
+    </footer>
+    <div id="topcontrol" class="glyphicon glyphicon-chevron-up" title="top">
+    </div>
+        <script src="{{ asset('dist/js/jquery.min.js') }}"></script><!-- All website -->
+    <script src='{{ asset('js/playsound.js') }}'></script>
+    <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}"></script>
+        <script src="{{ asset('dist/js/jquery-ui.min.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="{{ asset('dist/js/bootstrap.js') }}"></script><!-- All website -->
+        <script src="{{ asset('dist/js/moment.js') }}"></script>
+        <script src="{{ asset('dist/js/moment-with-locales.js') }}"></script>
+        <script src="{{ asset('dist/js/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('dist/js/starrr.js') }}"></script>
+        <script src="{{ asset('dist/js/jquery.raty.js') }}"></script>
+
+    <!--Home + profil + Blog + recettes + etablissements + single etablissement + single-recette + single article + restaut de semaine  -->
+        <script src="{{ asset('dist/js/jquery.mCustomScrollbar.js') }}"></script><!--profil + Blog + recettes + etablissements  -->
+
+        <script src="{{ asset('dist/js/icheck.min.js') }}"></script><!-- Blog + recettes + etablissements + single etablissement +   -->
+        <script src="{{ asset('dist/js/select2.min.js') }}"></script><!-- All website for search main -->
+        <!-- All website -->
+        <script src="{{ asset('dist/js/jquery.fancybox.js') }}"></script><!-- single recette + single etablissement -->
+        <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script><!-- single recette + single etablissement + single article -->
+        <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBid1haTE18IcYiBkCMZtWz_IpPKMeQmFw&signed_in=true&callback=initMap" async defer></script>-->
+        <script src="{{ asset('dist/js/main.js') }}"></script><!-- All website -->
+        <script src="{{ asset('dist/js/recipes.js') }}"></script><!-- Recettes -->
+
+
+        <script src="{{ asset('dist/js/single.js') }}"></script><!-- single recette + single article -->
+        <script src="{{ asset('dist/js/blog.js') }}"></script><!-- single recette + single article -->
+        <script src="{{ asset('dist/js/group.js') }}"></script><!-- single recette + single article -->
+        <script src="{{ asset('dist/js/angular.rangeSlider.js') }}"></script><!-- single recette + single article -->
+        <script src="{{ asset('dist/js/single-etablissement.js') }}"></script>
+        <script src="{{ asset('dist/js/fbphotobox.js') }}"></script><!-- profil + autre profil + -->
+        <script src="{{ asset('dist/js/lightbox.min.js') }}"></script><!-- profil + autre profil -->
+        <script src="{{ asset('dist/js/profil.js') }}"></script><!-- profil + autre profil -->
+
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        <script>
+
+
+            var setCatEtablissement=function(id){
+                localStorage.setItem('categorieEtab',id);
+                window.location.replace("http://localhost/Private/web/app_dev.php/etablissement/");
+            }
+
+            var notificationNbrAmis =function () {
+
+
+                $.ajax({
+                    url: Routing.generate('nombreAmis'),
+                    success:function(result){
+                        if(localStorage.getItem("nbrAmis") == null){
+                            localStorage.setItem("nbrAmis", result);
+                        }else{
+                            var nbr = localStorage.getItem("nbrAmis");
+                            if(result != '0') {
+                                if (result == nbr) {
+                                    $('#nombreAmis').html(result);
+
+                                }else if (result < nbr) {
+                                    $('#nombreAmis').html(result);
+
+                                }else {
+                                    toastr.options.closeHtml = '<button><i class="icon-off"></i></button>';
+                                    toastr.info('nouvelle demande d\'amis');
+                                    $.playSound("http://www.soundjay.com/mechanical/sounds/clong-1");
+                                    $('#nombreAmis').html(result);
+                                    localStorage.setItem("nbrAmis", result);
+                                }
+                            }
+                        }
+
+
+
+
+                    }
+                });
+            };
+
+
+
+            setInterval(notificationNbrAmis,2000);
+
+            $.ajax({
+             url: Routing.generate('categories'),
+             success:function(result){
+
+             $.each(result, function (index, item) {
+
+             var xxCurrent=item.id;
+
+                if(localStorage.getItem('categorieEtab') == xxCurrent && document.URL=="http://localhost/final/web/app_dev.php/etablissement/"){
+                    $( "#categories" ).append( "<li><a style='color:red' onclick='setCatEtablissement("+xxCurrent+")'>"+item.nomCat+"</a></li>" );
+
+                }else{
+                    $( "#categories" ).append( "<li><a onclick='setCatEtablissement("+xxCurrent+")'>"+item.nomCat+"</a></li>" );
+
+                }
+             $( "#categories" ).append( "<li class='divider-vertical'></li>" );
+
+             });
+
+
+
+
+             }
+             });
+
+        </script>
+        {% if(app.user) %}
+            <script>
+                var apiGeolocationSuccess = function(position) {
+                    //alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+
+                };
+
+                var tryAPIGeolocation = function() {
+                    jQuery.post( "https://maps.googleapis.com/maps/api/js?key=AIzaSyDGD36zjRpUtvJwdTTpChcxm5qxhdcBBCg", function(success) {
+                        apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
+                    })
+                            .fail(function(err) {
+                                alert("API Geolocation error! \n\n"+err);
+                            });
+                };
+
+                var browserGeolocationSuccess = function(position) {
+                    //alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+                    $.ajax({
+                        url: Routing.generate('saveLocationClient',{'lat':position.coords.latitude, 'long':position.coords.longitude}),
+                        dataType: 'JSON',
+                        success: function(result) {
+                            //toastr.success('votre position est mis à jour','Notification');
+                        },
+                        error:function(e){
+                            alert(e);
+                        }
+                    });
+                };
+
+                var browserGeolocationFail = function(error) {
+                    switch (error.code) {
+                        case error.TIMEOUT:
+                            alert("Browser geolocation error !\n\nTimeout.");
+                            break;
+                        case error.PERMISSION_DENIED:
+                            if(error.message.indexOf("Only secure origins are allowed") == 0) {
+                                tryAPIGeolocation();
+                            }
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("Browser geolocation error !\n\nPosition unavailable.");
+                            break;
+                    }
+                };
+
+                var tryGeolocation = function() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(
+                                browserGeolocationSuccess,
+                                browserGeolocationFail,
+                                {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
+                    }
+                };
+
+                tryGeolocation();
+            </script>
+            <script>
+                var notificationNbrMessage =function () {
+
+
+                    $.ajax({
+                        url: Routing.generate('nombreMessage'),
+                        success:function(result){
+                            if(localStorage.getItem("nbrMessage") == null){
+                                localStorage.setItem("nbrMessage", result);
+                            }else{
+                                var nbr = localStorage.getItem("nbrMessage");
+                                if(result != '0') {
+                                    if (result == nbr) {
+                                        $('#nombreMessage').html(result);
+
+                                    }else if (result < nbr) {
+                                        $('#nombreMessage').html(result);
+
+                                    }else {
+                                        toastr.options.closeHtml = '<button><i class="icon-off"></i></button>';
+                                        toastr.info('nouveau message');
+                                        $.playSound("http://www.soundjay.com/mechanical/sounds/clong-1");
+                                        $('#nombreMessage').html(result);
+                                        localStorage.setItem("nbrMessage", result);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                };
+
+
+
+                setInterval(notificationNbrMessage,2000);
+            </script>
+        {% endif %}
+        {% block javascripts %}{% endblock %}
+
+    </body>
+</html>

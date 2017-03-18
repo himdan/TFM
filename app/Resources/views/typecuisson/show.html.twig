@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>TypeCuisson</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ typeCuisson.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomtypecuisson</th>
+                <td>{{ typeCuisson.nomTypeCuisson }}</td>
+            </tr>
+            <tr>
+                <th>Statuttypecuisson</th>
+                <td>{{ typeCuisson.statutTypeCuisson }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('typecuisson_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('typecuisson_edit', { 'id': typeCuisson.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

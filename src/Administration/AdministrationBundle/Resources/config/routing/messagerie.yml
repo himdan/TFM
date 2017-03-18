@@ -1,0 +1,23 @@
+messagerie_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Messagerie:index" }
+
+messagerie_send:
+    path:     /send
+    defaults: { _controller: "AdministrationBundle:Messagerie:sendMail" }
+
+messagerie_send:
+    path:     /send
+    defaults: { _controller: "AdministrationBundle:Messagerie:sendMail" }
+
+messagerie_sent:
+    path:     /sent
+    defaults: { _controller: "AdministrationBundle:Messagerie:send" }
+
+messagerie_draft:
+    path:     /draft
+    defaults: { _controller: "AdministrationBundle:Messagerie:draft" }
+
+messagerie_trash:
+    path:     /trash
+    defaults: { _controller: "AdministrationBundle:Messagerie:trash" }

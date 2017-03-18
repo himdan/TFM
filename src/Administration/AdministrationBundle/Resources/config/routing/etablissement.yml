@@ -1,0 +1,57 @@
+etablissement_sponsorPage:
+    path:     /sponsor
+    defaults: { _controller: "AdministrationBundle:Etablissement:sponsorPage" }
+
+etablissement_demande:
+    path:     /demande
+    defaults: { _controller: "AdministrationBundle:Etablissement:demande" }
+
+etablissement_nonsponsor:
+    path:     /{id}/etablissement_nonsponsor
+    defaults: { _controller: "AdministrationBundle:Etablissement:nonsponsor" }
+
+etablissement_sponsor:
+    path:     /{id}/etablissement_sponsor
+    defaults: { _controller: "AdministrationBundle:Etablissement:sponsor" }
+
+etablissement_nonautorisation:
+    path:     /{id}/etablissement_nonautorisation
+    defaults: { _controller: "AdministrationBundle:Etablissement:nonautorisation" }
+
+etablissement_autorisation:
+    path:     /{id}/etablissement_autorisation
+    defaults: { _controller: "AdministrationBundle:Etablissement:autorisation" }
+
+etablissement_carte:
+    path:     /{id}/carte
+    defaults: { _controller: "AdministrationBundle:Etablissement:etablissementcarte" }
+
+etablissement_album:
+    path:     /{id}/album
+    defaults: { _controller: "AdministrationBundle:Etablissement:etablissementalbum" }
+
+etablissement_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Etablissement:index" }
+    methods:  GET
+
+etablissement_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Etablissement:show" }
+    methods:  [GET, POST]
+
+etablissement_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Etablissement:new" }
+    methods:  [GET, POST]
+
+etablissement_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Etablissement:edit" }
+    methods:  [GET, POST]
+
+etablissement_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Etablissement:delete" }
+    methods:  DELETE
+

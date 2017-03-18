@@ -1,0 +1,89 @@
+pageAmis:
+    path:     /amis
+    defaults: { _controller: "ClientBundle:Amis:pageAmis" }
+
+getAmiTag:
+    path:     /getAmiTag
+    defaults: { _controller: "ClientBundle:Amis:getAmiTag" }
+    options:
+        expose: true
+
+amis:
+    path:     /amisJson
+    defaults: { _controller: "ClientBundle:Amis:index" }
+    options:
+        expose: true
+
+amisRecent:
+    path:     /amisRecent
+    defaults: { _controller: "ClientBundle:Amis:amisRecent" }
+    options:
+        expose: true
+
+amisEnvoye:
+    path:     /envoye
+    defaults: { _controller: "ClientBundle:Amis:amisEnvoye" }
+    options:
+        expose: true
+
+amisRecu:
+    path:     /recu
+    defaults: { _controller: "ClientBundle:Amis:amisRecu" }
+    options:
+        expose: true
+
+amisBloque:
+    path:     /bloque
+    defaults: { _controller: "ClientBundle:Amis:amisBloque" }
+    options:
+        expose: true
+
+
+bloqueSupprimer:
+    path:     /bloqueSupprimer/{userSupprimer}
+    defaults: { _controller: "ClientBundle:Amis:bloqueSupprimer" }
+    options:
+        expose: true
+
+
+amiSupprimer:
+    path:     /amiSupprimer/{userSupprimer}
+    defaults: { _controller: "ClientBundle:Amis:amiSupprimer" }
+    options:
+        expose: true
+
+amiAnnuler:
+    path:     /amiAnnuler/{userAnnuler}
+    defaults: { _controller: "ClientBundle:Amis:amiAnnuler" }
+    options:
+        expose: true
+
+amiAccepter:
+    path:     /amiAccepter/{userAccepter}
+    defaults: { _controller: "ClientBundle:Amis:amiAccepter" }
+    options:
+        expose: true
+
+amiRefuser:
+    path:     /amiRefuser/{userRefuser}
+    defaults: { _controller: "ClientBundle:Amis:amiRefuser" }
+    options:
+        expose: true
+
+amiSignaler:
+    path:     /amiSignaler
+    defaults: { _controller: "ClientBundle:Amis:amiSignal" }
+    options:
+        expose: true
+
+verifAmitie:
+    path:     /verifAmitie/{idUser}
+    defaults: { _controller: "ClientBundle:Amis:verifAmitie" }
+    options:
+        expose: true
+
+amiAjouter:
+    path:     /amiAjouter/{iduser}
+    defaults: { _controller: "ClientBundle:Amis:amiAjouter" }
+    options:
+        expose: true

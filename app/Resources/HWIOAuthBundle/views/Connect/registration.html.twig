@@ -1,0 +1,78 @@
+{% extends 'HWIOAuthBundle::layout.html.twig' %}
+
+{% block hwi_oauth_content %}
+    <!--<h3></h3>-->
+    <div class="middle-box text-center loginscreen   animated fadeInDown" style="margin-top:-100px;">
+        <div>
+
+
+
+
+
+            <h3 class="logo-name"><img src="{{ asset('under/images/logo.png') }}" height="100%" width="100%" ></h3>
+
+
+                {% if userInformation.profilePicture is not empty %}
+                    <img src="{{ userInformation.profilePicture }}" class="img-responsive center-block img-circle img-thumbnail" style="width: 100px;height: 100px;"/>
+                {% endif %}
+
+
+
+            <h3>S'inscrire à troisfourchettes.com</h3>
+            <p style="color:white">{{ 'header.register' | trans({'%name%': userInformation.realName}, 'HWIOAuthBundle') }}.</p>
+            {{ form_start(form, {'action': path('hwi_oauth_connect_registration', {'key': key}), 'attr': {'class': 'hwi_oauth_registration_register login-form'}}) }}
+
+            <div class="form-group">
+
+                {{ form_widget(form.username) }}
+
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.email) }}
+            </div>
+            <div class="form-group">
+
+                {{ form_widget(form.nomClient) }}
+
+            </div>
+            <div class="form-group">
+
+                {{ form_widget(form.prenomClient) }}
+
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.gouvernorat) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.region) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.plainPassword.first) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.plainPassword.second) }}
+            </div>
+            <div class="form-group">
+                <div class="checkbox i-checks"><label> <input type="checkbox" required><i></i> Accepter les termes et la politique</label></div>
+            </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary block full-width m-b">{{ 'connect.registration.submit'|trans({}, 'HWIOAuthBundle') }}</button>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{ path('fos_user_security_login') }}" class="btn btn-danger block full-width m-b">{{ 'connect.registration.cancel' | trans({}, 'HWIOAuthBundle') }}</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            <p class="text-muted text-center"><small>Vous avez déjà un compte?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="{{ path('fos_user_security_login') }}">Se connecter</a>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+{% endblock hwi_oauth_content %}

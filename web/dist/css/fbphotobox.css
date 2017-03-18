@@ -1,0 +1,170 @@
+.fbphotobox-overlay {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 10100;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+
+.fbphotobox-fc-main-container {
+	margin: auto;
+	position: fixed;
+	z-index: 10400;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: black;
+	display: none;
+}
+
+.fbphotobox-fc-main-container:hover {
+	cursor: pointer;
+}
+
+.fbphotobox-main-container {
+	margin:auto;
+	display:none;
+	position:fixed;
+	z-index: 10200;
+	top:0px;
+	right:0px;
+	left:0px;
+	bottom:0px;
+	border:1px solid #000;
+	border-radius:2px;
+	    margin-top: 10px;
+}
+
+.fbphotobox-container-left {
+	float: left;
+	position: relative;
+	border-
+}
+
+.fbphotobox-container-left:hover {
+	cursor: pointer;
+}
+
+.fbphotobox-container-left table td {
+	text-align: center;
+	vertical-align: middle;
+	height: 100%
+}
+
+.fbphotobox-container-right {
+	float: right;
+	background-color: white;
+	    margin-right: -2px;
+}
+
+.fbphotobox-container-left-footer, .fbphotobox-container-left-footer-bg {
+	position: absolute;
+	color: white;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+}
+
+.fbphotobox-container-left-footer {
+	z-index: 10300;
+	height: 56px;
+	overflow: hidden;
+}
+
+.fbphotobox-container-left-footer-bg {
+	background-color: black;
+	opacity: 0.75;
+	height: 56px;
+}
+
+.fbphotobox-container-left-header {
+	top: 0px;
+	right: 0px;
+	margin: 15px;
+	position: absolute;
+	color: white;
+	z-index:10500;
+}
+
+.left-arrow {
+	position: absolute;
+	height: 100%;
+	left: 10px;
+	top: 0px;
+}
+
+.right-arrow {
+	position: absolute;
+	height: 100%;
+	right: 10px;
+	top: 0px;
+}
+
+.fbphotobox-a {
+	opacity: 0.5;
+}
+
+.fbphotobox-image-stage-overlay {
+	display: none;
+}
+
+.fbphotobox-tag {
+	height:100px;
+	width:100px;
+	border-radius:3px;
+	opacity: 1;
+}
+
+.fbphotobox-tag div {
+	display: none;
+	width:100%;
+	border-radius:none;
+}
+
+.fbphotobox-tag:hover {
+	border:3px solid white;
+	box-shadow: 0px 0px 5px #333;
+}
+
+.fbphotobox-tag:hover div {
+	display: inline-block;
+}
+
+table, tr, td {
+	border:none;
+	padding:0px;
+	border-collapse: collapse;
+}
+
+.fbphotobox-fc-close-btn:hover {
+	background-color: #777;
+}
+
+ 
+  
+  .fbphotobox img {
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  @media (max-width: 876px)  {
+    .fbphotobox-main-container {
+        position: absolute;
+        width: 100% !important;
+    }
+
+    .fbphotobox-container-left {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .fbphotobox-container-right {
+        float: none;
+        margin: 0 auto;
+    }
+
+}

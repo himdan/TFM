@@ -1,0 +1,33 @@
+Addfavoris:
+    path:     /favoris/Addfavoris/{id}/{type}
+    defaults: { _controller: "ClientBundle:Favoris:Addfavoris" }
+    options:
+        expose: true
+
+deletefavoris:
+    path:     /favoris/deletefavoris/{idFavoris}
+    defaults: { _controller: "ClientBundle:Favoris:deletefavoris" }
+    options:
+        expose: true
+
+favorisRecette:
+    path:     /favorisRecette
+    defaults: { _controller: "ClientBundle:Favoris:favorisRecette" }
+    options:
+        expose: true
+
+favorisArticle:
+    path:     /favorisArticle
+    defaults: { _controller: "ClientBundle:Favoris:favorisArticle" }
+    options:
+        expose: true
+
+favorisEtablissement:
+    path:     /favorisEtablissement
+    defaults: { _controller: "ClientBundle:Favoris:favorisEtablissement" }
+    options:
+        expose: true
+
+favoris:
+    path:     /favoris
+    defaults: { _controller: "ClientBundle:Favoris:favoris" }

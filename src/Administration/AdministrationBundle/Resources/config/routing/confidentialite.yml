@@ -1,0 +1,24 @@
+confidentialite_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Confidentialite:index" }
+    methods:  GET
+
+confidentialite_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Confidentialite:show" }
+    methods:  GET
+
+confidentialite_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Confidentialite:new" }
+    methods:  [GET, POST]
+
+confidentialite_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Confidentialite:edit" }
+    methods:  [GET, POST]
+
+confidentialite_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Confidentialite:delete" }
+    methods:  DELETE

@@ -1,0 +1,59 @@
+
+
+#partage-modal.modal-wide .modal-dialog {
+  width: 80%; /* or whatever you wish */
+  max-width: 497px; 
+  margin: 30px auto;
+}
+
+#partage-modal .modal-header {
+	background-color: #c9532f;
+	max-height: 49px;
+}
+#partage-modal .modal-header p {
+	font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    color: rgb( 255, 255, 255 );
+    text-transform: uppercase;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 1.5px;
+
+}
+#partage-modal .para{
+	font-family: 'Roboto', sans-serif;
+	font-size: 11px;
+	color: rgb( 34, 34, 34 );
+    line-height: 15px;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-bottom: 30px;
+}
+
+#partage-modal .fb-btn{
+	display: block;
+    background: url(../img/connect-fb.png) right center no-repeat;
+    background-size: 100%;
+    width: 100%;
+    max-width: 297px;
+    height: 42px;
+    outline: none;
+    border: 0px solid transparent;
+    box-shadow:none;
+    margin:  0 auto;
+}
+#partage-modal .tw-btn{
+
+	display: block;
+    background: url(../img/connect-tw.png) right center no-repeat;
+    background-size: 100%;
+    width: 100%;
+    max-width: 297px;
+    height: 42px;
+    outline: none;
+    border: 0px solid transparent;
+    box-shadow:none;
+    margin:  0 auto;
+}
+

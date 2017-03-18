@@ -1,0 +1,2153 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <style>
+        .image-upload > input
+        {
+            display: none;
+        }
+
+        .image-upload img
+        {
+            width: 80px;
+            cursor: pointer;
+        }
+
+
+        .hideText{
+            display:none!important;
+        }
+        .showText{
+            display:block!important;
+        }
+
+
+
+
+        ul .lieuxAutoC{
+            color: white;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted white;
+            list-style-type: none;
+            padding-left: 10px;
+            cursor: pointer;
+        }
+
+        ul .lieuxAutoC:hover{
+            color: white;
+            padding-left: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted white;
+            list-style-type: none;
+            background: #E46929;
+        }
+        #suggesstion-box{
+            position: absolute;
+            display: none;
+            width: 94%;
+            max-height: 300px;
+            overflow-x:hidden;
+            overflow-y: scroll;
+            z-index:9999;
+
+        }
+
+        #suggesstion-box::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        #suggesstion-box::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        #suggesstion-box::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(228,105,41,1);
+        }
+    </style>
+
+<div ng-app="appProfile" ng-controller="appProfileController">
+    <div id="advSearch" class="modal fade advSearch">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body center-block text-center">
+                    <h1 class="heading1-search">
+                        <img src="{{ asset('dist/img/loop-adv.png') }}" alt="">Recherche avancée
+                    </h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form class="form-horizontal form-search-adv">
+                                <div class="form-group">
+                                    <label for="inputEmail" class="control-label col-xs-3">Nom</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control" id="inputNom" ng-model="searchName" ng-change="searchUsers(0)" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="control-label col-xs-3">Gouvernerat*</label>
+                                    <div class="col-xs-9">
+                                        <select class="form-control" id="selectGov" name="selectGov" ng-model="selectGov" ng-change="changerRegions()">
+                                            <option></option>
+                                            <option ng-repeat="gv in dataAddEtabGovs" value="#gv.id#" >#gv.nomGov#</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="control-label col-xs-3">Region*</label>
+                                    <div class="col-xs-9">
+                                        <select class="form-control" id="selectReg" name="selectReg" ng-model="selectReg" ng-change="searchUsers(0)">
+                                            <option ng-repeat="reg in regionsToShow" value="#reg.id#">#reg.nomRegion#</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSexe" class="control-label col-xs-3">Sexe</label>
+                                    <div class="col-xs-9">
+                                        <select class="form-control" id="selectSex" name="selectSex" ng-model="selectSex" ng-change="searchUsers(0)">
+                                            <option></option>
+                                            <option value="h">Homme</option>
+                                            <option value="f">Femme</option>
+                                            <option value="o">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputStatus" class="control-label col-xs-3">Situation</label>
+                                    <div class="col-xs-9">
+                                        <select class="form-control" id="selectSit" name="selectSit" ng-model="selectSit" ng-change="searchUsers(0)">
+                                            <option></option>
+                                            <option value="celib">Celibataire</option>
+                                            <option value="mari">Mariée </option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAge" class="control-label col-xs-3">Age</label>
+                                    <div class="col-xs-9" style="padding-top: 12px;">
+                                        <div range-slider min="0" max="100"  model-min="demo2.min" model-max="demo2.max"></div>
+                                        Min<span ng-bind="demo2.min"></span>||
+                                        Max<span ng-bind="demo2.max"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6" style="margin-top:65px;">
+                            <p>
+                                <a href="#" class="btn btn-search-fb"></a>
+                            </p>
+                            <p>
+                                <a href="#" class="btn btn-search-gl"></a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row res_search">
+                        <h1>Resultat de recherche...</h1>
+                        <div class="col-md-12 the_res_search">
+                            <div class="row">
+                                <div class="col-sm-3" ng-repeat="cltF in filtredClients">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <img src="#cltF.image#" height="50px" width="50px" alt="">
+                                        </div>
+                                        <div class="col-xs-9" >
+                                            <p class="info_perso_serch">
+                                                #cltF.username#
+                                                 <br>
+                                                #cltF.age# <br>
+                                                tunis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="partage-modal" class="modal fade modal-wide">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="text-center">Partager l’article </p>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-center para">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodtempor incididunt ut labore et dolore magna
+                            </p>
+
+                            <p class="text-center">
+                                <a href="#" class="btn btn-primary fb-btn"></a>
+                            </p>
+                            <p class="text-center">
+                                <a href="#" class="btn btn-info tw-btn"></a>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <section class="container">
+
+
+
+        <div class="pub-h">
+
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+
+
+
+        </div>
+
+
+
+    </section>
+    <div class="container outerWrapper">
+        <!-- menu-left -->
+        {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': user.id })) }}
+
+
+
+
+        <div class="col-md-6 center-content profil" style="padding-bottom: 20px;">
+
+            <!-- here goes the content -->
+            {% if ((app.user) and (app.user.id ==  user.id)) %}
+                <div class="row exprimezVous">
+                    <div class="col-sm-2 first-post">
+                        {% if(app.user.image) %}
+                            <img src="{{ asset(app.user.image.webPath) }}" class="fotoDeProfil" alt="image profile" style="width: 70px;height: 70px;" >
+                        {% else %}
+                            <img src="{{ asset('uploads/avatar.png') }}" class="fotoDeProfil" alt="image profile" style="width: 70px;height: 70px;" >
+                        {% endif %}
+
+                    </div>
+                    <div class="col-sm-10">
+                        <form>
+                            <div class="form-group">
+                      <textarea name="" id="nvPublication" class="exp" cols="30" rows="10"
+                                placeholder="Exprimez vous ..."></textarea>
+                            </div>
+                            <div id="label">
+                                <span class="label label-danger" id="showLieu" style="display: none"><b id="deleteLieu" style="display:none;cursor: pointer;">X</b></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-9" id="champLieu"  style="display: none">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-bars"></i>
+                                                </span>
+                                            <input type="hidden" id="lieuxAutoId">
+                                            <input type="text" class="form-control" placeholder="" id="lieuxAuto">
+                                        </div>
+                                        <ul id="suggesstion-box" style="background: #1BA8DC;color:white;"></ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <a href="#" alt="op1" class="opt1">
+                                        <div class="image-upload">
+                                            <label for="file-input">
+                                                <img src="{{ asset('dist/img/exp-vous-ico-op1.png') }}" alt="im" style="width: 18px;height: 18px;">
+                                            </label>
+                                            <input id="file-input" type="file" file-model="image" name="image" accept="image/*"/>
+                                        </div>
+                                        <span>Ajouter une image</span>
+                                    </a>
+                                    <a href="#" alt="op2" class="opt1">
+                                        <img src="{{ asset('dist/img/ico_person1.png') }}" alt="im">
+                                        <span>Identifiez des amis</span>
+                                    </a>
+                                    <a alt="op2" class="opt1" id="clickLieu">
+                                        <img src="{{ asset('dist/img/ico_person2.png') }}" alt="im">
+                                        <span>lieux</span>
+                                    </a>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-publier-profil" ng-click="publier(image)" id="testFilePublic">Publier</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+
+
+
+
+
+            <center><img src="{{ asset('dist/img/rolling.gif') }}" id="chargementPubs" style="display: block"></center>
+
+
+
+            <div id="publications" style="display: none">
+
+
+                <!-- exprimezVous -->
+
+                <article class="row exprimezVous exprimPublied thePost" ng-repeat="pub in pubs">
+
+                    <div class="col-sm-2">
+                        {% if user.image != null %}
+                        <img src="{{ asset(user.image.webPath) }}" style="height: 60px;width: 60px;" class="fotoDeProfil" alt="photo profil">
+                        {% else %}
+                            <img src="{{ asset('uploads/avatar.png') }}" style="height: 60px;width: 60px;" class="fotoDeProfil" alt="photo profil">
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-10">
+                        <span id="btnDellPub#pub.id#" ng-show="pub.deletable" class="pull-right" style="color:red" ng-click="deletePubModal(pub.id)">x</span>
+
+                        <span id="spinDellPub#pub.id#" class="pull-right" style="color:Blue;display:none" ng-show="pub.deletable">O</span>
+
+
+                        <div class="name-user">{{ user.username }}</div>
+                        <div class="avis-user">
+                            <span class="avis">X avis  </span>
+                            <span class="niveau">Niveau Y</span>
+                        </div>
+                    </div>
+                    <div class="row text-post-p">
+                        <div class="col-sm-12">
+                            <p ng-if="pub.idLieu" style="margin-top:20px;" ng-show="pub.idLieu">
+                                <b id="etait" >Etait à <a href="" ng-bind="pub.nomLieu"></a></b>
+                            </p>
+                            <p class="publied-content" ng-bind="pub.texte">
+
+                            </p>
+
+                            <p>
+                                <img ng-if="pub.imgPub" src="#pub.imgPub#" ng-show="pub.imgPub" class="img-responsive center-block img-thumbnail" style="width: 100%;height: 60%;">
+                            </p>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="postInformations">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h3 class="postDate"> <span class='dateIcon'></span> #pub.date#</h3>
+                            </div>
+                            <div class="col-xs-8">
+                                <!-- rating -->
+                                <ul class="list-inline infstats">
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">#pub.nbrAime#</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">#pub.nbrAimePas#</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">#pub.nbrComments#</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="barSeapara">|</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="list-inline postUtilities postUtilities-online">
+                        <li>
+                            <a href="" class="likeBtn" ng-click="aimer(pub.id)"> <img src="#pub.imgAime#" id="imgAime#pub.id#" alt=""> J’aime </a>
+                        </li>
+                        <li>
+                            <a href="" class="dislikeBtn" ng-click="aimerPas(pub.id)"> <img src="#pub.imgAimePas#" id="imgAimePas#pub.id#" alt=""> J’aime pas </a>
+                        </li>
+                        <li>
+                            <a href="" ng-click="focusComment(pub.id)" class="cmtBtn"> <img src="../../../dist/img/online-cmtBtn.png" alt=""> Commenter </a>
+                        </li>
+                        <li>
+                            <a href="#partage-modal"  data-toggle="modal"  class="shareBtn"> <img src="{{ asset('dist/img/online-shareBtn.png') }}" alt=""> Partage </a>
+                        </li>
+                    </ul>
+
+                    <div class="showComment">
+
+                            <a href="" id="btnShowMoreComments#pub.id#" ng-hide="pub.nbrComments == pub.comments.length" ng-click="getMoreCommentsForPub(pub.id)"><h5>afficher les commentaires précédents</h5></a>
+
+
+
+
+                        <div class="media" ng-repeat="com in pub.comments">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img src="#com.imgUser#" style="height: 50px;width: 50px;" class="media-object" alt="Sample Image">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <span id="btnDellCom#com.id#" ng-show="com.deletable" class="pull-right" style="color:red" ng-click="deleteComModal(com.id,pub.id)">x</span>
+
+                                <span id="spinDellCom#com.id#" class="pull-right" style="color:Blue;display:none" ng-show="com.deletable">O</span>
+
+                                <h4 class="media-heading">#com.nomClient#</h4>
+                                <p>#com.texte#</p>
+                            </div>
+                        </div><!-- end media -->
+
+                        <form class="form-inline center-block text-center" style="margin-top: 10px">
+                            <input type="text" id="inputComment#pub.id#" class="form-control inputAddComment" placeholder="Ecrire un commentaire ... Utilisez @ pour marquer des amis" >
+                            <!-- <input type="submit" class="btn-commenter-online pull-right" value="commenter" >  -->
+                        </form>
+
+                    </div>
+                    <!--  -->
+                </article>  <!-- exprimPublied -->
+
+                <h6 ng-click="afficherPlusPublication()" id="seeMore"><a>Afficher plus de publications</a></h6>
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+            <!-- exprimPublied -->
+
+
+
+
+
+
+            <!-- exprimPublied -->
+
+
+
+
+        </div>  <!-- center-content -->
+
+
+        {{ render(controller('ClientBundle:Profile:layoutRight', { 'userId': app.user.id })) }}
+
+
+    </div>
+
+
+    <!-- footer -->
+    <footer>
+        <div class="container">
+            <p class="center-block text-center rejoin">Rejoignez-nous sur</p>
+
+            <ul class="list-inline center-block text-center footerSocials">
+                <li> <a href="#"> <img src="{{ asset('dist/img/icfb.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icogm.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icotwiter.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icopLin.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icoprin.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icoYou.png') }}" alt=""> </a> </li>
+                <li> <a href="#"> <img src="{{ asset('dist/img/icoy.png') }}" alt=""> </a> </li>
+            </ul>
+
+
+            <ul class="list-inline center-block text-center footerLinks">
+                <li> <a href="#"> Qui somme nous </a> </li>
+                <li> - </li>
+                <li> <a href="#"> Contactez­-nous </a> </li>
+                <li> - </li>
+                <li> <a href="#"> Plan du site </a> </li>
+            </ul>
+
+
+        </div>
+
+        <div class="subFooter">
+            Copyright © 2016 trois-fourchettes.com.all rights reserved.
+        </div>
+
+    </footer>
+    <div id="topcontrol" class="glyphicon glyphicon-chevron-up" title="top">
+    </div>
+
+
+    <!-- for plugin fbphotobox -->
+
+    <!---->
+    <div id="fbphotoboxContainer">
+
+        <div class="row social-avatar-inf">
+            <div class="col-xs-3"><img src="{{ asset('dist/img/perso.jpg') }}" alt="pic"> </div>
+            <div class="col-xs-9">
+                <p class="name">{{ user.nomClient }}</p>
+                <div class="date">14 mai 2015 <br>Tunis, Tunisie</div>
+            </div>
+        </div>
+        <ul class="profil-list list-inline infstats">
+            <li>
+                <a href="#">
+                    <img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">3</span>
+                </a>
+            </li>
+            <li>
+                <span class="barSeapara">|</span>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">7</span>
+                </a>
+            </li>
+            <li>
+                <span class="barSeapara">|</span>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">5</span>
+                </a>
+            </li>
+            <li>
+                <span class="barSeapara">|</span>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="list-inline postUtilities postUtilities-online profil-modal">
+            <li>
+                <a href="#" class="likeBtn"> <img src="{{ asset('dist/img/online-likeBtn.png') }}" alt=""> J’aime </a>
+            </li>
+            <li>
+                <a href="#" class="dislikeBtn"> <img src="{{ asset('dist/img/pnline-dislikeBtn.png') }}" alt=""> J’aime pas </a>
+            </li>
+            <li>
+                <a href="#" class="cmtBtn"> <img src="{{ asset('dist/img/online-cmtBtn.png') }}" alt=""> Commenter </a>
+            </li>
+
+        </ul>
+
+
+        <div class="row inBetweenVert allComments">
+
+
+
+            <div class="col-xs-12 all-cmt">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img src="{{ asset('dist/img/avatar-medium3.jpg') }}" class="media-object" alt="Sample Image">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Mme Doe <small class="pull-right small">122222 mois</small></h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </p>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img src="{{ asset('dist/img/avatar-medium2.jpg') }}" class="media-object" alt="Sample Image">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Jemmeli  <small class="pull-right small">122222 jours</small> </h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row exprimezVous modal-c">
+            <div class="col-sm-2">
+                <img src="{{ asset('dist/img/avatar_monprofil.jpg') }}" class="fotoDeProfil" alt="photo profil">
+            </div>
+            <div class="col-sm-10">
+                <form>
+                    <div class="form-group">
+                        <textarea name="exp" id="exp" class="exp" cols="30" rows="10" placeholder="Exprimez vous ..."></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9 app">Appuyez sur entrée pour envoyer</div>
+                        <div class="col-sm-3">
+                            <img src="{{ asset('dist/img/smile.png') }}" class="smile pull-right">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {#MODAL DELETE PUBLICATION#}
+    <div class="modal fade bs-example-modal-sm" id="modalDeletePub" tabindex="-1" role="dialog" aria-labelledby="modalDeletePubLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <h4>Voulez vous vraiment supprimer la publication??</h4>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-warning" ng-click="deletePub(idPubToDelete)">Supprimer</button>
+            </div>
+        </div>
+    </div>
+    {#MODAL DELETE PUBLICATION#}
+    {#MODAL DELETE Commentaire#}
+    <div class="modal fade bs-example-modal-sm" id="modalDeleteCom" tabindex="-1" role="dialog" aria-labelledby="modalDeleteComLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <h4>Voulez vous vraiment supprimer votre commentaire??</h4>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-warning" ng-click="deleteCom(idComToDelete,idPubComToDelete)">Supprimer</button>
+            </div>
+        </div>
+    </div>
+    {#MODAL DELETE Commentaire#}
+
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+        function compile(element){
+            var el = angular.element(element);
+            $scope = el.scope();
+            $injector = el.injector();
+            $injector.invoke(function($compile){
+                $compile(el)($scope)
+            })
+        }
+
+        var appProfile = angular.module('appProfile',['ui-rangeSlider'])
+                .config(function($interpolateProvider){
+                    $interpolateProvider.startSymbol('#').endSymbol('#');
+
+
+
+
+                })
+                .directive('fileModel', ['$parse', function ($parse) {
+                    return {
+                        restrict: 'A',
+
+
+                        link: function(scope, element, attrs) {
+                            var model = $parse(attrs.fileModel);
+                            var modelSetter = model.assign;
+
+                            element.bind('change', function(){
+                                scope.$apply(function(){
+                                    modelSetter(scope, element[0].files[0]);
+                                });
+
+
+                            });
+                        }
+                    };
+                }]);
+
+        appProfile.controller('appProfileController', function($scope,$http) {
+            $scope.test="nidhal";
+            $scope.tranchePub=1;
+            $scope.pubs=[];
+
+
+            $scope.demo2 = {
+                min: 0,
+                max: 100
+            };
+
+
+            $scope.getGovs=function(){
+
+                $http.post(Routing.generate('getGovsJson'))
+                        .then(function(response) {
+
+                            $scope.dataAddEtabGovs=response.data.govs;
+
+
+
+
+                        });
+            }
+
+
+            $scope.searchName="";
+            $scope.regSearch="";
+            $scope.searchUsers =function(FromChangeReg){
+
+                if(FromChangeReg == 1){
+                    $scope.regSearch="";
+                }else{
+                    $scope.regSearch=$("#selectReg").val();
+                }
+
+
+                $scope.objToSend={
+                    nom:$scope.searchName,
+                    minAge:$scope.demo2.min,
+                    maxAge:$scope.demo2.max,
+                    gov:$("#selectGov").val(),
+                    reg:$scope.regSearch,
+                    sex:$("#selectSex").val(),
+                    sit:$("#selectSit").val()
+                };
+
+                if($scope.objToSend.reg =="? undefined:undefined ?"){
+                    $scope.objToSend.reg="";
+                }
+
+                $http.post(Routing.generate('filtredUsers'),$scope.objToSend)
+                        .then(function(response) {
+                            $scope.filtredClients=response.data.result;
+
+
+                        });
+
+                ;
+
+
+
+            }
+
+
+            $scope.regSearch="";
+            $scope.regionsToShow=[];
+            $scope.changerRegions=function(){
+                $scope.regionsToShow=[];
+
+                $scope.regSearch="";
+
+                    $scope.searchUsers(1);
+
+
+
+
+                var idGovSelected=$("#selectGov").val() ;
+
+                $http.post(Routing.generate('getRegionSelonGovJson',{idGov:idGovSelected}))
+                        .then(function(response) {
+                            $scope.regionsToShow=response.data;
+                        });
+            }
+
+
+
+            $scope.getGovs();
+
+            $scope.nbrExecWatch=0;
+
+            $scope.$watch("demo2.min", function(newValue, oldValue){
+
+                $scope.nbrExecWatch++;
+
+                if($scope.nbrExecWatch > 2){
+
+
+
+                    $scope.searchUsers(0);
+
+
+
+
+                }
+
+
+
+            });
+
+            $scope.$watch("demo2.max", function(newValue, oldValue){
+
+                $scope.nbrExecWatch++;
+
+                if($scope.nbrExecWatch > 2){
+
+                    $scope.searchUsers(0);
+
+
+
+                }
+
+
+            });
+
+
+
+
+            $scope.deletePubModal=function(idPub){
+
+                $scope.idPubToDelete=idPub;
+
+
+                $('#modalDeletePub').modal('show');
+            }
+
+            $scope.deleteComModal=function(idCom,idPub){
+
+                $scope.idComToDelete=idCom;
+                $scope.idPubComToDelete=idPub;
+
+
+                $('#modalDeleteCom').modal('show');
+            }
+
+
+
+            $scope.initCom=function(tranche,idPub,indexPub){
+
+                var idSeeMoreComments="btnShowMoreComments"+idPub;
+
+                //alert('el tranche: '+tranche+" wel id pub: "+idPub);
+                $scope.objNext={
+                    id:idPub,
+                    tranche:tranche
+                }
+
+                $http.post(Routing.generate('getMoreCommentsPublication'),$scope.objNext)
+                        .then(function(response) {
+
+
+                            $scope.pubs[indexPub].comments=response.data.comments;
+
+
+                            if($scope.pubs[indexPub].nbrComments>4){
+
+                                document.getElementById(idSeeMoreComments).style.display="block";
+
+                            }else{
+                                if($scope.pubs[indexPub].comments.length < $scope.pubs[indexPub].nbr ){
+                                    document.getElementById(idSeeMoreComments).style.display="block";
+                                }else{
+                                    document.getElementById(idSeeMoreComments).style.display="none";
+                                }
+
+                            }
+
+
+
+
+
+                        });
+
+            }
+
+
+
+
+            $scope.getMoreCommentsForPub=function(idp){
+                /*n7éb noussel na3réf 9adéch men commentaire fil publication hedhi bech na3réf enehi el tranche eli nzid njibha*/
+                var nbrCommentsThisPub=-1;
+
+                for(var i=0;i<$scope.pubs.length;i++){
+                    if($scope.pubs[i].id==idp){
+                        nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                        var indexPub=i;
+                    }
+                }
+
+
+                var nextTranche= Math.ceil(nbrCommentsThisPub/4) + 1;
+
+                $scope.objNext={
+                    id:idp,
+                    tranche:nextTranche
+                }
+
+                $http.post(Routing.generate('getMoreCommentsPublication'),$scope.objNext)
+                        .then(function(response) {
+
+
+                            $scope.pubs[indexPub].comments=response.data.comments;
+
+
+
+
+                        });
+
+
+            }
+
+
+            $scope.deletePub=function(idp){
+
+                var btnDellPub="btnDellPub"+idp;
+                var spinDellPub="spinDellPub"+idp;
+
+                document.getElementById(btnDellPub).style.display="none";
+                document.getElementById(spinDellPub).style.display="block";
+
+                $http.post(Routing.generate('deletePublication', { idPub : idp }))
+                        .then(function(response) {
+
+                            document.getElementById(btnDellPub).style.display="block";
+                            document.getElementById(spinDellPub).style.display="none";
+
+                            var nbrCommentsThisPub=-1;
+
+                            for(var i=0;i<$scope.pubs.length;i++){
+                                if($scope.pubs[i].id==idp){
+                                    nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                                    var indexPub=i;
+                                }
+                            }
+                            $scope.pubs.splice(indexPub, 1);
+                            $scope.nbrPubs--;
+                            $('#modalDeletePub').modal('hide');
+                            toastr.info('publication effacée avec succes','notification',2000);
+
+
+                        });
+
+            }
+
+            $scope.deleteCom=function (idc,idp) {
+
+
+
+                var idBtnToDell="btnDellCom"+idc;
+                var idBtnSpinn="spinDellCom"+idc;
+
+                document.getElementById(idBtnToDell).style.display="none";
+                document.getElementById(idBtnSpinn).style.display="block";
+                $scope.objDel={
+                    id:idc,
+                    type:"publication"
+                }
+
+                /*nvvvvvv*/
+
+                var nbrCommentsThisPub=-1;
+
+                for(var i=0;i<$scope.pubs.length;i++){
+                    if($scope.pubs[i].id==idp){
+                        nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                        var indexPub=i;
+                    }
+                }
+
+                /*nvvvvvv*/
+
+
+                $http.post(Routing.generate('deleteComment'),$scope.objDel)
+                        .then(function(response) {
+
+                            //$scope.getPublications();
+                            $scope.pubs[indexPub].nbrComments--;
+
+                            var tr=Math.ceil(nbrCommentsThisPub/4);
+                            if(tr == 0){
+                                tr=1;
+                            }
+
+
+                            $scope.initCom(tr,idp,indexPub);
+
+                            $('#modalDeleteCom').modal('hide');
+                            toastr.info('votre commentaire a ete supprimé avec succes','notification',2000);
+
+                        });
+
+
+            }
+
+
+
+
+
+            $scope.getPublications2=function(){
+                //document.getElementById('chargementPubs').style.display="block";
+                //document.getElementById('publications').style.display="none";
+                $http.post(Routing.generate('getPublications', { idu: {{ user.id }},tranche:$scope.tranchePub}))
+                        .then(function(response) {
+
+                            $scope.nbrPubs=response.data.nbr;
+                            $scope.pubs=response.data.result;
+
+
+                            //document.getElementById('chargementPubs').style.display="none";
+                            //document.getElementById('publications').style.display="block";
+
+                            if(response.data.nbr > $scope.pubs.length){
+                                document.getElementById('seeMore').style.display="block";
+                            }else{
+                                document.getElementById('seeMore').style.display="none";
+                            }
+
+                            setTimeout(function(){
+
+
+                                $("[id^='inputComment']").keydown(function (e){
+                                    $scope.idInput=document.activeElement.id;
+                                    $scope.idPublication=$scope.idInput.substring(12, $scope.idInput.length);
+                                    //alert($scope.idInput.substring(12, $scope.idInput.length));
+
+                                    /*********hne walit najém na3réf l id mta3 el publication eli bech ncommenti aleha********/
+
+
+                                    $scope.commentaire=document.getElementById($scope.idInput).value;
+                                    if((e.shiftKey) && (e.keyCode == 13)){
+                                        var newText= $(this).val() + '<br>';
+
+
+                                    }
+                                    else if((!e.shiftKey) && (e.keyCode == 13)){
+
+                                        if($scope.commentaire.trim().length === 0){
+                                            setTimeout(function(){
+                                                //document.getElementById('commentToSend').value="";
+                                                document.getElementById($scope.idInput).value="";
+                                            },100);
+
+                                        }else{
+
+                                            //alert('hné n commenti el publication id: '+$scope.idPublication);
+
+
+                                            setTimeout(function(){
+
+                                                $scope.objComment={
+                                                    id:$scope.idPublication,
+                                                    commentaire:$scope.commentaire,
+                                                    type:"publication"
+                                                };
+
+                                                document.getElementById($scope.idInput).value="";
+
+                                                document.getElementById($scope.idInput).disabled = true;
+                                                //$scope.disabledComment=true;
+                                                //ne5dem bil getelementbyid.disabled
+
+
+
+                                                var nbrCommentsThisPub=-1;
+
+                                                for(var i=0;i<$scope.pubs.length;i++){
+                                                    if($scope.pubs[i].id==$scope.idPublication){
+                                                        var idSeeMoreComments2="btnShowMoreComments"+$scope.pubs[i].id;
+                                                        nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                                                        var indexPub=i;
+                                                    }
+                                                }
+
+
+
+                                                $http.post(Routing.generate('sendComment'),$scope.objComment)
+                                                        .then(function(response) {
+                                                            //console.dir($scope.objComment);
+                                                            //hneNbrComments
+                                                            //alert($scope.pubs[indexPub].nbrComments);
+                                                            $scope.pubs[indexPub].nbrComments++;
+
+                                                            if($scope.pubs[indexPub].nbrComments>4){
+
+
+                                                                document.getElementById(idSeeMoreComments2).style.display="block";
+
+
+
+                                                            }
+                                                            document.getElementById($scope.idInput).disabled = false;
+                                                            //$scope.getPublications();
+                                                            var tr=Math.ceil(nbrCommentsThisPub/4);
+                                                            if(tr == 0){
+                                                                tr=1;
+                                                            }
+
+                                                            $scope.initCom(tr,$scope.idPublication,indexPub);
+
+                                                        });
+
+
+
+
+                                                /*
+
+
+                                                 var nbrCommentsThisPub=-1;
+
+                                                 for(var i=0;i<$scope.pubs.length;i++){
+                                                 if($scope.pubs[i].id==idp){
+                                                 nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                                                 var indexPub=i;
+                                                 }
+                                                 }
+
+
+                                                 $http.post(Routing.generate('deleteComment'),$scope.objDel)
+                                                 .then(function(response) {
+
+                                                 //$scope.getPublications();
+
+                                                 $scope.initCom(Math.ceil(nbrCommentsThisPub/4),idp,indexPub);
+
+                                                 });
+
+
+
+
+                                                 */
+
+
+
+                                            },10);
+
+                                        }
+
+                                    }
+
+
+
+
+
+                                })
+
+                            },100);
+
+                        });
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $scope.getPublications=function(){
+                document.getElementById('chargementPubs').style.display="block";
+                document.getElementById('publications').style.display="none";
+                $http.post(Routing.generate('getPublications', { idu: {{ user.id }},tranche:$scope.tranchePub}))
+                        .then(function(response) {
+
+                            $scope.nbrPubs=response.data.nbr;
+                            $scope.pubs=response.data.result;
+
+
+                            document.getElementById('chargementPubs').style.display="none";
+                            document.getElementById('publications').style.display="block";
+
+                            if(response.data.nbr > $scope.pubs.length){
+                                document.getElementById('seeMore').style.display="block";
+                            }else{
+                                document.getElementById('seeMore').style.display="none";
+                            }
+
+                            setTimeout(function(){
+
+
+                                $("[id^='inputComment']").keydown(function (e){
+                                    $scope.idInput=document.activeElement.id;
+                                    $scope.idPublication=$scope.idInput.substring(12, $scope.idInput.length);
+                                    //alert($scope.idInput.substring(12, $scope.idInput.length));
+
+                                    /*********hne walit najém na3réf l id mta3 el publication eli bech ncommenti aleha********/
+
+
+                                    $scope.commentaire=document.getElementById($scope.idInput).value;
+                                    if((e.shiftKey) && (e.keyCode == 13)){
+                                        var newText= $(this).val() + '<br>';
+
+
+                                    }
+                                    else if((!e.shiftKey) && (e.keyCode == 13)){
+
+                                        if($scope.commentaire.trim().length === 0){
+                                            setTimeout(function(){
+                                                //document.getElementById('commentToSend').value="";
+                                                document.getElementById($scope.idInput).value="";
+                                            },100);
+
+                                        }else{
+
+                                            //alert('hné n commenti el publication id: '+$scope.idPublication);
+
+
+                                            setTimeout(function(){
+
+                                                $scope.objComment={
+                                                    id:$scope.idPublication,
+                                                    commentaire:$scope.commentaire,
+                                                    type:"publication"
+                                                };
+
+                                                document.getElementById($scope.idInput).value="";
+
+                                                document.getElementById($scope.idInput).disabled = true;
+                                                //$scope.disabledComment=true;
+                                                //ne5dem bil getelementbyid.disabled
+
+
+
+                                                var nbrCommentsThisPub=-1;
+
+                                                for(var i=0;i<$scope.pubs.length;i++){
+                                                    if($scope.pubs[i].id==$scope.idPublication){
+                                                        var idSeeMoreComments2="btnShowMoreComments"+$scope.pubs[i].id;
+                                                        nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                                                        var indexPub=i;
+                                                    }
+                                                }
+
+
+
+                                                $http.post(Routing.generate('sendComment'),$scope.objComment)
+                                                        .then(function(response) {
+                                                            //console.dir($scope.objComment);
+                                                            //hneNbrComments
+                                                            //alert($scope.pubs[indexPub].nbrComments);
+                                                            $scope.pubs[indexPub].nbrComments++;
+
+                                                            if($scope.pubs[indexPub].nbrComments>4){
+
+
+                                                                document.getElementById(idSeeMoreComments2).style.display="block";
+
+
+
+                                                            }
+                                                            document.getElementById($scope.idInput).disabled = false;
+                                                            //$scope.getPublications();
+                                                            var tr=Math.ceil(nbrCommentsThisPub/4);
+                                                            if(tr == 0){
+                                                                tr=1;
+                                                            }
+
+                                                            $scope.initCom(tr,$scope.idPublication,indexPub);
+
+                                                        });
+
+
+
+
+                                                /*
+
+
+                                                 var nbrCommentsThisPub=-1;
+
+                                                 for(var i=0;i<$scope.pubs.length;i++){
+                                                 if($scope.pubs[i].id==idp){
+                                                 nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                                                 var indexPub=i;
+                                                 }
+                                                 }
+
+
+                                                 $http.post(Routing.generate('deleteComment'),$scope.objDel)
+                                                 .then(function(response) {
+
+                                                 //$scope.getPublications();
+
+                                                 $scope.initCom(Math.ceil(nbrCommentsThisPub/4),idp,indexPub);
+
+                                                 });
+
+
+
+
+                                                 */
+
+
+
+                                            },10);
+
+                                        }
+
+                                    }
+
+
+
+
+
+                                })
+
+                            },100);
+
+                        });
+
+            }
+
+
+
+            $scope.openModalAdvancedSearch=function(){
+                //alert('n7el el modal advanced search');
+
+
+                $('#advSearch').modal('show');
+                $scope.searchUsers(1);
+            }
+
+            $scope.getPublications();
+            setInterval($scope.getPublications2,3000);
+
+
+            $scope.afficherPlusPublication=function(){
+                $scope.tranchePub++;
+                $scope.getPublications();
+            }
+
+            $scope.publier=function(image){
+
+
+                /*test lel upload image*/
+
+                var formData = new FormData();
+                formData.append('image', image);
+                //console.dir(formData);
+
+                /*test lel upload image*/
+
+
+                var pub = document.getElementById("nvPublication").value;
+
+                if(false){
+                    alert('publication doit pas etre null');
+                }else{
+                    $scope.objPub={
+                        text:pub.trim()
+                        //image:formData
+                    }
+
+
+                    formData.append('text',pub.trim());
+
+                    var idLieu=document.getElementById('lieuxAutoId').value;
+                    if(idLieu==""){
+                        formData.append('lieu',0);
+                    }else{
+                        formData.append('lieu',document.getElementById('lieuxAutoId').value);
+                    }
+
+
+                    $http.post(Routing.generate('addPublication'),formData,{
+                        transformRequest: angular.identity,
+                        headers: { 'Content-Type': undefined }
+                    })
+                            .then(function(response) {
+
+
+
+                                document.getElementById("file-input").value="";
+
+                                $scope.image="";
+
+                                document.getElementById("nvPublication").value="";
+                                //$scope.getPublications();
+
+                                $http.post(Routing.generate('getPublications', { idu: {{ user.id }},tranche:-1}))
+                                        .then(function(response) {
+                                            //alert('3andi mawjoud deja 9bal l ajout hedha' + $scope.nbrPubs + " w jewni tawa " + response.data.result.length );
+
+
+                                            //$scope.pubs = response.data.result;
+
+                                            //alert('3andi mawjoud deja 9bal l ajout hedha' + $scope.nbrPubs + " w jewni tawa " + response.data.result.length );
+
+                                            //alert('bech nparcouri men '+$scope.nbrPubs+" lel "+response.data.result.length);
+                                            for(var j=$scope.nbrPubs; j<response.data.result.length ;j++){
+
+
+
+
+                                                $scope.pubs.unshift(response.data.result[j-$scope.nbrPubs]);
+                                                $scope.nbrPubs++;
+
+                                            }
+
+
+
+
+                                            if(response.data.nbr > $scope.nbrPubs){
+                                                document.getElementById('seeMore').style.display="block";
+                                            }else{
+                                                document.getElementById('seeMore').style.display="none";
+                                            }
+
+
+
+
+                                            setTimeout(function(){
+
+
+                                                $("[id^='inputComment']").keydown(function (e){
+                                                    $scope.idInput=document.activeElement.id;
+                                                    $scope.idPublication=$scope.idInput.substring(12, $scope.idInput.length);
+                                                    //alert($scope.idInput.substring(12, $scope.idInput.length));
+
+                                                    /*********hne walit najém na3réf l id mta3 el publication eli bech ncommenti aleha********/
+
+
+                                                    $scope.commentaire=document.getElementById($scope.idInput).value;
+                                                    if((e.shiftKey) && (e.keyCode == 13)){
+                                                        var newText= $(this).val() + '<br>';
+
+
+                                                    }
+                                                    else if((!e.shiftKey) && (e.keyCode == 13)){
+
+                                                        if($scope.commentaire.trim().length === 0){
+                                                            setTimeout(function(){
+                                                                //document.getElementById('commentToSend').value="";
+                                                                document.getElementById($scope.idInput).value="";
+                                                            },100);
+
+                                                        }else{
+
+                                                            //alert('hné n commenti el publication id: '+$scope.idPublication);
+
+
+                                                            setTimeout(function(){
+
+                                                                $scope.objComment={
+                                                                    id:$scope.idPublication,
+                                                                    commentaire:$scope.commentaire,
+                                                                    type:"publication"
+                                                                };
+
+                                                                document.getElementById($scope.idInput).value="";
+
+                                                                document.getElementById($scope.idInput).disabled = true;
+                                                                //$scope.disabledComment=true;
+                                                                //ne5dem bil getelementbyid.disabled
+
+
+
+                                                                var nbrCommentsThisPub=-1;
+
+                                                                for(var i=0;i<$scope.pubs.length;i++){
+                                                                    if($scope.pubs[i].id==$scope.idPublication){
+                                                                        var idSeeMoreComments3="btnShowMoreComments"+$scope.pubs[i].id;
+
+                                                                        nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                                                                        var indexPub=i;
+                                                                    }
+                                                                }
+
+
+
+                                                                $http.post(Routing.generate('sendComment'),$scope.objComment)
+                                                                        .then(function(response) {
+                                                                            //console.dir($scope.objComment);
+                                                                            //hneNbrComments
+                                                                            //alert($scope.pubs[indexPub].nbrComments);
+                                                                            $scope.pubs[indexPub].nbrComments++;
+
+
+
+                                                                            if($scope.pubs[indexPub].nbrComments>4){
+
+
+                                                                                document.getElementById(idSeeMoreComments3).style.display="block";
+
+
+
+                                                                            }
+
+                                                                            document.getElementById($scope.idInput).disabled = false;
+                                                                            //$scope.getPublications();
+                                                                            var tr=Math.ceil(nbrCommentsThisPub/4);
+                                                                            if(tr == 0){
+                                                                                tr=1;
+                                                                            }
+
+                                                                            $scope.initCom(tr,$scope.idPublication,indexPub);
+
+                                                                        });
+
+
+
+
+                                                                /*
+
+
+                                                                 var nbrCommentsThisPub=-1;
+
+                                                                 for(var i=0;i<$scope.pubs.length;i++){
+                                                                 if($scope.pubs[i].id==idp){
+                                                                 nbrCommentsThisPub=$scope.pubs[i].comments.length;
+                                                                 var indexPub=i;
+                                                                 }
+                                                                 }
+
+
+                                                                 $http.post(Routing.generate('deleteComment'),$scope.objDel)
+                                                                 .then(function(response) {
+
+                                                                 //$scope.getPublications();
+
+                                                                 $scope.initCom(Math.ceil(nbrCommentsThisPub/4),idp,indexPub);
+
+                                                                 });
+
+
+
+
+                                                                 */
+
+
+
+                                                            },10);
+
+                                                        }
+
+                                                    }
+
+
+
+
+
+                                                })
+
+                                            },100);
+
+
+
+
+
+
+                                        });
+
+
+                            });
+
+
+
+
+                }
+
+            }
+
+
+            $scope.laisserApp=true;
+
+            $scope.aimer=function (id) {
+
+                if($scope.laisserApp){
+                    $scope.laisserApp=false;
+
+                    var idImgAime="imgAime"+id;
+
+                    var ancienSrcAime=document.getElementById(idImgAime).src;
+
+                    if(ancienSrcAime == "http://localhost/final/web/dist/img/likerouge.png"){
+                        $scope.ancienEtatAime="rouge";
+                    }
+                    if(ancienSrcAime == "http://localhost/final/web/dist/img/online-likeBtn.png"){
+                        $scope.ancienEtatAime="blanc";
+                    }
+
+
+                    /*BECH INAJMO YE5DMOU BIL KHLEF IZIDO WEYNA9SO 1*/
+                    var idImgAimePas="imgAimePas"+id;
+
+                    var ancienSrcAimePas=document.getElementById(idImgAimePas).src;
+
+
+
+
+                    if(ancienSrcAimePas == "http://localhost/final/web/dist/img/deslikerouge.png"){
+                        $scope.ancienEtatAimePas="rouge";
+                    }
+                    if(ancienSrcAimePas == "http://localhost/final/web/dist/img/pnline-dislikeBtn.png"){
+                        $scope.ancienEtatAimePas="blanc";
+                    }
+
+
+                    /*BECH INAJMO YE5DMOU BIL KHLEF IZIDO WEYNA9SO 1*/
+
+
+
+
+                    $http.post(Routing.generate('Addappreciation', { id: id , type: "publication" }))
+                            .then(function(response) {
+
+                                $http.post(Routing.generate('Getappreciation', { id: id , type: "publication" }))
+                                        .then(function(response) {
+
+                                            for(var i=0;i<$scope.pubs.length;i++){
+
+
+                                                if($scope.pubs[i].id==id){
+
+                                                    var indexPub=i;
+                                                }
+                                            }
+
+
+                                            if($scope.ancienEtatAime=="rouge"){
+                                                $scope.pubs[indexPub].nbrAime--;
+                                            }
+                                            if($scope.ancienEtatAime=="blanc"){
+                                                $scope.pubs[indexPub].nbrAime++;
+
+
+                                                if($scope.ancienEtatAimePas == "rouge"){
+                                                    $scope.pubs[indexPub].nbrAimePas--;
+
+                                                }
+
+
+                                            }
+                                            if(response.data.aime == 1){
+                                                //$scope.pubs[indexPub].appr="aime";
+                                                $scope.pubs[indexPub].imgAime="../../../dist/img/likerouge.png";
+                                                $scope.pubs[indexPub].imgAimePas="../../../dist/img/pnline-dislikeBtn.png";
+
+
+
+
+                                            }
+
+                                            if(response.data.aimepas == 1){
+                                                alert('aimepas');
+                                                //$scope.pubs[indexPub].appr="aimepas";
+                                                $scope.pubs[indexPub].imgAime="../../../dist/img/online-likeBtn.png";
+                                                $scope.pubs[indexPub].imgAimePas="../../../dist/img/deslikerouge.png";
+                                                $scope.pubs[indexPub].nbrAimePas++;
+
+
+
+
+                                            }
+
+                                            if(response.data.aimepas == 0 && response.data.aime ==0 ){
+                                                //$scope.pubs[indexPub].appr="aucune";
+                                                $scope.pubs[indexPub].imgAime="../../../dist/img/online-likeBtn.png";
+                                                $scope.pubs[indexPub].imgAimePas="../../../dist/img/pnline-dislikeBtn.png";
+
+                                            }
+
+
+
+
+                                            $scope.laisserApp=true;
+
+                                        });
+
+
+                            });
+                }
+
+
+
+            }
+
+            $scope.aimerPas=function (id) {
+
+                if($scope.laisserApp){
+                    $scope.laisserApp=false;
+                    var idImgAimePas="imgAimePas"+id;
+
+                    var ancienSrcAimePas=document.getElementById(idImgAimePas).src;
+
+
+
+
+                    if(ancienSrcAimePas == "http://localhost/final/web/dist/img/deslikerouge.png"){
+                        $scope.ancienEtatAimePas="rouge";
+                    }
+                    if(ancienSrcAimePas == "http://localhost/final/web/dist/img/pnline-dislikeBtn.png"){
+                        $scope.ancienEtatAimePas="blanc";
+                    }
+
+
+                    /*BÉCH INAJMOU YE5DMOU BIL 5LEF IZIDO WEYNA9SSO 1 */
+                    var idImgAime="imgAime"+id;
+
+                    var ancienSrcAime=document.getElementById(idImgAime).src;
+
+                    if(ancienSrcAime == "http://localhost/final/web/dist/img/likerouge.png"){
+                        $scope.ancienEtatAime="rouge";
+                    }
+                    if(ancienSrcAime == "http://localhost/final/web/dist/img/online-likeBtn.png"){
+                        $scope.ancienEtatAime="blanc";
+                    }
+
+
+
+                    /*BÉCH INAJMOU YE5DMOU BIL 5LEF IZIDO WEYNA9SSO 1 */
+
+
+
+                    $http.post(Routing.generate('deleteappreciation', { id: id , type: "publication" }))
+                            .then(function(response) {
+
+
+                                $http.post(Routing.generate('Getappreciation', { id: id , type: "publication" }))
+                                        .then(function(response) {
+
+                                            for(var i=0;i<$scope.pubs.length;i++){
+
+                                                if($scope.pubs[i].id==id){
+                                                    var indexPub=i;
+                                                }
+                                            }
+                                            if($scope.ancienEtatAimePas=="rouge"){
+                                                $scope.pubs[indexPub].nbrAimePas--;
+                                            }
+                                            if($scope.ancienEtatAimePas=="blanc"){
+                                                $scope.pubs[indexPub].nbrAimePas++;
+
+                                                if($scope.ancienEtatAime == "rouge"){
+
+                                                    $scope.pubs[indexPub].nbrAime--;
+
+                                                }
+
+
+                                            }
+                                            if(response.data.aime == 1){
+                                                //$scope.pubs[indexPub].appr="aime";
+                                                $scope.pubs[indexPub].imgAime="../../../dist/img/likerouge.png";
+                                                $scope.pubs[indexPub].imgAimePas="../../../dist/img/pnline-dislikeBtn.png";
+
+                                            }
+
+                                            if(response.data.aimepas == 1){
+                                                //$scope.pubs[indexPub].appr="aimepas";
+                                                $scope.pubs[indexPub].imgAime="../../../dist/img/online-likeBtn.png";
+                                                $scope.pubs[indexPub].imgAimePas="../../../dist/img/deslikerouge.png";
+
+                                            }
+
+                                            if(response.data.aimepas == 0 && response.data.aime ==0 ){
+                                                //$scope.pubs[indexPub].appr="aucune";
+                                                $scope.pubs[indexPub].imgAime="../../../dist/img/online-likeBtn.png";
+                                                $scope.pubs[indexPub].imgAimePas="../../../dist/img/pnline-dislikeBtn.png";
+
+                                            }
+
+
+
+
+                                            $scope.laisserApp=true;
+
+                                        });
+
+
+
+                            });
+
+
+                }
+            }
+
+
+            $scope.focusComment=function(id){
+                var idTobeFocused="inputComment"+id;
+                document.getElementById(idTobeFocused).focus();
+                document.getElementById(idTobeFocused).select();
+            }
+
+
+            /**********************KI NEKLIKI ENTREE YCOMMENTII 3AL PUBLICATION SPECIFIQUE******************************/
+//$('#inputComment11')
+
+
+            /*setTimeout(function(){
+
+
+             $("[id^='inputComment']").keydown(function (e){
+             $scope.idInput=document.activeElement.id;
+             alert($scope.idInput.substring(12, $scope.idInput.length));
+
+
+             })
+
+             },100);*/
+
+
+
+
+            /**********************KI NEKLIKI ENTREE YCOMMENTII 3AL PUBLICATION SPECIFIQUE******************************/
+
+
+
+        }).controller('appLeftController', function($scope,$http) {
+            $scope.test2="nidhal2";
+
+            $scope.refuserDemande=function(id){
+                document.getElementById('chargementRefuser').style.display="block";
+                document.getElementById('btnRefuser').style.display="none";
+                $http.post(Routing.generate('amiRefuser', { userRefuser: id }))
+                        .then(function(response) {
+
+
+
+                            //setTimeout(function(){
+                            document.getElementById('chargementRefuser').style.display="none";
+                            document.getElementById('btnRefuser').style.display="block";
+                            $scope.verifAmitie();
+
+                            //},5000);
+
+
+
+                        });
+
+                /*.then(function(response) {
+
+                 });*/
+            }
+
+
+            $scope.verifAmitie=function(){
+
+                if('{{ user.id }}'=='{{ app.user.id }}'){
+
+                }else{
+
+                    $http.post(Routing.generate('verifAmitie', { idUser: {{ user.id }}}))
+                            .then(function(response) {
+                                $scope.actionUser=response.data;
+
+                                if($scope.actionUser['btnContent']=="Accepter"){
+                                    document.getElementById('btnRefuser').style.display="block";
+                                }else{
+                                    document.getElementById('btnRefuser').style.display="none";
+                                }
+
+
+                            });
+                }
+
+            }
+            $scope.verifAmitie();
+
+
+
+            $scope.openModalSignal=function (id) {
+                document.getElementById("textSignal").value="";
+                document.getElementById("messageSignal").innerHTML="";
+
+                $('#myModalSignal').modal('show');
+            }
+
+
+            $scope.confirmSignal=function(id){
+
+
+                $scope.cause=document.getElementById("textSignal").value;
+
+                if($scope.cause==""){
+                    document.getElementById("messageSignal").innerHTML='expliquer la cause';
+
+                }else{
+                    document.getElementById('chargementsignal').style.display="block";
+                    document.getElementById('partiesignal').style.display="none";11
+                    $scope.objSignal={
+                        ids:id,
+                        text:$scope.cause
+                    };
+
+
+                    $http.post(Routing.generate('amiSignaler'),$scope.objSignal)
+                            .then(function(response) {
+
+                                document.getElementById('chargementsignal').style.display="none";
+                                document.getElementById('partiesignal').style.display="block";
+
+                                if(response.data.success=="0"){
+                                    document.getElementById("messageSignal").innerHTML=response.data.msg;
+                                    setTimeout(function(){
+                                        $('#myModalSignal').modal('hide');
+                                    },1500);
+                                }else{
+
+                                    document.getElementById("messageSignal").innerHTML=response.data.msg;
+
+                                    setTimeout(function(){
+                                        $('#myModalSignal').modal('hide');
+                                    },1500);
+                                }
+
+
+
+                            });
+
+
+
+                }
+
+
+            }
+
+
+
+
+            $scope.getGovs=function(){
+
+                $http.post(Routing.generate('getGovsJson'))
+                        .then(function(response) {
+
+                            $scope.dataAddEtabGovs=response.data.govs;
+
+
+
+                        });
+            }
+
+
+            $scope.getGovs();
+
+            $scope.faireOperation=function (id) {
+
+                $scope.currentAction=$scope.actionUser;
+
+                $http.post(Routing.generate('verifAmitie', { idUser: {{ user.id }} }))
+                        .then(function(response) {
+
+                            $scope.actionUser=response.data;
+
+
+
+                        }).then(function(response){
+
+
+                    if($scope.currentAction['btnContent']==$scope.actionUser['btnContent']){
+
+                        if($scope.actionUser['btnContent']=="Ajouter"){
+
+                            $http.post(Routing.generate('amiAjouter', { iduser: {{ user.id }} }))
+                                    .then(function(response) {
+
+                                        $scope.verifAmitie();
+                                    });
+
+
+                        }
+
+                        if($scope.actionUser['btnContent']=="supprimer"){
+
+                            $http.post(Routing.generate('amiSupprimer', { userSupprimer: id }))
+                                    .then(function(response) {
+                                        $scope.verifAmitie();
+
+                                    });
+
+                        }
+
+
+                        if($scope.actionUser['btnContent']=="Accepter"){
+
+                            $http.post(Routing.generate('amiAccepter', { userAccepter: {{ user.id }} }))
+                                    .then(function(response) {
+
+                                        $scope.verifAmitie();
+
+                                    });
+
+                        }
+
+
+
+                        if($scope.actionUser['btnContent']=="annuler demande"){
+
+                            $http.post(Routing.generate('amiAnnuler', { userAnnuler: {{ user.id }} }))
+                                    .then(function(response) {
+                                        $scope.verifAmitie();
+
+                                    });
+
+                        }
+
+
+
+
+
+
+
+                    }else{
+
+                    }
+
+
+                });
+
+
+
+            }
+
+
+
+
+
+
+        });
+
+
+
+
+    </script>
+<script>
+    $(function () {
+        $('#clickLieu').click(function(){
+
+                $('#champLieu').toggle();
+        });
+    });
+</script>
+
+    <script>
+        $(document).ready(function(){
+
+
+
+            $("#lieuxAuto").keyup(function(){
+                var lieuxAuto = $('#lieuxAuto').val();
+                if($("#lieuxAuto").val().length >= 2) {
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: Routing.generate('etablissement_getAll'),
+                        data:{
+                            lieuxAuto:lieuxAuto
+                        },
+                        success: function (result) {
+
+                            $("#suggesstion-box").show();
+                            $('#suggesstion-box').html("");
+                            $.each(result, function (index, item) {
+
+                                if (item.nom.length > 0) {
+                                    $('#suggesstion-box').append("<li class='lieuxAutoC' id='" + item.id + "'>" + item.nom + "</li>");
+
+
+                                } else {
+                                    $('#suggesstion-box').append("<li class='lieuxAutoC'>not found</li>");
+
+                                }
+                            });
+                            $("#lieuxAuto").css("background", "#FFF");
+                            //$("#suggesstion-box-recherche").html(data);
+
+
+                        }
+                    });
+
+                }else if($("#lieuxAuto").val().length == 0){
+
+                    $('#lieuxAuto').val('');
+
+                }else{
+                    $("#lieuxAutoId").val($('.lieuxAutoC').attr('id'));
+                    $("#suggesstion-box").hide();
+                    $("#suggesstion-box li").html('');
+
+                }
+            });
+        });
+
+        $(document).on('click','.lieuxAutoC', function(){
+
+
+            $("#lieuxAutoId").val($(this).attr('id'));
+
+            $("#showLieu b").html($(this).text());
+
+            $('#deleteLieu').show();
+            $('#showLieu').show();
+            $("#suggesstion-box").hide();
+
+
+        });
+    </script>
+
+    <script>
+        $(function(){
+            $('#deleteLieu').click(function(){
+                $('#showLieu').hide();
+                $("#lieuxAutoId").val('');
+                $("#lieuxAuto").val('');
+            });
+        })
+    </script>
+
+
+{% endblock %}

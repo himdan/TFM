@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SubCategorie</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ subCategorie.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomsubcategorie</th>
+                <td>{{ subCategorie.nomSubCategorie }}</td>
+            </tr>
+            <tr>
+                <th>Statutsubcategorie</th>
+                <td>{{ subCategorie.statutSubCategorie }}</td>
+            </tr>
+            <tr>
+                <th>Datesubcategorie</th>
+                <td>{% if subCategorie.dateSubCategorie %}{{ subCategorie.dateSubCategorie|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('subcategorie_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('subcategorie_edit', { 'id': subCategorie.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,22 @@
+photos:
+    path:     /photos
+    defaults: { _controller: "ClientBundle:Photos:index" }
+
+getphotos:
+    path:     /photos/getphotos
+    defaults: { _controller: "ClientBundle:Photos:getPhotos" }
+    options:
+        expose: true
+
+supprimerphotos:
+    path:     /photos/supprimerphotos/{photo}
+    defaults: { _controller: "ClientBundle:Photos:supprimerPhotos" }
+    options:
+        expose: true
+
+
+getPhotosFbPhoto:
+    path:     /photos/getPhotosFbPhoto/{idUser}
+    defaults: { _controller: "ClientBundle:Photos:getPhotosFbPhoto" }
+    options:
+        expose: true

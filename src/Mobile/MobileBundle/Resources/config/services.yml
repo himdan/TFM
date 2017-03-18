@@ -1,0 +1,8 @@
+services:
+  mobile.tfMarker:
+      class: Mobile\MobileBundle\Service\TfMarker
+      arguments: ["@doctrine.orm.default_entity_manager","@jms_serializer"]
+
+  mobile.tfProfile:
+        class: Mobile\MobileBundle\Service\TfProfile
+        arguments: ["@doctrine.orm.default_entity_manager","@security.password_encoder","@fos_user.user_manager"]

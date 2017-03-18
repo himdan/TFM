@@ -1,0 +1,234 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block body %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2><b>"{{ article.nomArticle }}"</b>
+                <a href="{{ path('article_edit', {'id':article.id}) }}">Modifier l'article</a>
+            </h2>
+            </div>
+    </div>
+
+    <div class="wrapper wrapper-content  animated fadeInRight article">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="pull-right">
+                            <button class="btn btn-white btn-xs" type="button">Webmaster :{{ article.auteur.nomClient }} {{ article.auteur.prenomClient }}</button>
+                            <button class="btn btn-white btn-xs" type="button">Langue : {{ article.langue.nomLangue }}</button>
+                            <button class="btn btn-white btn-xs" type="button">Theme :
+                                {% for cat in article.theme %}
+                                    <span class="badge badge-info">{{ cat.nomTheme }}</span>
+                                {% endfor %}
+                            </button>
+                        </div>
+                        <div class="text-center article-title">
+                            <span class="text-muted"><i class="fa fa-clock-o"></i> {{  article.dateArticle|date("m/d/Y") }}</span>
+                            <h1>
+                                {{ article.nomArticle }}
+                            </h1>
+                        </div>
+                        <div class="" style="margin-bottom:20px;">
+                            <img src="{{ asset(article.image.WebPath) }}" class="img-responsive" style="width: 100%;height: 400px;">
+                        </div>
+                        <p>
+                            {{ article.descriptionArticle|raw }}
+                        </p>
+                        <hr>
+                        <div class="ibox-content">
+                            <div  class="dropzone" id="album" style="box-shadow:none;border-style:dashed;">
+                                <div class="dz-message" data-dz-message>
+                                    <span><i class="ico-file-plus2 mr5"></i> Ajouter des photos!</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="small text-right">
+                                    <h5>Stats:</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> 56 comments </div>
+                                    <i class="fa fa-eye"> </i> {{ nombreVisite }} Fois
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <h2>Comments:</h2>
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="img/a1.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                Andrew Williams
+                                            </a>
+                                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            default model text.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="img/a2.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                Michael Novek
+                                            </a>
+                                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                                            default model text.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="img/a3.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                Alice Mediater
+                                            </a>
+                                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                                            default model text.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="img/a5.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                Monica Flex
+                                            </a>
+                                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                                            default model text.
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script>
+        Dropzone.autoDiscover = false;
+        if ($('#album').length)
+        {
+            $("div#album").dropzone
+            (
+                    {
+
+                        url: document.URL,
+                        addRemoveLinks: true,
+                        dictRemoveFile:'Supprimer',
+                        init:function()
+                        {
+                            t = this;//drop zone
+                            //var
+                            $.post(document.URL,{do:'get'},function(data){
+
+                                for(i in data.mocks)
+                                {
+                                    //formater les fichier eli jeyin
+                                    m = {name:data.mocks[i].name,size:data.mocks[i].size,type:data.mocks[i].type,serverId:data.mocks[i].serverId}
+                                    t.emit("addedfile", m);
+                                    t.emit("thumbnail",m, data.mocks[i].url);//ajouter a dropzone
+                                }
+
+                            })
+                        },
+                        removedfile:function(file)
+                        {
+                            if(file.hasOwnProperty('serverId'))
+                            {
+                                //method te5ou id  w tafsa5 c tt w lo5ra upload jsute nbadlou el url
+                                $.post(document.URL,{do:'delete',id:file.serverId},function(data){
+                                    if(data.ok)
+                                    {
+                                        file.previewElement.remove();
+                                    }
+                                })
+                            }
+
+                        },
+                        success: function(file, response){
+                            if(response.ok)
+                            {
+                                file.previewElement.classList.add("dz-success");
+                                $msg = '<div class="alert alert-dismissable alert-success">'+
+                                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                        '<strong>Success: </strong> '+response.msg+
+                                        '</div>';
+                                file.serverId = response.serverId;//bech ki tenzel supprimer fi dropzone ya3ref el id
+                            }
+                            else
+                            {
+                                file.previewElement.classList.add("dz-error");
+                                $msg = '<div class="alert alert-dismissable alert-danger">'+
+                                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                        '<strong>Success: </strong> '+response.msg+
+                                        '</div>';
+                            }
+                            $("#msg").html($msg);
+                        },
+                        error: function(file,reponse)
+                        {
+                            $msg = '<div class="alert alert-dismissable alert-danger">'+
+                                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                    '<strong>Success: </strong> Erreur serveur!! '+
+                                    '</div>';
+                            $("#msg").html($msg);
+                        }
+                    }
+            );
+        }
+    </script>
+{% endblock %}

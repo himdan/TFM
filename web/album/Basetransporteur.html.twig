@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/dist/css/blog.css" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+ <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+         <a  class="blog-nav-item active" href="{{path('transnporteur_index')}}" ><i>Voir Transporteur</i></a>
+         <a  class="blog-nav-item active" href="{{path('client')}}" >Voir Client</a>
+         <a  class="blog-nav-item active" href="{{path('index_Annonce')}}" >Voir Annonce</a>
+         <a  class="blog-nav-item active" href="{{path('offre')}}" >Voir Offre</a>
+         <a  class="blog-nav-item active" href="{{path('vehecule_index')}}" >Voir Liste Vehecule</a>
+         <a class="blog-nav-item" href="{{path('fos_user_security_logout')}}">Déconnexion</a>
+      
+       
+        </nav>
+      </div>
+    </div>
+            
+      {% block body %}{% endblock %}
+      </div>
+         
+<script src="/dist/js/jquery-1.12.2.min.js"></script>
+<script src="/dist/js/bootstrap.min.js"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

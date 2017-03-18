@@ -1,0 +1,907 @@
+/* 
+
+   OUPPSS STYLESHEET INDEX
+
+      1 - FONT-FACE                         			27. Line
+      2 - BASIC HTML                 					33. Line
+      3 - HEADER                       					50. Line
+            A - LOGO                        			64. Line
+            B - TITLES                      			86. Line
+
+      4 - SECTION                      					119. Line
+            A - SEARCH FORM AND SUBSCRIBE FORM 			121. Line
+            B - COUNTDOWN                      			241. Line
+
+      5 - FOOTER                      					363. Line
+      		A - MOBILE MENU 							371. Line
+            B - SOCIAL LINKS                			379. Line
+            C - COPYRIGHT TEXT 							427. Line
+            D - FOOTER MENU                 			441. Line     
+
+      7 - PLACEHOLDER STYLES                 			488. Line
+      7 - ANIMATIONS                 					519. Line
+      7 - RESPONSIVE STYLES                 			548. Line
+
+*/
+
+/*--- BEGIN FONT-FACE IMPORT ---*/
+
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+/*--- END OF FONT-FACE IMPORT ---*/
+
+/*--- BEGIN BASIC HTML ---*/
+
+body {
+    -moz-animation: bgscroll 10s infinite linear;
+    -ms-animation: bgscroll 10s infinite linear;
+    -o-animation: bgscroll 10s infinite linear;
+    -webkit-animation: bgscroll 10s infinite linear;
+    -webkit-font-smoothing: antialiased;
+    animation: bgscroll 10s infinite linear;
+    background-image: url('../images/bg.png');
+    background-position: center center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+}
+
+/*--- END OF BASIC HTML ---*/
+
+/*--- BEGIN HEADER ---*/
+
+header {
+    display: block;
+    margin: 0px;
+    padding: 0px;
+}
+
+header #top {
+    height: 180px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* BEGIN LOGO */
+
+header #logo {
+    left: 50%;
+    margin-left: -150px;
+    margin-top: 40px;
+    position: relative;
+}
+
+header #logo a {
+    background-image: url(../images/logo.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block;
+    height: 110px;
+    margin-left: -54px;
+    margin-right: auto;
+    width: 403px;
+    background-color: #FFF;
+    border-radius: 23px;
+}
+
+/* END OF LOGO */
+
+/* BEGIN TITLES */
+
+header #title h2 {
+    color: #FFF;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    height: 20px;
+    line-height: 93px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    text-align: center;
+    text-shadow: 0px 1px rgba(0,0,0,.2);
+}
+
+header #title h1 {
+    color: #FFF;
+    display: block;
+    font-size: 44px;
+    font-weight: normal;
+    height: 40px;
+    line-height: 48px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-shadow: 0px 1px rgba(0,0,0,.2);
+}
+
+/* END OF TITLES */
+
+/*--- END OF HEADER ---*/
+
+/*--- BEGIN SECTION ---*/
+
+/* BEGIN SEARCH FORM AND SUBSCRIBE FORM */
+
+section #search, section #subscribe {
+    -moz-border-radius: 6px;
+    -moz-box-sizing: border-box;
+    -webkit-border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    background-color: rgba(0,0,0,.1);
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    padding: 20px;
+    width: 500px;
+}
+
+section #search form input[type="button"], section #subscribe form input[type="button"] {
+    -moz-transition: 200ms ease-in all;
+    -ms-transition: 200ms ease-in all;
+    -o-transition: 200ms ease-in all;
+    -webkit-transition: 200ms ease-in all;
+    background-color: transparent;
+    border: 1px solid #FFF;
+    color: #FFF;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    height: 38px;
+    line-height: 30px;
+    margin-left: 16px;
+    text-align: center;
+    transition: 200ms ease-in all;
+    width: 140px;
+}
+
+section #search form input[type="button"]:active, section #subscribe form input[type="button"]:active {
+    -moz-box-shadow: 0px 0px 30px 0px rgba(255,255,255,0.5);
+    -moz-transition: 200ms ease-in all;
+    -ms-transition: 200ms ease-in all;
+    -o-transition: 200ms ease-in all;
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(255,255,255,0.5);
+    -webkit-transition: 200ms ease-in all;
+    background-color: transparent;
+    box-shadow: 0px 0px 30px 0px rgba(255,255,255,0.5);
+    color: #FFF;
+    transition: 200ms ease-in all;
+}
+
+section #search form input[type="button"]:hover, section #subscribe form input[type="button"]:hover {
+    -moz-transition: 200ms ease-in all;
+    -ms-transition: 200ms ease-in all;
+    -o-transition: 200ms ease-in all;
+    -webkit-transition: 200ms ease-in all;
+    background-color: #EEE;
+    border: 1px solid #EEE;
+    transition: 200ms ease-in all;
+}
+
+section #search form input[type="text"], section #subscribe form input[type="text"] {
+    -moz-transition: 200ms ease-in all;
+    -ms-transition: 200ms ease-in all;
+    -o-transition: 200ms ease-in all;
+    -webkit-transition: 200ms ease-in all;
+    background-color: transparent;
+    background-color: transparent;
+    border: 1px solid #FFF;
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    height: 38px;
+    outline: none;
+    padding: 10px;
+    transition: 200ms ease-in all;
+    width: 300px;
+}
+
+section #search form input[type="text"]:active, section #subscribe form input[type="text"]:active {
+    -moz-box-shadow: 0px 0px 30px 0px rgba(255,255,255,0.5);
+    -moz-transition: 200ms ease-in all;
+    -ms-transition: 200ms ease-in all;
+    -o-transition: 200ms ease-in all;
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(255,255,255,0.5);
+    -webkit-transition: 200ms ease-in all;
+    background-color: transparent;
+    box-shadow: 0px 0px 30px 0px rgba(255,255,255,0.5);
+    color: #FFF;
+    transition: 200ms ease-in all;
+}
+
+section #search form input[type="text"]:hover, section #subscribe form input[type="text"]:hover {
+    -moz-transition: 200ms ease-in all;
+    -ms-transition: 200ms ease-in all;
+    -o-transition: 200ms ease-in all;
+    -webkit-transition: 200ms ease-in all;
+    background-color: #FFF;
+    transition: 200ms ease-in all;
+}
+
+section #subscribe #success {
+    background-color: #FFF;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+}
+
+section #subscribe #success h2 {
+    color: rgb(122, 221, 84);
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+section #subscribe #success p {
+    color: #AAA;
+    font-weight: normal;
+}
+
+/* END OF SEARCH FORM AND SUBSCRIBE FORM */
+
+/* BEGIN COUNTDOWN */
+
+section #countdown {
+    height: 140px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    width: 620px;
+}
+
+section #countdown .timer.fill > #slice > .pie {
+    background-color: #FFF;
+    border: transparent;
+    height: 1em;
+    width: 1em;
+}
+
+section #countdown .timer.fill > .percent {
+    display: none
+}
+
+section #countdown .timer {
+    background-image: url("../images/circle.png");
+    float: left;
+    font-size: 140px;
+    height: 1em;
+    position: relative !important;
+    width: 1em;
+}
+
+section #countdown .timer > #slice.gt50 {
+    clip: rect(auto,auto,auto,auto)
+}
+
+section #countdown .timer > .percent {
+    font-size: 140px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 1.05em;
+    width: 3.33em;
+}
+
+section #countdown .timer > #slice {
+    clip: rect(0px,1em,1em,0.5em);
+    height: 1em;
+    position: absolute;
+    width: 1em;
+}
+
+section #countdown .timer > #slice > .pie.fill {
+    -moz-transform: rotate(180deg) !important;
+    -ms-transform: rotate(180deg) !important;
+    -o-transform: rotate(180deg) !important;
+    -webkit-transform: rotate(180deg) !important;
+    transform: rotate(180deg) !important;
+}
+
+section #countdown .timer > #slice > .pie {
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border: 10px solid;
+    border-color: #FFF;
+    border-radius: .5em;
+    clip: rect(0em,0.5em,1em,0em);
+    color: #FFF;
+    height: 1em;
+    position: absolute;
+    width: 1em;
+}
+
+section #countdown .clock {
+    -moz-border-radius: 50%;
+    -moz-box-shadow: 0px 4px 0px 0px rgba(0,0,0,.1);
+    -webkit-border-radius: 50%;
+    -webkit-box-shadow: 0px 4px 0px 0px rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.2);
+    border-radius: 50%;
+    box-shadow: 0px 4px 0px 0px rgba(0,0,0,.1);
+    float: left;
+    height: 140px;
+    margin-right: 20px;
+    position: relative;
+    width: 140px;
+}
+
+section #countdown .clock:last-child {
+    margin-right: 0px
+}
+
+section #countdown .clock .label {
+    color: #FFF;
+    display: table;
+    font-family: 'Montserrat', Tahoma, Arial, sans-serif;
+    font-size: 1.7em;
+    font-weight: 400;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative !important;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.1);
+    top: -120px;
+}
+
+section #countdown .clock #days, section #countdown .clock #hours, section #countdown .clock #minutes, section #countdown .clock #seconds {
+    color: #FFF;
+    display: table;
+    font-family: 'Montserrat', Tahoma, Arial, sans-serif;
+    font-size: 4.2em;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative !important;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.1);
+    top: -108px;
+}
+
+/* END OF COUNTDOWN */
+
+/*--- END OF SECTION ---*/
+
+/*--- FOOTER ---*/
+
+footer {
+    bottom: 0px;
+    height: 140px;
+    width: 100%;
+}
+
+/* BEGIN MOBILE MENU */
+
+footer #mobile_menu {
+    display: none
+}
+
+/* END OF MOBILE MENU */
+
+/* BEGIN SOCIAL LINKS */
+
+footer #socials ul {
+    background-color: transparent;
+    display: table;
+    height: 40px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    width: auto;
+}
+
+footer #socials ul li {
+    float: left;
+    margin-right: 18px;
+}
+
+footer #socials ul li a.googleplus {
+    background-image: url('../images/googleplus.png')
+}
+
+footer #socials ul li:last-child {
+    margin-right: 0px
+}
+
+footer #socials ul li a.facebook {
+    background-image: url('../images/facebook.png')
+}
+
+footer #socials ul li a.twitter {
+    background-image: url('../images/twitter.png')
+}
+
+footer #socials ul li a {
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: list-item;
+    height: 32px;
+    opacity: .5;
+    width: 32px;
+}
+
+footer #socials ul li a:hover {
+    background-color: transparent;
+    opacity: 1;
+}
+
+/* END OF SOCIAL LINKS */
+
+/* BEGIN COPYRIGHT TEXT */
+
+footer #copyright {
+    background-color: #FFF;
+    font-size: 12px;
+    font-weight: normal;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 100%;
+    margin-top: 100px;
+}
+
+/* END OF COPYRIGHT TEXT */
+
+/* BEGIN FOOTER MENU */
+
+footer ul {
+    -moz-border-radius: 6px 6px 0px 0px;
+    -webkit-border-radius: 6px 6px 0px 0px;
+    background-color: rgba(0,0,0,.1);
+    border-radius: 6px 6px 0px 0px;
+    display: table;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 500px;
+}
+
+footer ul li {
+    float: left
+}
+
+footer ul li a {
+    -moz-transition: 200ms linear all;
+    -ms-transition: 200ms linear all;
+    -o-transition: 200ms linear all;
+    -webkit-transition: 200ms linear all;
+    color: #FFF;
+    display: list-item;
+    font-size: 16px;
+    height: 40px;
+    line-height: 20px;
+    padding-bottom: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-top: 10px;
+    text-shadow: 0px 1px rgba(0,0,0,.2);
+    transition: 200ms linear all;
+}
+
+footer ul li a:hover {
+    background-color: #FFF;
+    text-shadow: none;
+}
+
+/* END OF FOOTER MENU */
+
+/*--- END OF FOOTER ---*/
+
+/* BEGIN PLACEHOLDER STYLES */
+
+input::-webkit-input-placeholder {
+    color: #FFF;
+    font-weight: bold;
+}
+
+input:focus::-webkit-input-placeholder, input:focus:hover::-webkit-input-placeholder {
+    color: #FFF !important
+}
+
+input:-moz-placeholder {
+    color: #FFF;
+    font-weight: bold;
+}
+
+input:focus:-moz-placeholder, input:focus:hover:-moz-placeholder {
+    color: #FFF !important
+}
+
+input:-ms-input-placeholder {
+    color: #FFF;
+    font-weight: bold;
+}
+
+input:focus:-ms-input-placeholder, input:focus:hover:-ms-input-placeholder {
+    color: #FFF !important
+}
+
+/* END OF PLACEHOLDER STYLES */
+
+/* BEGIN ANIMATIONS */
+
+@-webkit-keyframes bgscroll {
+	from {background-position: 0 0;}
+	to {background-position: -1100px 0;}
+}
+
+@-moz-keyframes bgscroll {
+	from {background-position: 0 0;}
+	to {background-position: -1100px 0;}
+}
+
+@-ms-keyframes bgscroll {
+	from {background-position: 0 0;}
+	to {background-position: -1100px 0;}
+}
+
+@-o-keyframes bgscroll {
+	from {background-position: 0 0;}
+	to {background-position: -1100px 0;}
+}
+
+@keyframes bgscroll {
+	from {background-position: 0 0;}
+	to {background-position: -1100px 0;}
+}
+
+/* END OF ANIMATIONS */
+
+/*--- BEGIN RESPONSIVE STYLES ---*/
+
+@media only screen and (max-width: 959px) {
+
+	footer {
+    	margin-top: 20px
+	}
+
+	section #countdown {
+	    display: table;
+	    margin-left: auto;
+	    margin-right: auto;
+	    width: auto !important;
+	}
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+
+	.g_container_12 {
+		width: 768px !important;
+	}
+
+}
+
+@media only screen and (max-width: 767px) {
+
+	section #countdown {
+	    -moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    margin-bottom: 20px;
+	    padding: 20px;
+	}
+
+	section #countdown .timer {
+	    background-size: 100% 100%;
+	    font-size: 120px;
+	}
+
+	section #countdown .timer > #slice > .pie {
+	    border: 8px solid
+	}
+
+	section #countdown .clock {
+	    background-size: 100% 100%;
+	    height: 120px !important;
+	    margin-right: 20px;
+	    width: 120px !important;
+	}
+
+	section #countdown .clock:last-child {
+	    margin-right: 0
+	}
+
+	section #countdown .clock .label {
+	    font-size: 1.4em;
+	    margin-top: 20px;
+	}
+
+	section #countdown .clock #days, section #countdown .clock #hours, section #countdown .clock #minutes, section #countdown .clock #seconds {
+	    font-size: 3.2em;
+	    top: -90px;
+	}
+
+	footer #menu {
+	    display: none
+	}
+
+	footer #mobile {
+	    -moz-border-radius: 6px 6px 0px 0px;
+	    -moz-transition: 200ms ease-in all;
+	    -ms-transition: 200ms ease-in all;
+	    -o-transition: 200ms ease-in all;
+	    -webkit-border-radius: 6px 6px 0px 0px;
+	    -webkit-transition: 200ms ease-in all;
+	    background-color: #FFF;
+	    background-position: center center;
+	    background-repeat: no-repeat;
+	    border-radius: 6px 6px 0px 0px;
+	    cursor: pointer;
+	    display: block;
+	    height: 40px;
+	    left: 50%;
+	    margin-left: -20px;
+	    position: relative;
+	    transition: 200ms ease-in all;
+	    width: 40px;
+	}
+
+	footer #mobile:hover {
+
+	}
+
+	footer #mobile.open {
+	    background-image: url('../images/mobile.png')
+	}
+
+	footer #mobile.close {
+	    background-image: url('../images/mobile_close.png')
+	}
+
+	footer #mobile_menu.on {
+	    -moz-border-radius: 0px;
+	    -moz-transition: 200ms ease-in all;
+	    -ms-transition: 200ms ease-in all;
+	    -o-transition: 200ms ease-in all;
+	    -webkit-border-radius: 0px;
+	    -webkit-transition: 200ms ease-in all;
+	    border-radius: 0px;
+	    border-top: 2px solid #FFF;
+	    display: block;
+	    height: auto;
+	    padding: 0px;
+	    transition: 200ms ease-in all;
+	}
+
+	footer #mobile_menu li {
+	    float: none
+	}
+
+	footer #mobile_menu li a {
+	    border-bottom: 1px solid rgba(0,0,0,0.2);
+	    text-align: center;
+	}
+
+	footer.mobile {
+	    height: auto
+	}
+
+	footer ul {
+	    -moz-border-radius: 0px;
+	    -webkit-border-radius: 0px;
+	    border-radius: 0px;
+	    width: 100%;
+	}
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+	.g_container_12 {
+	    width: 100% !important
+	}
+
+	section #search, section #subscribe {
+	    -moz-border-radius: 0px;
+	    -webkit-border-radius: 0px;
+	    border-radius: 0px;
+	    width: 100%;
+	}
+
+	section #search form, section #subscribe form {
+	    display: table;
+	    margin-left: auto;
+	    margin-right: auto;
+	    width: 100%;
+	}
+
+	section #search form input[type="button"], section #subscribe form input[type="button"] {
+	    margin-left: 3%;
+	    margin-top: 1px;
+	    width: 35%;
+	}
+
+	section #search form input[type="text"], section #subscribe form input[type="text"] {
+	    width: 60%
+	}
+
+}
+
+@media only screen and (max-width: 568px) {
+
+	header #top {
+	    height: 100px
+	}
+
+	header #logo {
+	    margin-top: 10px
+	}
+
+	header #title {
+	    margin-top: 88px;
+	}
+
+	header #title h1 {
+    	font-size: 31px;
+        height: 30px;
+        line-height: 30px;
+        margin-top: -31px;
+	}
+    header #title h2{
+        font-size: 14px;
+    }
+
+	section #countdown {
+	    margin-top: 20px;
+	    padding: 0px;
+	}
+
+	section #countdown .clock {
+	    margin-bottom: 0px;
+	    margin-left: 10px !important;
+	    margin-right: 10px !important;
+	}
+
+	body.countdown footer {
+	    position: relative !important
+	}
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 560px) {
+
+	section #countdown {
+	    margin-top: 20px;
+	    padding: 0px;
+	}
+
+	section #countdown .timer.fill > #slice > .pie {
+	    background-color: #FFF;
+	    border: transparent;
+	    height: 1em;
+	    width: 1em;
+	}
+
+	section #countdown .timer.fill > .percent {
+	    display: none
+	}
+
+	section #countdown .timer {
+	    font-size: 100px
+	}
+
+	section #countdown .timer > #slice.gt50 {
+	    clip: rect(auto,auto,auto,auto)
+	}
+
+	section #countdown .timer > .percent {
+	    font-size: 100px;
+	    left: 0;
+	    position: absolute;
+	    text-align: center;
+	    top: 1.05em;
+	    width: 3.33em;
+	}
+
+	section #countdown .timer > #slice {
+	    clip: rect(0px,1em,1em,0.5em);
+	    height: 1em;
+	    position: absolute;
+	    width: 1em;
+	}
+
+	section #countdown .timer > #slice > .pie.fill {
+	    -moz-transform: rotate(180deg) !important;
+	    -ms-transform: rotate(180deg) !important;
+	    -o-transform: rotate(180deg) !important;
+	    -webkit-transform: rotate(180deg) !important;
+	    transform: rotate(180deg) !important;
+	}
+
+	section #countdown .timer > #slice > .pie {
+	    -moz-border-radius: .5em;
+	    -webkit-border-radius: .5em;
+	    border: 7px solid;
+	    border-color: #FFF;
+	    border-radius: .5em;
+	    clip: rect(0em,0.5em,1em,0em);
+	    color: #FFF;
+	    height: 1em;
+	    position: absolute;
+	    width: 1em;
+	}
+
+	section #countdown .clock {
+	    height: 100px !important;
+	    margin-bottom: 0px;
+	    margin-left: 10px !important;
+	    margin-right: 10px !important;
+	    width: 100px !important;
+	}
+
+	section #countdown .clock .label {
+	    font-size: 14px;
+	    top: -94px;
+	}
+
+	section #countdown .clock #days, section #countdown .clock #hours, section #countdown .clock #minutes, section #countdown .clock #seconds {
+	    font-size: 2.2em;
+	    top: -74px;
+	}
+
+	body.subscribe footer {
+	    bottom: 0px !important;
+	    height: 100px;
+	}
+
+}
+
+@media only screen and (max-width: 479px) {
+
+	body.subscribe header #title h2 {
+	    font-size: 12px;
+        line-height: 51px;
+	}
+
+	.g_container_12 {
+	    width: 100%
+	}
+
+	header {
+	    height: 190px
+	}
+
+	header #logo {
+	    margin-top: 20px !important
+	}
+
+	header #top {
+	    height: 120px
+	}
+
+	section #search, section #subscribe {
+	    -moz-border-radius: 0px;
+	    -webkit-border-radius: 0px;
+	    border-radius: 0px;
+	    margin-top: 109px;
+	    padding: 5%;
+	    width: 100%;
+	}
+
+	section #search form input[type="button"], section #subscribe form input[type="button"] {
+	    margin-left: 0;
+	    margin-top: 10px;
+	    width: 100%;
+	}
+
+	section #search form input[type="text"], section #subscribe form input[type="text"] {
+	    text-align: center;
+	    width: 100%;
+	}
+
+	section #countdown {
+	    margin-top: 0px;
+	    padding: 20px;
+	}
+
+	section #countdown .clock {
+	    margin-bottom: 20px;
+	    margin-left: 9px;
+	    margin-right: 9px;
+	}
+
+}
+
+/*--- END OF RESPONSIVE STYLES */

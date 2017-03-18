@@ -1,0 +1,93 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter des carte pour l'etablissement " {{ etablissement.nomEtablissement }} "</h1>
+
+        <div class="ibox-content">
+            <div  class="dropzone" id="carte" style="box-shadow:none;border-style:dashed;">
+                <div class="dz-message" data-dz-message>
+                    <span><i class="ico-file-plus2 mr5"></i> Ajouter des cartes!</span>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+
+    <script>
+        Dropzone.autoDiscover = false;
+        if ($('#carte').length)
+        {
+            $("div#carte").dropzone
+            (
+                    {
+
+                        url: document.URL,
+                        addRemoveLinks: true,
+                        dictRemoveFile:'Supprimer',
+                        init:function()
+                        {
+                            t = this;//drop zone
+                            //var
+                            $.post(document.URL,{do:'get'},function(data){
+
+                                for(i in data.mocks)
+                                {
+                                    //formater les fichier eli jeyin
+                                    m = {name:data.mocks[i].name,size:data.mocks[i].size,type:data.mocks[i].type,serverId:data.mocks[i].serverId}
+                                    t.emit("addedfile", m);
+                                    t.emit("thumbnail",m, data.mocks[i].url);//ajouter a dropzone
+                                }
+
+                            })
+                        },
+                        removedfile:function(file)
+                        {
+                            if(file.hasOwnProperty('serverId'))
+                            {
+                                //method te5ou id  w tafsa5 c tt w lo5ra upload jsute nbadlou el url
+                                $.post(document.URL,{do:'delete',id:file.serverId},function(data){
+                                    if(data.ok)
+                                    {
+                                        file.previewElement.remove();
+                                    }
+                                })
+                            }
+
+                        },
+                        success: function(file, response){
+                            if(response.ok)
+                            {
+                                file.previewElement.classList.add("dz-success");
+                                $msg = '<div class="alert alert-dismissable alert-success">'+
+                                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                        '<strong>Success: </strong> '+response.msg+
+                                        '</div>';
+                                file.serverId = response.serverId;//bech ki tenzel supprimer fi dropzone ya3ref el id
+                            }
+                            else
+                            {
+                                file.previewElement.classList.add("dz-error");
+                                $msg = '<div class="alert alert-dismissable alert-danger">'+
+                                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                        '<strong>Success: </strong> '+response.msg+
+                                        '</div>';
+                            }
+                            $("#msg").html($msg);
+                        },
+                        error: function(file,reponse)
+                        {
+                            $msg = '<div class="alert alert-dismissable alert-danger">'+
+                                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                    '<strong>Success: </strong> Erreur serveur!! '+
+                                    '</div>';
+                            $("#msg").html($msg);
+                        }
+                    }
+            );
+        }
+    </script>
+
+{% endblock %}

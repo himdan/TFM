@@ -1,0 +1,24 @@
+prix_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Prix:index" }
+    methods:  GET
+
+prix_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Prix:show" }
+    methods:  GET
+
+prix_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Prix:new" }
+    methods:  [GET, POST]
+
+prix_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Prix:edit" }
+    methods:  [GET, POST]
+
+prix_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Prix:delete" }
+    methods:  DELETE

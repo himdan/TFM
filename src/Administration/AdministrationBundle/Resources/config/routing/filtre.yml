@@ -1,0 +1,24 @@
+filtre_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Filtre:index" }
+    methods:  GET
+
+filtre_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Filtre:show" }
+    methods:  GET
+
+filtre_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Filtre:new" }
+    methods:  [GET, POST]
+
+filtre_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Filtre:edit" }
+    methods:  [GET, POST]
+
+filtre_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Filtre:delete" }
+    methods:  DELETE

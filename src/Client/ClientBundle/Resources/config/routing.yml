@@ -1,0 +1,67 @@
+client_client:
+    resource: "@ClientBundle/Resources/config/routing/client.yml"
+    prefix:   /administration/member
+
+commentaire:
+    resource: "@ClientBundle/Resources/config/routing/commentaire.yml"
+    prefix:   /commentaire
+
+user:
+    resource: "@ClientBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
+topmember:
+    resource: "@ClientBundle/Resources/config/routing/topmember.yml"
+    prefix:   /
+
+notification:
+    resource: "@ClientBundle/Resources/config/routing/notification.yml"
+    prefix:   /user
+
+settings:
+    resource: "@ClientBundle/Resources/config/routing/settings.yml"
+    prefix:   /user
+
+amis:
+    resource: "@ClientBundle/Resources/config/routing/amis.yml"
+    prefix:   /user
+
+photos:
+    resource: "@ClientBundle/Resources/config/routing/photos.yml"
+    prefix:   /user
+
+profile:
+    resource: "@ClientBundle/Resources/config/routing/profile.yml"
+    prefix:   /user
+
+lieux:
+    resource: "@ClientBundle/Resources/config/routing/lieux.yml"
+    prefix:   /user
+
+message:
+    resource: "@ClientBundle/Resources/config/routing/message.yml"
+    prefix:   /user
+
+invite:
+    resource: "@ClientBundle/Resources/config/routing/invite.yml"
+    prefix:   /user
+
+favoris:
+    resource: "@ClientBundle/Resources/config/routing/favoris.yml"
+    prefix:   /user
+
+appreciation:
+    resource: "@ClientBundle/Resources/config/routing/appreciation.yml"
+    prefix:   /user
+
+rank:
+    resource: "@ClientBundle/Resources/config/routing/rank.yml"
+    prefix:   /user
+
+publication:
+    resource: "@ClientBundle/Resources/config/routing/publication.yml"
+    prefix:   /user
+
+client_homepage:
+    path:     /
+    defaults: { _controller: ClientBundle:Default:index }

@@ -1,0 +1,38 @@
+add_photo:
+    path:     /add_photo/{id}
+    defaults: { _controller: "AdministrationBundle:Article:add" }
+    options:
+        expose: true
+
+article_nbr:
+    path:     /nbr
+    defaults: { _controller: "AdministrationBundle:Article:nbr" }
+
+article_grid:
+    path:     /grid
+    defaults: { _controller: "AdministrationBundle:Article:grid" }
+
+article_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Article:index" }
+    methods:  GET
+
+article_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Article:show" }
+    methods:  [GET, POST]
+
+article_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Article:new" }
+    methods:  [GET, POST]
+
+article_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Article:edit" }
+    methods:  [GET, POST]
+
+article_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Article:delete" }
+    methods:  DELETE

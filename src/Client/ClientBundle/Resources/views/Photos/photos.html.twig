@@ -1,0 +1,638 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <div >
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog  modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ajouter des Photos</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div  class="dropzone" id="carte" style="box-shadow:none;border-style:dashed;">
+                            <div class="dz-message" data-dz-message>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container outerWrapper" ng-app="appPhoto">
+            <!-- menu-left -->
+
+
+
+            {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': user.id })) }}
+
+
+
+            <div class="col-md-6 center-content profil">
+
+                <!-- -->
+                <div ng-controller="appPhotoController">
+
+                    <div class="row top-photos">
+                        <div class="col-xs-7">
+                            <div class="photos_ico"> <img src="{{ asset('dist/img/ico_photo.png') }}" alt="ico photo"> Photos</div>
+                        </div>
+                        <div class="col-xs-5 text-right">
+                            <div class="add-new-img"> <a data-toggle="modal" data-target="#myModal"> <img src="{{ asset('dist/img/ico-add-photo.png') }}" alt=""> Ajouter Photos</a> </div>
+                        </div>
+                    </div>
+
+                    <div class="row inBetweenVert fbphotobox">
+
+
+                        <div class="col-md-4" ng-repeat="photo in photosAffiche">
+                            <div class="thumbnail-img">
+                                <a href="#" class="fb-lb-g">
+                                    <img fbphotobox-src="#photo.url#" src="#photo.url#" alt="pic" class="img-responsive" style="height:150px;width: 150px;">
+                                </a>
+                                <a class="del" href="" ng-click="deletePhoto(photo.id)">
+                                    <i class="  glyphicon glyphicon-trash"></i>
+                                </a>
+                                {#
+                                    <a class="del" href="{{ path('supprimerphotos', {'photo':photo.id}) }}">
+                                    <i class="  glyphicon glyphicon-trash"></i>
+                                </a>
+                                #}
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+            </div>  <!-- center-content -->
+
+
+            {{ render(controller('ClientBundle:Profile:layoutRight', { 'userId': user.id })) }} <!-- menu-right -->
+
+
+        </div>
+        
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+
+    <script>
+        function enzel() {
+            alert('onclick te5dém');
+        }
+
+
+    </script>
+
+    {#
+
+    <script>
+
+        function compile(element){
+            var el = angular.element(element);
+            $scope = el.scope();
+            $injector = el.injector();
+            $injector.invoke(function($compile){
+                $compile(el)($scope)
+            })
+
+    </script>
+
+
+    #}
+
+
+
+    <script>
+        function compile(element){
+            var el = angular.element(element);
+            $scope = el.scope();
+            $injector = el.injector();
+            $injector.invoke(function($compile){
+                $compile(el)($scope)
+            })
+        }
+
+
+
+        var appPhoto = angular.module('appPhoto',[])
+                .config(function($interpolateProvider){
+                    $interpolateProvider.startSymbol('#').endSymbol('#');
+
+
+
+
+                })
+                .directive('loading', function () {
+                    return {
+                        restrict: 'E',
+                        replace:true,
+                        template: '<div class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="20" height="20" />LOADING...</div>',
+                        link: function (scope, element, attr) {
+                            scope.$watch('loading', function (val) {
+                                if (val)
+                                    $(element).show();
+                                else
+                                    $(element).hide();
+                            });
+                        }
+                    }
+                });
+
+        appPhoto.controller('appPhotoController', function($scope,$http) {
+            $scope.test="nidhal";
+
+
+
+            $scope.deletePhoto=function(id){
+                $http.post(Routing.generate('supprimerphotos', { photo: id }))
+                        .then(function(response) {
+
+
+                        });
+            }
+
+            $scope.getPhotos=function(){
+
+                $http.post(Routing.generate('getphotos'))
+                        .then(function(response) {
+                            $scope.photosAffiche=response.data;
+                            console.log('----Photos-----');
+                            console.log($scope.photosAffiche);
+                            console.log('----Photos-----');
+                        });
+
+            }
+
+            $scope.getPhotos();
+
+
+
+
+            setInterval(function(){
+                $scope.getPhotos();
+
+            },2000);
+
+
+
+
+
+
+        }).controller('appLeftController', function($scope,$http) {
+            $('.carousel').carousel('pause');
+
+
+            $scope.trancheComment=1;
+
+
+            $scope.img='{{ asset('dist/img/likerouge.png') }}';
+            $scope.img2='{{ asset('dist/img/online-likeBtn.png') }}';
+
+            $scope.img1AimePas="{{ asset('dist/img/pnline-dislikeBtn.png') }}";
+            $scope.img2AimePas="{{ asset('dist/img/deslikerouge.png') }}";
+
+
+
+            $scope.test2="nidhal2";
+
+            $scope.userrrId="{{ user.id }}";
+
+            $scope.positionActuelle=0;
+            $scope.openModalPhotos=function(pos){
+                $scope.positionActuelle=pos;
+                $('#modalPhotos').modal('show');
+                $scope.getCommentsPhoto($scope.photosFbBox[$scope.positionActuelle].id);
+                $scope.getAppr();
+                $scope.commentsToShow=[];
+                $scope.getComments();
+
+
+
+            }
+            $scope.NextTof=function(){
+                if($scope.positionActuelle < $scope.photosFbBox.length - 1){
+                    setTimeout(function(){
+                        $scope.positionActuelle++;
+                        $scope.getCommentsPhoto($scope.photosFbBox[$scope.positionActuelle].id);
+                        $scope.getAppr();
+                        $scope.commentsToShow=[];
+                        $scope.getComments();
+                    },500);
+                }else{
+                    setTimeout(function(){
+                        $scope.positionActuelle=0;
+                        $scope.getCommentsPhoto($scope.photosFbBox[$scope.positionActuelle].id);
+                        $scope.getAppr();
+                        $scope.commentsToShow=[];
+                        $scope.getComments();
+                    },500);
+                }
+
+
+            }
+
+
+            $scope.PrevTof=function(){
+                if($scope.positionActuelle == 0){
+
+                    setTimeout(function(){
+                        $scope.positionActuelle=$scope.photosFbBox.length - 1;
+                        $scope.getCommentsPhoto($scope.photosFbBox[$scope.positionActuelle].id);
+                        $scope.getAppr();
+                        $scope.commentsToShow=[];
+                        $scope.getComments();
+                    },500);
+
+                }else{
+                    setTimeout(function(){
+                        $scope.positionActuelle--;
+                        $scope.getCommentsPhoto($scope.photosFbBox[$scope.positionActuelle].id);
+                        $scope.getAppr();
+                        $scope.commentsToShow=[];
+                        $scope.getComments();
+                    },500);
+                }
+
+
+
+
+
+            }
+
+
+            $scope.getCommentsPhoto=function (idPhoto) {
+                console.log('njib les commentaires de photo id '+idPhoto)
+            }
+
+            $scope.aime=function () {
+                //alert('aime lel '+$scope.photosFbBox[$scope.positionActuelle].id );
+
+                $http.post(Routing.generate('Addappreciation', { id: $scope.photosFbBox[$scope.positionActuelle].id , type: "photos" }))
+                        .then(function(response) {
+                        }).then(function(response) {
+                            $scope.getAppr();
+                        });
+
+
+            }
+            $scope.aimepas=function () {
+                    //alert('aime pas lel '+$scope.photosFbBox[$scope.positionActuelle].id );
+                $http.post(Routing.generate('deleteappreciation', { id: $scope.photosFbBox[$scope.positionActuelle].id , type: "photos" }))
+                        .then(function(response) {
+                        }).then(function(response) {
+                            $scope.getAppr();
+                        });
+            }
+
+
+
+
+
+            $scope.recetteLiked=false;
+            $scope.recetteNotLiked=false;
+
+
+
+
+
+            $scope.getAppr = function(){
+
+                $http.post(Routing.generate('Getappreciation', { id: $scope.photosFbBox[$scope.positionActuelle].id , type: "photos" }))
+                        .then(function(response) {
+
+                            $scope.recetteLiked=response.data.aime;
+                            $scope.recetteNotLiked=response.data.aimepas;
+
+                            console.log('j aime ? : '+$scope.recetteLiked);
+                            console.log('j aime pas ? : '+$scope.recetteNotLiked);
+
+
+
+                            if($scope.recetteLiked==1){
+                                //alert('el aime true');
+                                $scope.shownAime=$scope.img;
+                            }
+                            if($scope.recetteLiked==0){
+                                //alert('el aime false');
+                                $scope.shownAime=$scope.img2;
+                            }
+
+
+                            if($scope.recetteNotLiked==0){
+                                //alert('el aime pas false');
+                                $scope.shownAimePas=$scope.img1AimePas;
+                            }
+                            if($scope.recetteNotLiked==1){
+                                //alert('el aime pas true');
+                                $scope.shownAimePas=$scope.img2AimePas;
+                            }
+
+
+
+                        });
+
+            };
+
+
+
+
+            $scope.commentsToShow=[];
+
+            $scope.getComments= function(){
+
+
+
+                $scope.objToGetComments={
+                    id:$scope.photosFbBox[$scope.positionActuelle].id,
+                    tranche:$scope.trancheComment,
+                    type:"photos"
+                }
+
+                $http.post(Routing.generate('getComments'),$scope.objToGetComments)
+                        .then(function(response) {
+
+                            $scope.nbrTotalcomments=response.data.nbrTotal;
+                            $scope.commentsToShow=response.data.comments;
+
+                            /*
+                            document.getElementById("chargementComments").style.display="none";
+                            document.getElementById("commentsList").style.display="block";*/
+
+
+                            //console.log("nbrTotalMelBase: "+response.data.nbrTotal);
+                            //console.log("nbr affiché: "+$scope.commentsToShow.length);
+
+                            if(response.data.nbrTotal > $scope.commentsToShow.length){
+                                document.getElementById("afficherplus").style.display="block";
+
+                                //alert('fama des comm o5rin');
+                            }else{
+                                document.getElementById("afficherplus").style.display="none";
+                                //alert('famech des comm o5rin');
+                            }
+                            document.getElementById('loadingComments').style.display="none";
+                            /*$.each(response.data.comments, function (index, item) {
+
+                             $scope.commentsToShow.push({
+                             commentId: item.commentId,
+                             commentText: item.commentText,
+                             commentDate: item.commentDate
+                             });
+                             })*/
+                            /*if(response.data.comments.length== response.data.nbrTotal){
+                             document.getElementById("afficherplus").style.display="none";
+                             alert("el kol afiche");
+                             }else{*/
+
+
+                            //}
+
+
+
+                        });
+
+            }
+
+
+
+
+            $scope.moreComments=function(){
+                document.getElementById('loadingComments').style.display="block";
+                $scope.trancheComment++;
+                $scope.getComments();
+
+
+            }
+
+
+            $('#commentToSend').keydown(function (e){
+                $scope.commentaire=document.getElementById("commentToSend").value;
+                if((e.shiftKey) && (e.keyCode == 13)){
+                    var newText= $(this).val() + '<br>';
+
+
+                }
+                else if((!e.shiftKey) && (e.keyCode == 13)){
+
+                    if($scope.commentaire.trim().length === 0){
+                        setTimeout(function(){
+                            //document.getElementById('commentToSend').value="";
+                            $('#commentToSend').val('');
+                        },100);
+
+                    }else{
+
+                        setTimeout(function(){
+
+                            $scope.objComment={
+                                id:$scope.photosFbBox[$scope.positionActuelle].id,
+                                commentaire:$scope.commentaire,
+                                type:"photos"
+                            };
+
+                            $('#commentToSend').val('');
+
+                            document.getElementById("commentToSend").disabled = true;
+                            //$scope.disabledComment=true;
+                            //ne5dem bil getelementbyid.disabled
+
+                            $http.post(Routing.generate('sendComment'),$scope.objComment)
+                                    .then(function(response) {
+                                        //console.dir($scope.objComment);
+                                        document.getElementById("commentToSend").disabled = false;
+                                    }).then(function(response){
+                                        $scope.commentsToShow=[];
+                                        $scope.getComments();
+
+                                        setTimeout(function () {
+                                            finComments=document.getElementById('finComments');
+                                            finComments.scrollTop=0;
+                                            alert('cbonscroll');
+                                        },1000);
+
+
+                                /*
+                                var objDiv = document.getElementById("scrollComments");
+                                objDiv.scrollTop = objDiv.scrollHeight;*/
+                                    });
+
+
+                        },10);
+
+
+
+
+                    }
+
+                }
+
+            })
+
+            $scope.deleteComment=function(idC){
+                var idBtnToDell="btnDell"+idC;
+                var idBtnSpinn="spinDell"+idC;
+
+                document.getElementById(idBtnToDell).style.display="none";
+                document.getElementById(idBtnSpinn).style.display="block";
+                $scope.objDel={
+                    id:idC,
+                    type:"photos"
+                }
+
+                console.log('b3atht lel tafsi5');
+                console.log($scope.objDel);
+
+
+                $http.post(Routing.generate('deleteComment'),$scope.objDel)
+                        .then(function(response) {
+
+                        }).then(function(response){
+                    $scope.getComments();
+
+                });
+            }
+
+
+            var textAriaComment = document.getElementById('commentToSend');
+            $scope.goToCommenter=function(){
+                textAriaComment.scrollIntoView(true);
+
+                textAriaComment.focus();
+                textAriaComment.select();
+            }
+
+
+
+            /*$scope.nenzelAleha=document.getElementById('dateClick');
+            setTimeout(function () {
+                compile($scope.nenzelAleha);
+            },3000);*/
+
+
+            /*
+            $scope.intNg=function(){
+
+            }
+            */
+
+
+            $scope.getPhotosForFbBox=function () {
+                $http.post(Routing.generate('getPhotosFbPhoto',{idUser:$scope.userrrId}))
+                        .then(function(response) {
+
+                            $scope.photosFbBox=response.data;
+
+                            console.log('hedhom les donnenessfsdf');
+                            console.log(response.data);
+
+
+                        });
+            }
+
+
+            $scope.getPhotosForFbBox();
+
+
+
+
+
+
+        });
+
+
+
+    </script>
+
+
+
+
+
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+
+    <script>
+        Dropzone.autoDiscover = false;
+        if ($('#carte').length)
+        {
+            $("div#carte").dropzone
+            (
+                    {
+
+                        url: document.URL,
+                        addRemoveLinks: true,
+                        dictRemoveFile:'Supprimer',
+                        init:function()
+                        {
+                            t = this;//drop zone
+                            //var
+                            $.post(document.URL,{do:'get'},function(data){
+
+                                for(i in data.mocks)
+                                {
+                                    //formater les fichier eli jeyin
+                                    m = {name:data.mocks[i].name,size:data.mocks[i].size,type:data.mocks[i].type,serverId:data.mocks[i].serverId}
+                                    t.emit("addedfile", m);
+                                    t.emit("thumbnail",m, data.mocks[i].url);//ajouter a dropzone
+                                }
+
+                            })
+                        },
+                        removedfile:function(file)
+                        {
+                            if(file.hasOwnProperty('serverId'))
+                            {
+                                //method te5ou id  w tafsa5 c tt w lo5ra upload jsute nbadlou el url
+                                $.post(document.URL,{do:'delete',id:file.serverId},function(data){
+                                    if(data.ok)
+                                    {
+                                        file.previewElement.remove();
+                                    }
+                                })
+                            }
+
+                        },
+                        success: function(file, response){
+                            if(response.ok)
+                            {
+                                file.previewElement.classList.add("dz-success");
+                                $msg = '<div class="alert alert-dismissable alert-success">'+
+                                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                        '<strong>Success: </strong> '+response.msg+
+                                        '</div>';
+                                file.serverId = response.serverId;//bech ki tenzel supprimer fi dropzone ya3ref el id
+                            }
+                            else
+                            {
+                                file.previewElement.classList.add("dz-error");
+                                $msg = '<div class="alert alert-dismissable alert-danger">'+
+                                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                        '<strong>Success: </strong> '+response.msg+
+                                        '</div>';
+                            }
+                            $("#msg").html($msg);
+                        },
+                        error: function(file,reponse)
+                        {
+                            $msg = '<div class="alert alert-dismissable alert-danger">'+
+                                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                    '<strong>Success: </strong> Erreur serveur!! '+
+                                    '</div>';
+                            $("#msg").html($msg);
+                        }
+                    }
+            );
+        }
+    </script>
+
+{% endblock %}

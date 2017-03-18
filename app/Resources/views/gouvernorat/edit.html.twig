@@ -1,0 +1,87 @@
+{% extends 'layout/layout.html.twig' %}
+{% block body %}
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                <h2>Liste des Gouvernorats
+                                    <a href="{{ path('gouvernorat_new') }}">
+                                        <button class="btn btn-sm btn-danger">Ajouter nouvelle Gouvernorat</button>
+                                    </a>
+                                </h2>
+                                <div class="clients-list">
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="full-height-scroll">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                            </td>
+
+                                                            <td align="center" class="client-link">Titre Gouvernorat</td>
+
+                                                            <td align="center" class="client-link"> Operation</td>
+                                                        </tr>
+                                                        {% for gouv in gouvernorats %}
+                                                            <tr>
+                                                                <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                                </td>
+
+                                                                <td align="center">{{ gouv.nomGouvernorat }}</td>
+
+
+                                                                <td align="center">
+                                                                    <a href="{{ path('gouvernorat_edit', { 'id': gouv.id }) }}">
+                                                                        <button class="btn btn-xs btn-primary">modifier</button>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="well well-sm">
+                                    <h2>Modifier  "{{ gouvernorat.nomGouvernorat }}"</h2>
+                                    {{ form_start(edit_form) }}
+                                    <div class="form-group"><label>Titre gouvernorat</label>
+                                        {{ form_widget(edit_form.nomGouvernorat) }}
+                                    </div>
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs btn-block" type="submit"><strong>Modifier</strong></button>
+                                            </div>
+                                            {{ form_end(edit_form) }}
+                                            <div class="col-md-6">
+                                                {{ form_start(delete_form) }}
+                                                <button class="btn btn-sm btn-danger pull-right m-t-n-xs btn-block" type="submit"><strong>Supprimer</strong></button>
+                                                {{ form_end(delete_form) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

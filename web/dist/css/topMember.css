@@ -1,0 +1,75 @@
+body.restaut_filter .btn-group .btn-filter-medium {
+    padding: 13px 56px;
+}
+
+.memberArea{
+  /*for scrollbar
+    overflow: auto;
+    max-height: 285px;
+    */
+}
+.theMember{
+  position: relative;
+    /* float: left; */
+    width: 90%;
+    height: 93px;
+    background: #f7f7f7;
+    border: 1px solid #f4f4f4;
+    padding: 10px 15px;
+    margin: 15px;
+}
+.btn-add{
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 21px;
+  height: 22px;
+  background: url(../img/top-member-add-ico.png) center center no-repeat;
+}
+
+
+.theMember ul li span.name,.theMember ul li span.country{
+  font-size: 14.50px;
+  color: rgb( 0, 0, 0 );
+  line-height: 10px;
+  text-align: left;
+}
+.theMember ul li span.points{
+  font-size: 14.5px;
+  color: rgb( 208, 110, 80 );
+  line-height: 10px;
+  text-align: left;
+}
+.theMember ul li img{
+  vertical-align: bottom;
+}
+div.outerWrapper .menu-left {
+    padding: 12px 6px;
+}
+
+h3.commentmarche-heading{
+  font-size: 15px;
+  color: rgb( 0, 0, 0 );
+  line-height: 20px;
+
+}
+
+section.commentmarche-section p{
+  font-size: 17px;
+  color: rgb( 0, 0, 0 );
+  line-height: 22px;
+  font-weight: 300;
+  letter-spacing: 1.1px;
+  margin: 30px 0;
+}
+
+section.commentmarche-section hr{
+	background: #f5f5f5;
+	border: 1px solid #f5f5f5;
+}
+
+.restaut_filter .carousel-caption {
+    top: 5%;
+    font-size: 1em;
+}

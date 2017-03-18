@@ -1,0 +1,24 @@
+region_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Region:index" }
+    methods:  GET
+
+region_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Region:show" }
+    methods:  GET
+
+region_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Region:new" }
+    methods:  [GET, POST]
+
+region_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Region:edit" }
+    methods:  [GET, POST]
+
+region_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Region:delete" }
+    methods:  DELETE

@@ -1,0 +1,15 @@
+surveillance_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Surveillance:index" }
+
+surveillance_mediaArticle:
+    path:     /mediaArticle
+    defaults: { _controller: "AdministrationBundle:Surveillance:mediaArticle" }
+
+surveillance_mediaRecette:
+    path:     /mediaRecette
+    defaults: { _controller: "AdministrationBundle:Surveillance:mediaRecette" }
+
+surveillance_categoriesurveillance:
+    path:     /categoriesurveillance
+    defaults: { _controller: "AdministrationBundle:Surveillance:categorieSurveillance" }

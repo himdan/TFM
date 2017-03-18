@@ -1,0 +1,53 @@
+article:
+    path:     /
+    defaults: { _controller: "ProjetBundle:Article:article" }
+
+articledetails:
+    path:     /details/{article}
+    defaults: { _controller: "ProjetBundle:Article:detailsArticle" }
+
+articleJSON:
+    path:     /articleJSON
+    defaults: { _controller: "ProjetBundle:Article:articleJSON" }
+    options:
+        expose: true
+
+langueJSON:
+    path:     /langueJSON
+    defaults: { _controller: "ProjetBundle:Article:langueJSON" }
+    options:
+        expose: true
+
+filtreArticleJSON:
+    path:     /filtreJSON
+    defaults: { _controller: "ProjetBundle:Article:filtreJSON" }
+    options:
+        expose: true
+
+
+filtredArticle:
+    path:     /filtredArticle
+    defaults: { _controller: "ProjetBundle:Article:filtredArticle" }
+    options:
+        expose: true
+
+
+rankOneArticleJSON:
+    path:     /rankOneArticleJSON
+    defaults: { _controller: "ProjetBundle:Article:rankOneArticleJSON" }
+    options:
+        expose: true
+
+
+nbrLikeDislikeJSONArticle:
+    path:     /nbrLikeDislikeJSONArticle
+    defaults: { _controller: "ProjetBundle:Article:nbrLikeDislikeJSONArticle" }
+    options:
+        expose: true
+
+mostRankedArticleJSON:
+    path:     /mostRankedArticleJSON
+    defaults: { _controller: "ProjetBundle:Article:mostRankedArticleJSON" }
+    options:
+        expose: true
+

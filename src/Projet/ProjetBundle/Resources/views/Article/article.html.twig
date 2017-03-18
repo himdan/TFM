@@ -1,0 +1,1468 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+
+{% block body %}
+
+
+
+    <style>
+
+
+
+        .disableArrow{
+
+            display:none !important;
+
+        }
+
+
+
+
+
+        .CheckDesigned:not(old),
+
+        .RadioDesigned:not(old){
+
+            width     : 2em;
+
+            margin    : 0;
+
+            padding   : 0;
+
+            font-size : 1em;
+
+            opacity   : 0;
+
+        }
+
+
+
+        .CheckDesigned:not(old) + label,
+
+        .RadioDesigned:not(old) + label{
+
+            display      : inline-block;
+
+            margin-left  : -2em;
+
+            line-height  : 1.5em;
+
+        }
+
+
+
+        .CheckDesigned:not(old) + label > span,
+
+        .RadioDesigned:not(old) + label > span{
+
+            display          : inline-block;
+
+            width            : 1.3em;
+
+            height           : 1.3em;
+
+            margin           : 0.25em 0.5em 0.25em 0.25em;
+
+            border           : 0.0625em solid rgb(192,192,192);
+
+            border-radius    : 0.25em;
+
+            background       : rgb(255,255,255);
+
+            background-image :    -moz-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            background-image :     -ms-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            background-image :      -o-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            background-image : -webkit-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            background-image :         linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            vertical-align   : bottom;
+
+        }
+
+
+
+
+
+        .CheckDesigned:not(old):checked + label > span,
+
+        .RadioDesigned:not(old):checked + label > span{
+
+            background-image :    -moz-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            background-image :     -ms-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            background-image :      -o-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            background-image : -webkit-linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+            background-image :         linear-gradient(rgb(255,255,255),rgb(255,255,255));
+
+        }
+
+
+
+        .CheckDesigned:not(old):checked + label > span:before{
+
+
+            content     : '✓';
+
+            display     : block;
+
+            width       : 1em;
+
+            color       : rgb(205, 83, 43);
+
+            font-size   : 1em;
+
+            line-height : 1em;
+
+            text-align  : center;
+
+            text-shadow : 0 0 0.0714em rgb(115,153,77);
+
+            font-weight : bold;
+
+        }
+
+
+
+        .RadioDesigned:not(old):checked +  label > span > span{
+
+            display          : block;
+
+            width            : 1em;
+
+            height           : 1em;
+
+            margin           : 0.125em;
+
+            border           : 0.0625em solid rgb(115,153,77);
+
+            border-radius    : 0.125em;
+
+            background       : rgb(205, 83, 43);
+
+            background-image :    -moz-linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+            background-image :     -ms-linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+            background-image :      -o-linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+            background-image : -webkit-linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+            background-image :         linear-gradient(rgb(205, 83, 43),rgb(205, 83, 43));
+
+        }
+
+
+
+        .DivChecked{
+
+            background: grey!important;
+
+        }
+
+
+
+
+
+    </style>
+
+    <div ng-app="myAppArticle" ng-controller="articleController">
+
+
+
+        <div id="chargementPage" style="display: block">
+
+            <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;">
+
+        </div>
+
+
+
+        <div id="page" style="display: none;">
+
+
+
+
+
+
+
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+
+
+
+
+
+
+                <!-- Wrapper for slides -->
+
+                <div class="carousel-inner" role="listbox">
+
+                    <div class="item active">
+
+                        <img src="{{ asset('dist/img/slider-filter.jpg') }}" alt="Chania">
+
+                        <div class="carousel-caption">
+
+                            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</h3>
+
+                            <p class="titleTwo">Lorem ipsum dolor sit amet, consectetur adipiscing elit....</p>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <!-- form inside carrousel -->
+
+                <!-- form inside carrousel -->
+
+                <form class="form-inline center-block text-center formInsideCarrousel">
+
+                    <div class="container">
+
+                        <div class="row">
+
+                            {#
+
+                                <div class="col-sm-10">
+
+                                <!-- <label class="sr-only" for="inputSearch">search</label>
+
+                                   <input type="text" class="form-control" id="inputSearch"> -->
+
+                                <select class="js-example-basic-multiple" id="inputSearch"  multiple="multiple">
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-sm-2">
+
+                                <button type="submit" class="btn-search">
+
+                                    <!-- <span class="glyphicon glyphicon-search"></span> --> Rechercher
+
+                                </button>
+
+                            </div>
+
+                            #}
+
+                            <input type="text" ng-model="testNom" placeholder="Lancer une recherche" ng-change="filtreText()"    >
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+
+
+            </div>
+
+            <div class="container outerWrapper">
+
+                <div class="col-md-3 menu-left">
+
+                    <!-- right column (268px) -->
+
+
+
+
+
+
+
+
+                    <section>
+
+                        <h3 class="menu-left-heading">
+
+                            <img src="{{ asset('dist/img/ico-langue.png') }}" alt="langue">
+
+                            Langue
+
+                        </h3>
+
+                        <!-- <div class="outerscroll"> -->
+
+                        <div class="filterByRegion filterByDifficlty" id="filterByDifficlty">
+
+                            <form class="form-inline">
+
+
+
+                                <form class="form-inline">
+
+
+
+
+
+
+
+                                    <div class="col-xs-12" ng-repeat="lng in langues">
+
+                                        <div>
+
+                                            <input id="lng#lng.id#" class="RadioDesigned" type="radio" name="langue" ng-click="checkuncheck(lng.id,'lng')" value="lng#lng.id#"><label for="lng#lng.id#"><span><span></span></span>#lng.langue#</label>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                </form>
+
+
+
+                            </form>
+
+                        </div>
+
+                        <!-- </div> -->
+
+                    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <h3 class="menu-left-heading">
+
+                        <img src="{{ asset('dist/img/ico-date.png') }}" alt="date">
+
+                        Date
+
+                    </h3>
+
+                    <section>
+
+                        <!-- calendar -->
+
+                        <div class="datepicker" id="datePickerDate1" ng-click="preparerClickDate()"  />
+
+
+
+                        <input type="hidden" id="datePickerDate">
+
+
+
+                    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- ----------------------------------- -->
+
+                    <h3 class="menu-left-heading">
+
+                        <img src="{{ asset('dist/img/ico-idea.png') }}" alt="idee">
+
+                        Topics
+
+                    </h3>
+
+
+
+                    <!-- more filters -->
+
+                    <section>
+
+
+
+                        <div class="filterByRegion filterByMore filterBysubcategorie "
+
+                             id="filterByMore" style="font-size: 13px;">
+
+                            <form class="form-inline">
+
+
+
+                                <div class="col-xs-12" ng-repeat="tp in topics">
+
+                                    <div >
+
+                                        <input id="tp#tp.id#" class="CheckDesigned" ng-click="checkuncheck(tp.id,'tp')" type="checkbox" name="topic">
+
+                                        <label for="tp#tp.id#"><span></span>#tp.topic#</label>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </form>
+
+                        </div>
+
+                        <!-- </div> -->
+
+                    </section>
+
+                        <section class="start-f">
+
+                    <button class="init" ng-click="initalizeFilter(true)">
+
+
+
+                        <a href="" class="active filterBtn">
+
+
+
+                             <img src="{{ asset('dist/img/refresh-ico.png') }}" alt="Article Filter"> Initialiser
+
+                        </a>
+
+
+
+                    </button>
+
+
+                </section>
+                    
+
+
+                    <!--  -->
+
+                    <div class="pub">
+
+                        <img src="{{ asset('dist/img/banner-exemple.jpg') }}" class="img-responsive">
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div> <!-- menu-left -->
+
+
+
+
+
+                <div class="col-sm-9 center-content">
+
+
+
+
+
+
+
+
+                    <div>
+
+
+                    <div >
+
+
+
+                     <div class="row text-center">
+
+                        <div class="col-md-10 col-md-offset-2 menu-blog">
+
+                            <div class="ck-button">
+
+
+
+                                    <label>
+
+                                        
+                                        <input type="checkbox" ng-click="changeArtOrVid('article')" ng-checked="ArtOrVid == 'article'" ><span>Articles</span>
+
+                                    </label>
+
+                            </div>
+                            <div class="ck-button">
+
+
+
+                                    <label>
+
+                                        
+                                        <input type="checkbox" ng-click="changeArtOrVid('video')" ng-checked="ArtOrVid == 'video'"><span>Videos</span>
+
+                                    </label>
+
+                            </div>
+                           <div class="trier" id="trie">
+
+                            <ul class="nav navbar-nav">
+
+                                <li class="dropdown">
+
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th"></span></a>
+
+                                    <ul class="dropdown-menu">
+
+                                        <li><a href="" ng-click="changeOrdre('recent')">Plus récents</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li><a href="">plus visite</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li><a href="" ng-click="changeOrdre('rank')">Mieux notés</a></li>
+
+
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                           
+
+                        </div>
+
+                    
+
+
+
+                     </div>
+
+
+
+
+
+
+
+                            <div class="all-items">
+
+
+                                <div id="chargementBlockResult" style="display: none">
+
+                                    <img src="{{ asset('dist/img/rolling.gif') }}" style="position: fixed;left: 50%;top:50%">
+
+                                </div>
+
+
+                                <div class="row" id="blockResult" style="display: block">
+
+                                    <div id="aucuneR7" style="display: none">
+
+                                        <div class="alert alert-danger" style="margin-top: 50px">
+
+                                            aucune resultat trouvé
+
+                                        </div>
+
+                                    </div>
+                                    <div id="existeR7">
+
+
+
+                                        <div class="col-sm-6 block-item-blog" ng-repeat="art in articleFiltred">
+
+
+                                            <a href="details/#art.id#" target="_blank">
+                                            <img src="#art.image#" class="img-responsive" style="z-index: -1" alt="">
+                                            </a>
+                                            <h4>#art.nom_article#</h4>
+
+                                            <div  class="item-info">
+
+                                                <div class="row">
+
+                                                    <div class="col-xs-5 the_date" ng-bind="formatDate(art.date_article)| date:'MM/dd/yyyy'"></div>
+
+                                                    <div class="col-xs-7 rightTextVote">
+
+                                                        <!-- rating -->
+
+
+
+                                                        <ul class="list-inline">
+
+                                                            <li>
+                                                                {% set x='#art.id#' %}
+
+                                                                <div class='starrr' ng-click="openModalVote(art.id)">
+
+
+
+                                                                    <a href=""  ng-class="{'fa fa-star': 1<=art.note,'fa-star-o fa':1>art.note}" style="margin-right:-5px"></a>
+                                                                    <a href="" ng-class="{'fa fa-star': 2<=art.note,'fa-star-o fa':2>art.note}" style="margin-right:-5px"></a>
+                                                                    <a href="" ng-class="{'fa fa-star': 3<=art.note,'fa-star-o fa':3>art.note}" style="margin-right:-5px"></a>
+                                                                    <a href="" ng-class="{'fa fa-star': 4<=art.note,'fa-star-o fa':4>art.note}" style="margin-right:-5px"></a>
+                                                                    <a href="" ng-class="{'fa fa-star': 5<=art.note,'fa-star-o fa':5>art.note}"></a>
+
+
+
+                                                                </div>
+                                                            </li>
+
+                                                            <li class="vot">#2*art.note#/10 (#art.nbrVote# votes )</li>
+
+                                                        </ul>
+
+
+
+                                                    </div>
+
+
+
+                                                    <div class="col-xs-12 the_paragrf">
+
+                                                        <p>
+
+                                                            <span ng-bind-html="art.description_article"></span>  <a href="details/#art.id#" target="_blank" alt="more">Lire la suite</a>
+
+                                                        </p>
+
+                                                    </div>
+
+
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div> <!-- all-items -->
+
+
+
+
+
+                            <div class="center-block text-center pagination-filter" style="display:none" id="paginationResult">
+
+                                <ul class="list-inline">
+
+                                    <li ng-class="{'disableArrow': pageNumber == 1}"> <a href="" ng-click="changePage('first')" > |< </a> </li>
+
+                                    <li ng-class="{'disableArrow': pageNumber == 1}"> <a href="" ng-click="changePage('prec')" > < </a> </li>
+
+                                    <li> <a>#pageNumber#</a> </li>
+
+                                    <li ng-class="{'disableArrow': pageNumber == nombreDesPages}"> <a href="" ng-click="changePage('suivant')"> > </a> </li>
+
+                                    <li ng-class="{'disableArrow': pageNumber == nombreDesPages}"> <a href="" ng-click="changePage('last')"> >| </a> </li>
+
+                                </ul>
+
+
+
+                                Sur #nombreDesPages# Pages
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        {% if app.user %}
+                            <div id="partieVote" style="display: block">
+                                <div class='starrr star1'>
+                                    <a href="" ng-click="voter(1)"  class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(2)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(3)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(4)" class="fa fa-star-o" style="margin-right:-5px"></a>
+                                    <a href="" ng-click="voter(5)" class="fa fa-star-o"></a>
+
+                                </div>
+                                <div id="messagePartieVote"></div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            </div>
+                            <div id="chargementPartieVote" style="display: none">
+                                <h4>Vote En Cours...</h4>
+                            </div>
+
+                        {% else %}
+                            <h2>Vous devez se connecter pour pouvoir voter</h2>
+                        {% endif  %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <a href="" class="icon-bookmark-gris" style="z-index: 999999!important;"></a>
+
+{% endblock %}
+
+
+
+
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular-sanitize.js"></script>
+    {#
+    <script src="{{ asset('js/angularJS/articleController.js') }}"></script>
+    #}
+
+    <script>
+
+        Date.prototype.yyyymmdd = function() {
+            var mm = this.getMonth() + 1; // getMonth() is zero-based
+            var dd = this.getDate();
+
+            if( dd< 10){
+                dd="0"+dd;
+            }
+
+            if(mm < 10){
+                mm= "0"+mm;
+            }
+
+            var rslt=this.getFullYear()+"/"+mm+"/"+dd;
+
+            return rslt;
+
+            //return [this.getFullYear(), !mm[1] && '0', mm, !dd[1] && '0', dd].join(''); // padding
+        };
+
+
+
+        /*function compile(element){
+         var el = angular.element(element);
+         $scope = el.scope();
+         $injector = el.injector();
+         $injector.invoke(function($compile){
+         $compile(el)($scope)
+         })
+         }*/
+
+
+        var appArt = angular.module('myAppArticle',['ngSanitize'])
+                .config(function($interpolateProvider){
+                    $interpolateProvider.startSymbol('#').endSymbol('#');
+
+
+
+
+                })
+                .directive('loading', function () {
+                    return {
+                        restrict: 'E',
+                        replace:true,
+                        template: '<div class="loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" width="20" height="20" />LOADING...</div>',
+                        link: function (scope, element, attr) {
+                            scope.$watch('loading', function (val) {
+                                if (val)
+                                    $(element).show();
+                                else
+                                    $(element).hide();
+                            });
+                        }
+                    }
+                });
+        appArt.controller('articleController', function($scope,$http) {
+            $scope.formatDate = function(date){
+                var dateOut = new Date(date);
+                return dateOut;
+            };
+
+            $scope.ordre="recent";
+
+            $scope.changeOrdre=function(quoi){
+                window.scrollTo(0, 315);
+
+                $scope.pageNumber=1;
+                $scope.ordre=quoi;
+                $scope.calldatabaseArt();
+            }
+
+
+
+
+
+            $scope.openModalVote=function(idRV){
+
+                {% if(app.user) %}
+
+                    $scope.idRecetteAvoter=idRV;
+
+                    $('#myModal').modal('show');
+
+                {% else %}
+                    toastr.warning('Vous devez <a href="http://localhost/troisfourchettes/web/app_dev.php/login">se connecter</a> pour pouvoir voter','notification',2000);
+                {% endif %}
+            }
+
+            $scope.voter=function(NbrVote){
+                document.getElementById("partieVote").style.display="none";
+                document.getElementById("chargementPartieVote").style.display="block";
+                document.getElementById("messagePartieVote").innerHTML="";
+                $http.post(Routing.generate('Addrank', { id: $scope.idRecetteAvoter , type: "article",nbr:NbrVote }))
+                        .then(function(response) {
+                            //console.log(response.data);
+                            document.getElementById("partieVote").style.display="block";
+                            document.getElementById("chargementPartieVote").style.display="none";
+                            document.getElementById("messagePartieVote").innerHTML=response.data.success;
+                            $scope.calldatabaseArt();
+                        }).then(function(response){
+                    setTimeout(function(){
+                        $('#myModal').modal('hide');
+                    },2000);
+                });
+
+
+            }
+
+
+
+
+
+
+            $scope.langues=[];
+            $scope.topics=[];
+
+            //$scope.lyoom=new Date();
+            //$scope.dateToFind=$scope.lyoom.yyyymmdd();
+
+            //console.log($scope.dateToFind);
+            $scope.lngToFind=[];
+            $scope.tpcToFind=[];
+            $scope.vidOrArt=[];
+            $scope.dateToFind=[];
+
+
+            $scope.ancienDate=0;
+
+
+            $scope.nbrExecCallDB=0;
+            $scope.calldatabaseArt=function(){
+                $scope.nbrExecCallDB++;
+                if($scope.nbrExecCallDB==1){
+
+                    $scope.initalizeFilter(false);
+
+
+                }
+
+
+                //console.log($scope.nbrExecCallDB+" fois");
+
+                document.getElementById('chargementBlockResult').style.display="block";
+                document.getElementById('blockResult').style.display="none";
+                document.getElementById('paginationResult').style.display="none";
+
+                if($scope.dateToFind[0]=="NaN/NaN/NaN"){
+                    $scope.dateToFind=[];
+                }
+
+                var objToSend={
+                    dateToFind:$scope.dateToFind,
+                    lngToFind:$scope.lngToFind,
+                    vidOrArt:$scope.vidOrArt,
+                    tpcToFind:$scope.tpcToFind,
+                    textTofind:$scope.textTofind,
+                    pageNumber:$scope.pageNumber,
+                    ordre:$scope.ordre
+                }
+
+
+
+
+
+
+                $http.post(Routing.generate('filtredArticle'),objToSend)
+                        .then(function(response) {
+
+                            if(response.data.result==0){
+
+
+                                document.getElementById('aucuneR7').style.display="block";
+                                document.getElementById('existeR7').style.display="none";
+                                document.getElementById('paginationResult').style.display="none";
+                                document.getElementById('trie').style.display="none";
+
+
+
+                            }else{
+                                document.getElementById('paginationResult').style.display="block";
+                                document.getElementById('aucuneR7').style.display="none";
+                                document.getElementById('existeR7').style.display="block";
+                                document.getElementById('trie').style.display="block";
+
+                                $scope.articleFiltred=response.data.result;
+                                $scope.nombreTotal=response.data.total;
+
+                                $scope.nombreDesPages=Math.ceil($scope.nombreTotal/10);
+
+                            }
+
+                            document.getElementById('chargementBlockResult').style.display="none";
+                            document.getElementById('blockResult').style.display="block";
+
+
+
+                        });
+
+
+            }
+
+
+
+
+            $scope.filtreText=function(){
+                $scope.textTofind=$scope.testNom;
+                if($scope.textTofind.length > -1){
+
+                    $scope.calldatabaseArt();
+
+
+                }
+
+
+            }
+
+
+
+            $scope.changePage=function(act){
+
+                window.scrollTo(0, 315);
+
+                if(act=="prec"){
+                    if($scope.pageNumber > 1){
+
+                        $scope.pageNumber= $scope.pageNumber - 1 ;
+
+                        $scope.calldatabaseArt();
+
+
+                    }
+
+                }
+
+
+                if(act=="suivant"){
+                    if($scope.pageNumber < $scope.nombreDesPages){
+                        $scope.pageNumber= $scope.pageNumber + 1 ;
+
+                        $scope.calldatabaseArt();
+
+
+                    }
+
+                }
+
+                if(act=="first"){
+                    $scope.pageNumber= 1 ;
+                    $scope.calldatabaseArt();
+                }
+
+
+                if(act=="last"){
+                    $scope.pageNumber= $scope.nombreDesPages ;
+                    $scope.calldatabaseArt();
+                }
+
+
+            }
+
+
+
+
+
+            $scope.initalizeFilter=function(callDB){
+
+                /************NAA77II EL LOUN MTA3 EL ACTIVE***********/
+                /*
+                 $scope.yearBtns=document.getElementsByClassName('year');
+
+
+                 for (by = 0; by < $scope.yearBtns.length; by++) {
+
+                 if($scope.yearBtns[by].classList.contains("active")){
+                 alert('na77it el active mel years');
+                 $scope.yearBtns[by].classList.remove("active");
+                 }
+
+                 }
+
+
+                 $scope.monthBtns=document.getElementsByClassName('month');
+
+
+                 for (bm = 0; bm < $scope.monthBtns.length; bm++) {
+
+                 if($scope.monthBtns[bm].classList.contains("active")){
+                 alert('na77it el active mel month');
+                 $scope.monthBtns[bm].classList.remove("active");
+                 }
+
+                 }*/
+
+                /*
+                 $scope.dayBtns=document.getElementsByClassName('day');
+
+                 for (i = 0; i < $scope.dayBtns.length; i++) {
+                 //$scope.dayBtns[i].setAttribute("onclick", "sansNgClick()");
+
+                 if($scope.dayBtns[i].classList.contains("active")){
+                 $scope.dayBtns[i].classList.remove("active");
+                 }
+
+
+                 }*/
+
+                $(datePickerDate1).datepicker('remove');
+
+                $scope.dateSelected = $(datePickerDate1).datepicker("getDate");
+                //$scope.NvDate = $scope.dateSelected.yyyymmdd();
+
+                $scope.ArtOrVid="";
+                $scope.vidOrArt=[];
+
+
+
+                $scope.TtBtnsLangue=document.getElementsByName('langue');
+
+                for (tb = 0; tb < $scope.TtBtnsLangue.length; tb++) {
+
+                    $scope.TtBtnsLangue[tb].checked=false;
+
+                }
+
+
+                $scope.TtBtnsTopic=document.getElementsByName('topic');
+
+                for (tt = 0; tt < $scope.TtBtnsTopic.length; tt++) {
+                    $scope.TtBtnsTopic[tt].checked=false;
+                }
+
+
+                $scope.CalenderBtns=document.getElementsByTagName('td');
+
+                for (i = 0; i < $scope.CalenderBtns.length; i++) {
+
+                    if($scope.CalenderBtns[i].classList.contains("active")){
+                        $scope.CalenderBtns[i].classList.remove("active");
+                        $scope.CalenderBtns[i].setAttribute("style", "background:transparent;");
+
+                    }
+
+
+                }
+
+                /************NA77III LOUN MTA3 EL ACTIVE***********/
+
+
+
+
+
+                $scope.dateToFind=[];
+                $scope.tpcToFind=[];
+                $scope.vidOrArt=[];
+                $scope.lngToFind=[];
+                $scope.pageNumber= 1 ;
+                if(callDB==true){
+                    $scope.calldatabaseArt();
+                }
+
+            }
+
+
+
+            $scope.checkuncheck=function(id,quoi){
+
+                var idCheck = quoi + id;
+
+                if(quoi=="lng"){
+
+                    var checkCheck = document.getElementById(idCheck);
+                    var indexId = $scope.lngToFind.indexOf(id);
+
+                    if (indexId > -1) {
+                        $scope.lngToFind.splice(indexId, 1);
+                        checkCheck.checked=false;
+                    } else {
+                        $scope.lngToFind=[];
+                        $scope.lngToFind.push(id);
+                    }
+
+
+                }
+
+
+
+                if(quoi=="tp"){
+
+                    var checkChecktp = document.getElementById(idCheck);
+
+                    if (checkChecktp.checked) {
+                        $scope.tpcToFind.push(id);
+
+                    } else {
+                        var indexIdTP = $scope.tpcToFind.indexOf(id);
+                        if (indexIdTP > -1) {
+                            $scope.tpcToFind.splice(indexIdTP, 1);
+                        }
+                    }
+
+                }
+
+                $scope.pageNumber= 1 ;
+                $scope.calldatabaseArt();
+
+
+
+
+
+            }
+
+
+
+            $scope.nbrExcFnctPrepDate=0;
+            $scope.preparerClickDate=function(){
+                $scope.nbrExcFnctPrepDate++;
+
+                if($scope.nbrExcFnctPrepDate<=1){
+
+                    //datepicker
+                    var aujourdhui = new Date();
+                    var mm = aujourdhui.getMonth() + 1; // getMonth() is zero-based
+                    var dd = aujourdhui.getDate();
+                    var aa = aujourdhui.getFullYear();
+
+                    var dateInitial=mm+"-"+dd+"-"+aa;
+
+
+                    //var init = moment().format("mm-dd-yyyy");
+                    //$('.datepicker').datepicker('update', init);
+
+                }
+
+
+                setTimeout(function(){
+                    /************NRIGEL EL LOUN MTA3 EL ACTIVE***********/
+
+                    $scope.yearBtns=document.getElementsByClassName('year');
+
+
+                    for (by = 0; by < $scope.yearBtns.length; by++) {
+
+                        if($scope.yearBtns[by].classList.contains("active")){
+
+                            $scope.yearBtns[by].setAttribute("style", "background:rgb(205, 83, 43);");
+                            $scope.yearBtns[by].setAttribute("class", "active");
+                            //compile($scope.yearBtns[by]);
+                        }
+
+                    }
+
+
+                    $scope.monthBtns=document.getElementsByClassName('month');
+
+
+                    for (bm = 0; bm < $scope.monthBtns.length; bm++) {
+
+                        if($scope.monthBtns[bm].classList.contains("active")){
+
+                            $scope.monthBtns[bm].setAttribute("style", "background:rgb(205, 83, 43);");
+                            $scope.monthBtns[bm].setAttribute("class", "active");
+                            //compile($scope.monthBtns[bm]);
+                        }
+
+                    }
+
+
+                    $scope.dayBtns=document.getElementsByClassName('day');
+
+                    for (i = 0; i < $scope.dayBtns.length; i++) {
+                        //$scope.dayBtns[i].setAttribute("onclick", "sansNgClick()");
+
+                        if($scope.dayBtns[i].classList.contains("active")){
+
+                            $scope.dayBtns[i].setAttribute("style", "background:rgb(205, 83, 43);");
+                            $scope.dayBtns[i].setAttribute("class", "active");
+                            //compile($scope.dayBtns[i]);
+                        }
+
+
+                    }
+
+                    /************NRIGEL EL LOUN MTA3 EL ACTIVE***********/
+
+
+                    /**************kol mara ymess el datePicker el kol iverifi ken el date tbadlét , si oui yab3éth lel DataBase*********/
+
+                    $scope.dateSelected = $(datePickerDate1).datepicker("getDate");
+                    $scope.NvDate = $scope.dateSelected.yyyymmdd();
+
+
+
+
+                    if($scope.dateSelected.getTime() != $scope.ancienDate){
+
+                        if(isNaN($scope.dateSelected.getTime())){
+
+                            $scope.ancienDate=0;
+                        }else {
+                            $scope.ancienDate=$scope.dateSelected.getTime();
+                        }
+
+
+
+
+
+                        $scope.dateToFind=[];
+
+                        $scope.dateToFind.push($scope.dateSelected.yyyymmdd());
+                        if($scope.ancienDate!=0 || $scope.nbrExcFnctPrepDate<=1 ){
+                            $scope.pageNumber= 1 ;
+                            $scope.calldatabaseArt();
+                        }
+
+                        //console.log("nv"+$scope.dateSelected.getTime());
+                        //console.log("ancien"+$scope.ancienDate);
+
+                    }
+
+                    /**************kol mara ymess el datePicker el kol iverifi ken el date tbadlét , si oui yab3éth lel DataBase*********/
+
+
+
+                }, 20);
+
+            }
+
+
+
+            $scope.changeArtOrVid=function(quoi){
+                if(quoi=='article'){
+
+                    var indexIdVA = $scope.vidOrArt.indexOf("article");
+
+                    if (indexIdVA > -1) {
+                        $scope.ArtOrVid="";
+                        $scope.vidOrArt=[];
+                    } else {
+                        $scope.ArtOrVid="article";
+                        $scope.vidOrArt=[];
+                        $scope.vidOrArt.push("article");
+                    }
+
+                }
+
+                if(quoi=='video'){
+
+                    var indexIdAV = $scope.vidOrArt.indexOf("video");
+
+                    if (indexIdAV > -1) {
+                        $scope.ArtOrVid="";
+                        $scope.vidOrArt=[];
+                    } else {
+                        $scope.ArtOrVid="video";
+                        $scope.vidOrArt=[];
+                        $scope.vidOrArt.push("video");
+                    }
+
+
+
+                }
+                $scope.pageNumber= 1 ;
+                $scope.calldatabaseArt();
+
+            }
+
+
+            /*
+
+             var idCheck = quoi + id;
+
+             if(quoi=="lng"){
+
+             var checkCheck = document.getElementById(idCheck);
+             var indexId = $scope.lngToFind.indexOf(id);
+
+             if (indexId > -1) {
+             $scope.lngToFind.splice(indexId, 1);
+             checkCheck.checked=false;
+             } else {
+             $scope.lngToFind=[];
+             $scope.lngToFind.push(id);
+             }
+
+             $scope.calldatabaseArt();
+             }
+             */
+
+            /*************************TEST RECUPERATION DATE******************/
+
+
+
+            /*************************TEST RECUPERATION DATE******************/
+
+
+
+
+            $http.post(Routing.generate('filtreArticleJSON'))
+                    .then(function(response) {
+
+                        /*********PARTIE Langues*************/
+
+                        //console.dir(response.data);
+
+                        $.each(response.data["langues"], function (index, item) {
+
+
+                            $scope.langues.push({
+                                id:item.id,
+                                langue:item.langue
+                            });
+
+
+                        });
+
+                        /*********PARTIE Langues*************/
+
+
+
+
+                        /*********PARTIE TOPICS*************/
+
+                        //console.dir(response.data);
+
+                        $.each(response.data["topics"], function (index, item) {
+
+
+                            $scope.topics.push({
+                                id:item.id,
+                                topic:item.topic
+                            });
+
+
+                        });
+
+                        /*********PARTIE TOPICS*************/
+
+
+
+
+
+                        $scope.preparerClickDate();
+                        /*********FIN DU CHARGEMENT************/
+
+                        document.getElementById("chargementPage").style.display="none";
+                        document.getElementById("page").style.display="block";
+
+                        /*********FIN DU CHARGEMENT************/
+
+                    }).then(function(response) {
+
+
+
+            });
+
+
+
+
+
+
+
+        });
+
+
+
+    </script>
+{% endblock %}

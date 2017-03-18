@@ -1,0 +1,24 @@
+menu_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Menu:index" }
+    methods:  GET
+
+menu_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Menu:show" }
+    methods:  GET
+
+menu_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Menu:new" }
+    methods:  [GET, POST]
+
+menu_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Menu:edit" }
+    methods:  [GET, POST]
+
+menu_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Menu:delete" }
+    methods:  DELETE

@@ -1,0 +1,40 @@
+
+body {
+	background-color: #cc542f;
+}
+
+section #search form input[type="text"]:hover, section #subscribe form input[type="text"]:hover {
+	color: #FD7662;
+}
+
+section #search form input[type="text"]:active, section #subscribe form input[type="text"]:active {
+	border: 1px solid #FD7662;
+}
+
+section #search form input[type="button"]:hover, section #subscribe form input[type="button"]:hover {
+	color: #FD7662;
+}
+
+section #search form input[type="button"]:active, section #subscribe form input[type="button"]:active {
+	border: 1px solid #FD7662;
+}
+
+footer ul li a:hover {
+	color: #FD7662;
+}
+
+footer #copyright {
+	color: #FD7662;
+}
+
+input:hover::-webkit-input-placeholder {
+	color: #FD7662;
+}
+
+input:hover:-moz-placeholder {
+	color: #FD7662;
+}
+
+input:hover:-ms-input-placeholder {
+	color: #FD7662 !important;
+}

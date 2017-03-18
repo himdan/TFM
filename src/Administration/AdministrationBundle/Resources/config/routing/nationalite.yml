@@ -1,0 +1,24 @@
+nationalite_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Nationalite:index" }
+    methods:  GET
+
+nationalite_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Nationalite:show" }
+    methods:  GET
+
+nationalite_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Nationalite:new" }
+    methods:  [GET, POST]
+
+nationalite_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Nationalite:edit" }
+    methods:  [GET, POST]
+
+nationalite_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Nationalite:delete" }
+    methods:  DELETE

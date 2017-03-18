@@ -1,0 +1,441 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <section class="container">
+
+
+
+        <div class="pub-h">
+
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+
+
+
+        </div>
+
+
+
+    </section>
+    <div class="container outerWrapper">
+        {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': user.id })) }}<!-- menu-left -->
+
+
+
+
+
+        <div class="col-md-6 center-content profil">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="button" class="btnRecette  btn btn-sm btn-default btn-warning btn-block"><span>Recettes</span></button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btnArticle btn btn-sm btn-default btn-block"><span>Articles</span></button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btnEtablissement btn btn-sm btn-default btn-block"><span>Etablissements</span></button>
+                </div>
+            </div>
+
+
+            <!--  -->
+            <div class="recetteBlock row center-block text-center" style="margin-top: 20px;">
+
+
+            </div>
+
+            <div class="articleBlock row center-block text-center" style="margin-top: 20px;">
+
+
+            </div>
+
+            <div class="etablissementBlock row center-block text-center" style="margin-top: 20px;">
+
+
+            </div>
+            <!--  -->
+
+
+
+        </div>  <!-- center-content -->
+
+
+        {{ render(controller('ClientBundle:Profile:layoutRight', { 'userId': app.user.id })) }}
+
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(function(){
+            $('.articleBlock').hide();
+            $('.etablissementBlock').hide();
+
+
+
+            $('.btnRecette').click(function(){
+                $('.btnArticle').removeClass('btn-warning');
+                $('.btnEtablissement').removeClass('btn-warning');
+                $('.btnRecette').addClass('btn-warning');
+                $('.articleBlock').fadeOut(0);
+                $('.etablissementBlock').fadeOut(0);
+                $('.recetteBlock').fadeIn(200);
+
+            });
+
+            $('.btnArticle').click(function(){
+                $('.btnRecette').removeClass('btn-warning');
+                $('.btnEtablissement').removeClass('btn-warning');
+                $('.btnArticle').addClass('btn-warning');
+                $('.recetteBlock').fadeOut(0);
+                $('.etablissementBlock').fadeOut(0);
+                $('.articleBlock').fadeIn(200);
+            });
+
+            $('.btnEtablissement').click(function(){
+                $('.btnRecette').removeClass('btn-warning');
+                $('.btnArticle').removeClass('btn-warning');
+                $('.btnEtablissement').addClass('btn-warning');
+                $('.recetteBlock').fadeOut(0);
+                $('.articleBlock').fadeOut(0);
+                $('.etablissementBlock').fadeIn(200);
+            });
+
+
+        });
+    </script>
+
+
+    <script>
+        function recetteFavoris() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('favorisRecette'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+                                if (item.note == null) var note = '0'; else var note = item.note;
+                                block += '<div class="col-sm-6 block-bookmarks">' +
+                                        '<span  class="favRecetteBtnCheck icon-bookmark-red" id=' + item.idFavoris + '></span>' +
+                                        '<img src="' + item.image + '" class="img-responsive" alt="" style="width:401px;height:180px;">' +
+                                        '<div  class="bookmarks-info">' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-12"><h6>' + item.recette + '</h6></div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6"><h6>' + item.difficulte + '</h6></div>' +
+                                        '<div class="col-xs-6"><h6>' + item.prix + '</h6></div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6">' +
+                                        '<div class="starrr">' +
+                                        '<a href="#" class="fa-star fa"></a>' +
+                                        '<a href="#" class="fa-star fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="col-xs-6 notes">' + note + '/10(' + item.nbrVote + ' votes)</div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6 prepa">Préparation: ' + item.preparation + '</div>' +
+                                        '<div class="col-xs-6 cuiss">Cuisson: ' + item.cuisson + '</div>' +
+                                        '</div>' +
+                                        '<ul class="list-inline infstats">' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">3</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">7</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">5</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '</ul>' +
+                                        '</div>' +
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.recetteBlock').html(block);
+                        }else{
+                            $('.recetteBlock').html('' +
+                                    '<div class="alert alert-danger">'+
+                                            '<b>aucune recette favoris</b>'+
+                                     '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(recetteFavoris,2000);
+    </script>
+    <script>
+        $(document).on('click','.favRecetteBtnCheck', function(){
+            //alert($(this).attr('id'));
+            $(this).removeClass('icon-bookmark-red');
+            $(this).addClass('icon-bookmark-gris');
+
+            $.ajax({
+                url: Routing.generate('deletefavoris', {'idFavoris':$(this).attr('id')}),
+                dataType: 'JSON',
+                success: function(result) {
+                    toastr.success('Suppresion de la recette de vos favoris avec succée','Notification');
+
+                }
+            });
+
+        });
+    </script>
+
+
+
+    <script>
+        function articleFavoris() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('favorisArticle'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+                                if (item.note == null) var note = '0'; else var note = item.note;
+                                block += '<div class="col-sm-6 block-bookmarks">' +
+                                        '<span  class="favArticleBtnCheck icon-bookmark-red" id=' + item.idFavoris + '></span>' +
+                                        '<img src="' + item.image + '" class="img-responsive" alt="" style="width:401px;height:180px;">' +
+                                        '<div  class="bookmarks-info">' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-12"><h6>' + item.article + '</h6></div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6"><h6>' + item.langue + '</h6></div>' +
+                                        '<div class="col-xs-6"><h6>' + item.topic + '</h6></div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6">' +
+                                        '<div class="starrr">' +
+                                        '<a href="#" class="fa-star fa"></a>' +
+                                        '<a href="#" class="fa-star fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="col-xs-6 notes">' + note + '/10(' + item.nbrVote + ' votes)</div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6 prepa">Préparation: ' + item.langue + '</div>' +
+                                        '<div class="col-xs-6 cuiss">Cuisson: ' + item.topic + '</div>' +
+                                        '</div>' +
+                                        '<ul class="list-inline infstats">' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">3</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">7</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">5</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '</ul>' +
+                                        '</div>' +
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.articleBlock').html(block);
+                        }else{
+                            $('.articleBlock').html('' +
+                                    '<div class="alert alert-danger">'+
+                                    '<b>aucun article favoris</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(articleFavoris,2000);
+    </script>
+    <script>
+        $(document).on('click','.favArticleBtnCheck', function(){
+            //alert($(this).attr('id'));
+            $(this).removeClass('icon-bookmark-red');
+            $(this).addClass('icon-bookmark-gris');
+
+            $.ajax({
+                url: Routing.generate('deletefavoris', {'idFavoris':$(this).attr('id')}),
+                dataType: 'JSON',
+                success: function(result) {
+                    toastr.success('Suppresion de la article de vos favoris avec succée','Notification');
+
+                }
+            });
+
+        });
+    </script>
+
+
+
+    <script>
+        function etablissementFavoris() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('favorisEtablissement'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+                                if (item.note == null) var note = '0'; else var note = item.note;
+                                block += '<div class="col-sm-6 block-bookmarks">' +
+                                        '<span  class="favEtablissementBtnCheck icon-bookmark-red" id=' + item.idFavoris + '></span>' +
+                                        '<img src="' + item.image + '" class="img-responsive" alt="" style="width:401px;height:180px;">' +
+                                        '<div  class="bookmarks-info">' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-12"><h6>' + item.etablissement + '</h6></div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6"><h6>' + item.gouvernorat + '</h6></div>' +
+                                        '<div class="col-xs-6"><h6>' + item.budget + '</h6></div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6">' +
+                                        '<div class="starrr">' +
+                                        '<a href="#" class="fa-star fa"></a>' +
+                                        '<a href="#" class="fa-star fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '<a href="#" class="fa-star-o fa"></a>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="col-xs-6 notes">' + note + '/10(' + item.nbrVote + ' votes)</div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-xs-6 prepa">Préparation: ' + item.budget + ' Dt </div>' +
+                                        '<div class="col-xs-6 cuiss">Cuisson: ' + item.gouvernorat + '</div>' +
+                                        '</div>' +
+                                        '<ul class="list-inline infstats">' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">3</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">7</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">5</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<span class="barSeapara">|</span>' +
+                                        '</li>' +
+                                        '<li>' +
+                                        '<a href="#">' +
+                                        '<img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>' +
+                                        '</a>' +
+                                        '</li>' +
+                                        '</ul>' +
+                                        '</div>' +
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.etablissementBlock').html(block);
+                        }else{
+                            $('.etablissementBlock').html('' +
+                                    '<div class="alert alert-danger">'+
+                                    '<b>aucun etablissement favoris</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(etablissementFavoris,2000);
+    </script>
+    <script>
+        $(document).on('click','.favEtablissementBtnCheck', function(){
+            //alert($(this).attr('id'));
+            $(this).removeClass('icon-bookmark-red');
+            $(this).addClass('icon-bookmark-gris');
+
+            $.ajax({
+                url: Routing.generate('deletefavoris', {'idFavoris':$(this).attr('id')}),
+                dataType: 'JSON',
+                success: function(result) {
+                    toastr.success('Suppresion de le etablissement de vos favoris avec succée','Notification');
+
+                }
+            });
+
+        });
+    </script>
+{% endblock %}

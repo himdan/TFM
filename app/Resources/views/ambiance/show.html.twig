@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ambiance</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ambiance.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomambiance</th>
+                <td>{{ ambiance.nomAmbiance }}</td>
+            </tr>
+            <tr>
+                <th>Dateambiance</th>
+                <td>{% if ambiance.dateAmbiance %}{{ ambiance.dateAmbiance|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Statutambiance</th>
+                <td>{{ ambiance.statutAmbiance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('ambiance_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('ambiance_edit', { 'id': ambiance.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

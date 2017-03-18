@@ -1,0 +1,27 @@
+topmember:
+    path:     /topmember
+    defaults: { _controller: "ClientBundle:TopMember:index" }
+
+topPhotographe:
+    path:     /topPhotographe
+    defaults: { _controller: "ClientBundle:TopMember:topPhotographe" }
+    options:
+        expose: true
+
+topEcrivain:
+    path:     /topEcrivain
+    defaults: { _controller: "ClientBundle:TopMember:topEcrivain" }
+    options:
+        expose: true
+
+topGourmand:
+    path:     /topGourmand
+    defaults: { _controller: "ClientBundle:TopMember:topGourmand" }
+    options:
+        expose: true
+
+afficheBarre:
+    path:     /afficheBarre
+    defaults: { _controller: "ClientBundle:TopMember:afficheBarre" }
+    options:
+        expose: true

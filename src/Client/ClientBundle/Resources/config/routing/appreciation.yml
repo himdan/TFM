@@ -1,0 +1,17 @@
+Addappreciation:
+    path:     /appreciation/Addappreciation/{id}/{type}
+    defaults: { _controller: "ClientBundle:Appreciation:Addappreciation" }
+    options:
+        expose: true
+
+deleteappreciation:
+    path:     /appreciation/deleteappreciation/{id}/{type}
+    defaults: { _controller: "ClientBundle:Appreciation:deleteappreciation" }
+    options:
+        expose: true
+
+Getappreciation:
+    path:     /appreciation/Getappreciation/{id}/{type}
+    defaults: { _controller: "ClientBundle:Appreciation:Getappreciation" }
+    options:
+        expose: true

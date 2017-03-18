@@ -1,0 +1,3 @@
+location:
+    path:     /
+    defaults: { _controller: "ProjetBundle:Location:location" }

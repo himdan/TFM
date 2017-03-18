@@ -1,0 +1,18 @@
+<div class="col-lg-3">
+   <div class="ibox float-e-margins">
+      <div class="ibox-content mailbox-content">
+         <div class="file-manager">
+            <div class="space-25"></div>
+            <h5>Filtre</h5>
+            <ul class="folder-list m-b-md" style="padding: 0">
+               <li><a href="{{ path('surveillance_mediaArticle') }}"> <i class="fa fa-inbox "></i> Image Article  <span class="label label-success pull-right">{{ nbrArticle }}</span></a></li>
+               <li><a href="{{ path('surveillance_mediaRecette') }}"> <i class="fa fa-envelope-o"></i>Image Recette<span class="label label-success pull-right">{{ nbrRecette }}</span></a></li>
+
+               <li><a href="{{ path('messagerie_draft') }}"> <i class="fa fa-file-text-o"></i> Image Etablissement <span class="label label-danger pull-right"></span></a></li>
+               <li><a href="{{ path('messagerie_trash') }}"> <i class="fa fa-trash-o"></i> Image Client</a></li>
+            </ul>
+            <div class="clearfix"></div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,40 @@
+notificationCommentaire:
+    path:     /notificationCommentaire
+    defaults: { _controller: "AdministrationBundle:CommentaireSignal:commentaire" }
+    options:
+        expose: true
+
+notificationSignal:
+    path:     /notificationSignal
+    defaults: { _controller: "AdministrationBundle:SignalRecette:notification" }
+    options:
+        expose: true
+
+commentaireSignalAjout:
+    path:     /commentaireSignalAjout/{id}
+    defaults: { _controller: "AdministrationBundle:CommentaireSignal:commentaireSignalAjout" }
+
+signalrecette_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:SignalRecette:index" }
+    methods:  GET
+
+signalrecette_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:SignalRecette:show" }
+    methods:  GET
+
+signalrecette_new:
+    path:     /new/{id}
+    defaults: { _controller: "AdministrationBundle:SignalRecette:new" }
+    methods:  [GET, POST]
+
+signalrecette_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:SignalRecette:edit" }
+    methods:  [GET, POST]
+
+signalrecette_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:SignalRecette:delete" }
+    methods:  DELETE

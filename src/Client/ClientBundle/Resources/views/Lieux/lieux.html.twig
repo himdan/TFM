@@ -1,0 +1,112 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <section class="container">
+
+
+
+        <div class="pub-h">
+
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+
+
+
+        </div>
+
+
+
+    </section>
+    <div class="container outerWrapper">
+        {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': app.user.id })) }} <!-- menu-left -->
+
+
+
+
+
+        <div class="col-md-6 center-content profil">
+
+            <div class="center-block text-center">
+                <h4><img src="{{ asset('dist/img/aproximite.png') }}" alt="pic"> Lieux </h4>
+            </div>
+
+
+            <div class="lieuxUser">
+                <center><img src="{{ asset('dist/img/rolling.gif') }}" class="chargement"></center>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>  <!-- center-content -->
+
+
+        {{ render(controller('ClientBundle:Profile:layoutRight', { 'userId': app.user.id })) }}
+
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function lieuxUser() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('lieuxJson'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        $('.chargement').hide();
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+
+                                block += ''+
+                                        '<div class="well well-sm media-l" style="background:white">'+
+                                        '<a href=""><img src="{{ asset('dist/img/ico-raty2.png') }}" class="ico pull-right"></a>'+
+                                        '<a href="#" class="link-media">'+
+                                        '<div class="media-left">'+
+                                        '<a href="#">'+
+                                        '<img src="'+item.img+'" width="105" height="110" class="media-object" alt="Sample Image">'+
+                                        '</a>'+
+                                        '</div>'+
+                                        '<div class="media-body">'+
+                                        '<h5 class="media-heading">'+
+                                        '<div class="ring-img pull-right">'+
+                                        '<p class="first-para">'+
+                                        '<div class="starrr star1"></div>'+
+                                        '</p>'+
+                                        '<p class="first-para">8/10 (20 votes )</p>'+
+                                        '<p class="first-para">10 Avis  </p>'+
+                                        '</div>'+
+                                        '<b>'+item.nom+'</b>'+
+                                        '<p> <img src="{{ asset('dist/img/date-l.png') }}" class="place-ico" alt="im"> '+item.date+' </p>'+
+                                                '</h5>'+
+                                                '<p> <img src="{{ asset('dist/img/ico_person2.png') }}" class="place-ico" alt="im"> '+item.adresse+' </p>'+
+                                                '<p>   <img src="{{ asset('dist/img/bookmark-red.png') }}" class="place-ico" alt="im">20 marks </p>'+
+                                        '</div>'+
+                                        '</a>'+
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.lieuxUser').html(block);
+                        }else{
+                            $('.lieuxUser').html('' +
+                                    '<div class="alert alert-danger">'+
+                                    '<b>aucune recette favoris</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        lieuxUser();
+    </script>
+{% endblock %}

@@ -1,0 +1,4 @@
+sideBar:
+    path:     /sideBar
+    defaults: { _controller: "AdministrationBundle:Include:sideBar" }
+

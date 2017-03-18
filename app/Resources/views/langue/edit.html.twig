@@ -1,0 +1,101 @@
+{% extends 'layout/layout.html.twig' %}
+{% block body %}
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                <h2>Liste des langues
+                                    <a href="{{ path('langue_new') }}">
+                                        <button class="btn btn-sm btn-danger">Ajouter nouvelle langue</button>
+                                    </a>
+                                </h2>
+                                <div class="clients-list">
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="full-height-scroll">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                            </td>
+
+                                                            <td align="center" class="client-link">Titre Langue</td>
+                                                            <td align="center" class="client-link"> Date d'ajout Langue</td>
+                                                            <td class="client-link" align="center">
+                                                                Statut Langue
+                                                            </td>
+                                                            <td align="center" class="client-link">
+                                                                Operation
+                                                            </td>
+                                                        </tr>
+                                                        {% for langue in langues %}
+                                                            <tr>
+                                                                <td class="client-avatar"><i class="fa fa-list" aria-hidden="true"></i>
+                                                                </td>
+
+                                                                <td align="center">{{ langue.nomLangue }}</td>
+                                                                <td align="center"> {{ langue.dateLangue|date("m/d/Y") }}</td>
+                                                                <td  align="center">
+                                                                    {% if(langue.statutLangue == 1) %}
+                                                                        <span class="label label-primary">Activé</span>
+                                                                    {% else %}
+                                                                        <span class="label label-danger">Désactivé</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td align="center">
+                                                                    <a href="{{ path('topic_edit', { 'id': langue.id }) }}">
+                                                                        <button class="btn btn-xs btn-success">modifier</button>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="well well-sm">
+                                    <h2>Modifier  "{{ langue.nomLangue }}"</h2>
+                                    {{ form_start(edit_form) }}
+                                    <div class="form-group"><label>Titre langue</label>
+                                        {{ form_widget(edit_form.nomLangue) }}
+                                    </div>
+                                    <div class="form-group"><label>Statut Langue</label>
+                                        {{ form_widget(edit_form.statutLangue) }}
+                                    </div>
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs btn-block" type="submit"><strong>Modifier</strong></button>
+                                            </div>
+                                            {{ form_end(edit_form) }}
+                                            <div class="col-md-6">
+                                                {{ form_start(delete_form) }}
+                                                <button class="btn btn-sm btn-danger pull-right m-t-n-xs btn-block" type="submit"><strong>Supprimer</strong></button>
+                                                {{ form_end(delete_form) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

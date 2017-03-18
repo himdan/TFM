@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Difficulte</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ difficulte.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomdifficulte</th>
+                <td>{{ difficulte.nomDifficulte }}</td>
+            </tr>
+            <tr>
+                <th>Statutdifficulte</th>
+                <td>{{ difficulte.statutDifficulte }}</td>
+            </tr>
+            <tr>
+                <th>Datedifficulte</th>
+                <td>{% if difficulte.dateDifficulte %}{{ difficulte.dateDifficulte|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('difficulte_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('difficulte_edit', { 'id': difficulte.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

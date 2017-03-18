@@ -1,0 +1,106 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block body %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Liste des recettes activés  ( {{ nb }} recettes )</h2>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content mailbox-content">
+                        <div class="file-manager">
+                            <div class="space-25"></div>
+                            <h5>Filtre</h5>
+                            <ul class="folder-list m-b-md" style="padding: 0">
+                                <li><a href="{{ path('recette_index') }}"> <i class="fa fa-inbox "></i> Tous  <span class="label label-success pull-right">{{ nb }}</span></a></li>
+                                <li><a href="{{ path('recette_active') }}"> <i class="fa fa-envelope-o"></i>Activé<span class="label label-success pull-right">{{ nbrActive }}</span></a></li>
+
+
+
+
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="ibox float-e-margins">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="rechercher une recette">
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-responsive table-bordered">
+                            <tr>
+                                <td align="center"><b>Ajouté par</b></td>
+                                <td align="center"><b>modifié par</b></td>
+                                <td align="center">Titre</td>
+                                <td align="center">image</td>
+
+                                <td align="center">nationalite</td>
+                                <td align="center">date</td>
+                                <td align="center">Publication</td>
+                                <td align="center">Operation</td>
+                            </tr>
+                            {% for recette in recettes %}
+                                <tr class="gradeX">
+                                    <td align="center">{{ recette.auteur.username }}</td>
+                                    <td align="center">
+                                        {% if(recette.auteurUpdate) %}
+                                            {{ recette.auteurUpdate.username }}
+                                        {% endif %}
+                                    </td>
+                                    <td align="center">{{ recette.nomRecette }}</td>
+                                    <td align="center">
+                                        {% if(recette.image) %}
+                                            <img src="{{ asset(recette.image.WebPath) }}" class="img-responsive img-thumbnail" style="height: 150px;width: 150px;">
+                                        {% endif %}
+                                    </td>
+                                    <td align="center">{% if recette.nationalite != null  %} {{ recette.nationalite.nomNationalite }} {% endif %}</td>
+                                    <td align="center">{{ recette.dateRecette|date("d/m/Y à H:i:s") }}</td>
+                                    <td align="center">
+                                        {% if recette.activeRecette == 0 %}
+                                            <div class="badge badge-danger">
+                                                Recette pas encore publiée
+                                            </div>
+                                        {% else %}
+                                            <div class="badge badge-info">
+                                                Recette est publiée
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td align="center">
+                                        <a href="{{ path('recette_edit', {'id': recette.id}) }}">
+                                            <button class="btn btn-xs btn-primary"><i class="fa fa-pencil-square-o " aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                        <a href="{{ path('recette_show', {'id': recette.id}) }}">
+                                            <button class="btn btn-xs btn-info"><i class="fa fa-eye" aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                        <a href="{{ path('recette_active_method', {'id':recette.id}) }}">
+                                            <button class="btn btn-xs btn-primary"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                        <a href="{{ path('recette_desactive_method', {'id':recette.id}) }}">
+                                            <button class="btn btn-xs btn-danger"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <div class="navigation">
+                            {{ knp_pagination_render(recettes) }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

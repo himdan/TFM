@@ -1,0 +1,24 @@
+typecuisson_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:TypeCuisson:index" }
+    methods:  GET
+
+typecuisson_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:TypeCuisson:show" }
+    methods:  GET
+
+typecuisson_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:TypeCuisson:new" }
+    methods:  [GET, POST]
+
+typecuisson_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:TypeCuisson:edit" }
+    methods:  [GET, POST]
+
+typecuisson_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:TypeCuisson:delete" }
+    methods:  DELETE

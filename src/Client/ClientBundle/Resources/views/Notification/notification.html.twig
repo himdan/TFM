@@ -1,0 +1,100 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <section class="container">
+
+
+
+        <div class="pub-h">
+
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+
+
+
+        </div>
+
+
+
+    </section>
+
+
+    <div class="container outerWrapper">
+        {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': app.user.id })) }} <!-- menu-left -->
+
+
+
+
+
+        <div class="col-md-6 center-content">
+
+            <div class="center-block text-center">
+                <h4><img src="{{ asset('dist/img/ico-notif.png') }}" alt="pic"> Vos Notifications </h4>
+            </div>
+
+            <div class="notificationUser">
+                <center><img src="{{ asset('dist/img/rolling.gif') }}" class="chargement"></center>
+            </div>
+
+
+
+
+
+        </div>  <!-- center-content -->
+
+
+        {{ render(controller('ClientBundle:Profile:layoutRight', { 'userId': app.user.id })) }}
+
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function notificationUser() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('getAll'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        $('.chargement').hide();
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+
+                                block += ''+
+                                        '<div class="well well-sm user-n" style="background: white">'+
+                                        '<a href="#" class="link-media">'+
+                                        '<div class="media-left">'+
+                                        '<a href="#">'+
+                                        '<img src="'+item.imageClient+'" class="media-object" alt="Sample Image" style="width:50px;height:50px;">'+
+                                        '</a>'+
+                                        '</div>'+
+                                        '<div class="media-body">'+
+                                        '<h5 class="media-heading">'+
+                                        '<i class="fa fa-bell-o fa-2x pull-right" aria-hidden="true" style="color:'+item.lu+'"></i>'+
+                                        "<b>Bernard Deo</b> "+item.texte+ " <b>«"+item.publication+" ... »</b>"+
+                                        '</h5>'+
+                                        "<p style='font-size:10px;'> "+item.date+" </p>"+
+                                        '</div>'+
+                                        '</a>'+
+                                        '</div>';
+
+
+
+                            });
+
+                            $('.notificationUser').html(block);
+                        }else{
+                            $('.notificationUser').html('' +
+                                    '<div class="alert alert-danger">'+
+                                    '<b>aucune recette favoris</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(notificationUser,2000);
+    </script>
+{% endblock %}

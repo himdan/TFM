@@ -1,0 +1,34 @@
+
+<div class="col-md-3 col-sm-12 col-xs-12 secondInf">
+
+    <h2>Spécialités</h2>
+
+
+    <div ng-repeat="specAdd in dataAddEtabSpec" class="checkbox checkbox-default">
+        <input type="checkbox" value="yes" id="specAdd#specAdd.id#" ng-click="" name="specCb">
+        <label for="specAdd#specAdd.id#">#specAdd.specialite#</label>
+    </div>
+
+    <h2 style="clear:both">Ambiance</h2>
+
+    <div ng-repeat="ambAdd in dataAddEtabAmb" class="checkbox checkbox-default">
+        <input type="checkbox" value="yes" id="ambAdd#ambAdd.id#" ng-click="" name="ambCb">
+        <label for="ambAdd#ambAdd.id#">Ambiance #ambAdd.ambiance#</label>
+    </div>
+
+    <
+
+</div>
+
+
+<div class="col-md-3 col-sm-12 col-xs-12 secondInf" >
+
+    <h2>Plus de Filtres</h2>
+
+    <div ng-repeat="filtreAdd in dataAddEtabFiltre" class="checkbox checkbox-default">
+        <input type="checkbox" value="yes" id="filtreAdd#filtreAdd.id#" ng-click="" name="fltrCb">
+        <label for="filtreAdd#filtreAdd.id#">#filtreAdd.filtre#</label>
+    </div>
+
+
+</div>

@@ -1,0 +1,105 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block body %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Nouvelle recette</h2>
+
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Ajouter une recette</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="well well-sm">
+                                    {{ form_start(form, {'attr': {'id': 'form'}}) }}
+                                    <div class="form-group"><label>Titre</label>
+                                        {{ form_widget(form.nomRecette, { 'id': 'search-box' }) }}
+                                    </div>
+                                    <ul id="suggesstion-box" style="background: #3B5998;color:white;">
+
+                                    </ul>
+                                    <div class="form-group"><label>nationalite</label>
+                                        {{ form_widget(form.nationalite) }}
+                                    </div>
+                                    <div class="form-group"><label>Couverture</label>
+                                        {{ form_widget(form.image) }}
+                                    </div>
+                                    <div class="form-group"><label>Difficulte</label>
+
+                                        {{ form_widget(form.difficulte) }}
+                                    </div>
+                                    <div class="form-group"><label>Prix</label>
+                                        {{ form_widget(form.prix) }}
+                                    </div>
+                                    <div class="form-group"><label>Couisson</label>
+                                        {{ form_widget(form.cuissonRecette) }}
+                                    </div>
+                                    <div class="form-group"><label>Preparation</label>
+                                        {{ form_widget(form.preparationRecette) }}
+                                    </div>
+                                    <div class="form-group"><label>Menu</label>
+                                        {{ form_widget(form.menu, { 'id': 'selectmenu' }) }}
+                                    </div>
+                                    <div class="form-group"><label>Subcategorie</label>
+                                        {{ form_widget(form.subcategorie,{ 'id': 'selectsubcategorie' }) }}
+                                    </div>
+
+                                    <div class="form-group"><label>Theme</label>
+                                        {{ form_widget(form.theme) }}
+                                    </div>
+                                    <div class="form-group"><label>Details Ingredient</label>
+                                        {{ form_widget(form.descriptionIngredientRecette) }}
+                                    </div>
+                                    <div class="form-group" id="ingredienterror"><label class="control-label">Ingredient</label>
+                                        {{ form_widget(form.ingredient,{ 'id': 'ingredient' }) }}
+                                    </div>
+                                    <div class="form-group"><label>Rendement</label>
+                                        {{ form_widget(form.rendementRecette) }}
+                                    </div>
+                                    <div class="form-group"><label>Description</label>
+                                        {{ form_widget(form.descriptionRecette, {'attr': {'id': 'testcopie'}}) }}
+                                    </div>
+                                    <div class="form-group"><label>Type Cuisson</label>
+                                        {{ form_widget(form.typecuisson) }}
+                                    </div>
+                                    <div class="form-group"><label>Saison</label>
+                                        {{ form_widget(form.saison) }}
+                                    </div>
+
+
+
+
+
+
+
+
+
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-3 pull-right">
+                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs btn-block" type="submit"><strong>Ajouter</strong></button>
+                                            </div>
+                                            {{ form_end(form) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

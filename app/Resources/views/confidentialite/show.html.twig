@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Confidentialite</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ confidentialite.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomconfidentialite</th>
+                <td>{{ confidentialite.nomConfidentialite }}</td>
+            </tr>
+            <tr>
+                <th>Statutconfidentialite</th>
+                <td>{{ confidentialite.statutConfidentialite }}</td>
+            </tr>
+            <tr>
+                <th>Dateconfidentialite</th>
+                <td>{% if confidentialite.dateConfidentialite %}{{ confidentialite.dateConfidentialite|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('confidentialite_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('confidentialite_edit', { 'id': confidentialite.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

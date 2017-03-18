@@ -1,0 +1,215 @@
+{% extends 'layout/layoutMessage.html.twig' %}
+{% block body %}
+    <section class="container">
+        <div class="pub-h">
+            <img src="{{ asset('dist/img/banner-exemple2.jpg') }}" class="img-responsive">
+        </div>
+    </section>
+    <div class="container outerWrapper">
+        {{ render(controller('ClientBundle:Profile:layoutLeft', { 'userId': app.user.id })) }} <!-- menu-left -->
+        <!-- menu-left -->
+        <div class="col-md-9 center-content">
+            <!-- here goes the content -->
+            <!-- recherche -->
+            <div class="row rechercher inbetweenVert">
+                <div class="container-menu">
+                    <form class="form-inline center-block text-center">
+                        <input type="text" class="form-control searchMember" placeholder="Rechercher">
+                        <button type="submit" class="btn  btn-search-member"></button>
+                    </form>
+                </div>
+                <div class="pull-right new-msg">
+                    <img src="{{ asset('dist/img/exp-vous-ico-op2.png') }}" alt="pic">
+                    Nouveau Message
+                </div>
+            </div> <!-- recherche end -->
+            <div class="row boiteMsg"  style="min-height: 400px;">
+                <div class="col-sm-4 all-person messageRelation">
+                    <center><img src="{{ asset('dist/img/rolling.gif') }}" class="chargement"></center>
+                </div>
+                <div class="col-sm-8">
+                    <div class="outer-msg">
+                        <div class="row">
+                            <input type="hidden" id="idMessage">
+                            <input type="hidden" id="idreceiver">
+                            <div class="blockMessage col-xs-12 msg-body">
+
+                                <div class="alert alert-info chargementMessage">
+                                    CHoisir une discu
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row exprimezVous">
+                <div class="col-sm-12">
+                        <div class="form-group">
+                        <textarea  id="textareaMessage" class="exp" cols="30" rows="10"
+                                placeholder="Exprimez vous ..."></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a href="#" alt="op1" class="opt1">
+                                    <img src="{{ asset('dist/img/ico-msg-opt1.png') }}" alt="pic"> </a>
+                                <a href="#" alt="op2" class="opt1">
+                                    <img src="{{ asset('dist/img/ico-msg-opt2.png') }}" alt="pic"> </a>
+                                <!--  <a href="#" alt="op2" class="opt2">
+                                   <img src="dist/img/exp-vous-ico-op2.png" alt=""> </a> -->
+                            </div>
+                            <div class="col-sm-9">
+                                <ul class="list-inline pull-right">
+                                    <li>
+                                        <div class="checkbox" style="display:inline-block">
+                                            <label>Appuyez sur entrée pour envoyer<input type="checkbox" class="big-checkbox"  value="yes" id="answer" name="answer"> </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-publier" id="sendMessageInput"> Envoyer</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                </div>
+            </div>  <!-- exprimezVous -->
+        </div>  <!-- center-content -->
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        if(($('#idreceiver').val() == '') || ($('#idMessage').val() == '')){
+            $('#sendMessageInput').attr('disabled', true);
+        }
+    </script>
+    <script>
+        $(function(){
+            $('#sendMessageInput').click(function(){
+
+                var idmessage = $('#idMessage').val();
+                var idreceiver = $('#idreceiver').val();
+                var textareaMessage = $('#textareaMessage').val();
+                $.ajax({
+                    url: Routing.generate('addMessage'),
+                    data: {
+                        idmessage:idmessage,
+                        idreceiver:idreceiver,
+                        textareaMessage:textareaMessage
+                    },
+                    type:'POST',
+                    dataType: 'JSON',
+                    success: function (result) {
+                        $('#textareaMessage').val('');
+                    }
+                });
+            });
+        })
+    </script>
+    <script>
+        function recetteFavoris() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('messageRelation'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        $('.chargement').hide();
+                        if(result != ''){
+                            block = "";
+                            $.each(result, function (index, item) {
+                                block += ''+
+                                        '<div class="'+item.lu+' media blockMessageUser" id="'+item.id+'" style="cursor: pointer" data-user="'+item.idreceiver+'">'+
+                                        '<a  class="link-media idReceiver">'+
+                                        '<div class="media-left">'+
+                                        '<img src="'+item.imageReceiver+'" class="media-object img-thumbnail img-responsive" alt="Sample Image" style="width: 55px;height: 55px;margin-top:-5px;">'+
+
+                                        '</div>'+
+                                        '<div class="media-body">'+
+                                        '<h6 class="media-heading">'+
+                                        '<small class="pull-right">'+item.dateLastMessage+'</small>'+
+                                        item.receiver+
+                                        '</h6>'+
+                                        '<p>'+item.lastMessage+' ...</p>'+
+                                        '</div>'+
+                                        '</a>'+
+                                        '</div>';
+                            });
+
+                            $('.messageRelation').html(block);
+                        }else{
+                            $('.messageRelation').html('' +
+                                    '<div class="alert alert-danger" style="margin-top: 10px;">'+
+                                    '<b>aucun message</b>'+
+                                    '</div>'
+                            );
+                        }
+
+
+                    }
+                });
+            });
+        }
+        setInterval(recetteFavoris,1000);
+    </script>
+    <script>
+        $(document).on('click','.blockMessageUser', function(){
+            $('#idMessage').val($(this).attr('id'));
+            $('#idreceiver').val($(this).attr('data-user'));
+            $('#sendMessageInput').attr('disabled', false);
+
+            $.ajax({
+                url: Routing.generate('setLuMessage', {'message':$(this).attr('id')}),
+                type:'POST',
+                dataType: 'JSON',
+                success: function (result) {
+                    console.log(result);
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        function afficheMessage() {
+            $(function () {
+                if($('#idMessage').val() != ''){
+                    $.ajax({
+                        url: Routing.generate('discussion',{'message':$('#idMessage').val()}),
+                        dataType: 'JSON',
+                        success: function (result) {
+                            $('.chargementMessage').hide();
+                            if(result != ''){
+                                block = "";
+                                $.each(result, function (index, item) {
+
+                                    block += ''+
+                                            '<div class="row">'+
+                                            '<div class="col-md-2">'+
+                                            '<img src="'+item.image+'" class="media-object img-thumbnail img-responsive" alt="Sample Image" style="width: 55px;height: 55px;">'+
+                                            '</div>'+
+                                            '<div class="col-md-8">'+
+                                            item.message+
+                                            '</div>'+
+                                            '<div class="col-md-2">'+item.date+'</div>'+
+                                            '</div>'+
+                                            '<hr style="color:red">';
+                                });
+
+                                $('.blockMessage').html(block);
+                            }else{
+                                $('.blockMessage').html('' +
+                                        '<div class="alert alert-danger" style="margin-top: 10px;">'+
+                                        '<b>aucun message</b>'+
+                                        '</div>'
+                                );
+                            }
+
+
+                        }
+                    });
+                }
+
+            });
+        }
+        setInterval(afficheMessage,1000);
+    </script>
+{% endblock %}

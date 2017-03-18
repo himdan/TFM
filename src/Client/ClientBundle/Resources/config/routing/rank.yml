@@ -1,0 +1,6 @@
+Addrank:
+    path:     /rank/Addrank/{id}/{type}/{nbr}
+    defaults: { _controller: "ClientBundle:Rank:Addrank" }
+    options:
+        expose: true
+

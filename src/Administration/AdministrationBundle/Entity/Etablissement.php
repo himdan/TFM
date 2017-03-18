@@ -1,0 +1,1024 @@
+<?php
+
+namespace Administration\AdministrationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * Etablissement
+ *
+ * @ORM\Table(name="etablissement")
+ * @ORM\Entity(repositoryClass="Administration\AdministrationBundle\Repository\EtablissementRepository")
+ */
+class Etablissement
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Administration\AdministrationBundle\Entity\Specialite", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $specialite;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Administration\AdministrationBundle\Entity\Album", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $album;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Administration\AdministrationBundle\Entity\Carte", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $carte;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Administration\AdministrationBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $image;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Administration\AdministrationBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $icone;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Administration\AdministrationBundle\Entity\Ambiance", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $ambiance;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Administration\AdministrationBundle\Entity\Categorie", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $categorie;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Administration\AdministrationBundle\Entity\Filtre", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $filtre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Administration\AdministrationBundle\Entity\Region", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $region;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Administration\AdministrationBundle\Entity\Gouvernorat", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $gouvernorat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_etablissement", type="string", length=255)
+     */
+    private $nomEtablissement;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(name="description_etablissement", type="text")
+     */
+    private $descriptionEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="autorisation_etablissement", type="string", length=255)
+     */
+    private $autorisationEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sponsor_etablissement", type="string", length=255)
+     */
+    private $sponsorEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="budget_etablissement", type="string", length=255)
+     */
+    private $budgetEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse_etablissement", type="string", length=255)
+     */
+    private $adresseEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postale_etablissement", type="string", length=255)
+     */
+    private $postaleEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telOne_etablissement", type="string", length=255)
+     */
+    private $telOneEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telTwo_etablissement", type="string", length=255)
+     */
+    private $telTwoEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telThree_etablissement", type="string", length=255)
+     */
+    private $telThreeEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email_etablissement", type="string", length=255)
+     */
+    private $emailEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="web_etablissement", type="string", length=255)
+     */
+    private $webEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook_etablissement", type="string", length=255)
+     */
+    private $facebookEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lat_etablissement", type="string", length=255)
+     */
+    private $latEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="long_etablissement", type="string", length=255)
+     */
+    private $longEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="horraire_from_first_etablissement", type="string", length=255)
+     */
+    private $horraireFromFirstEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="horraire_to_first_etablissement", type="string", length=255)
+     */
+    private $horraireToFirstEtablissement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="horraire_from_second_etablissement", type="string", length=255)
+     */
+    private $horraireFromSecondEtablissement;
+
+    /**
+     * @return string
+     */
+    public function getVisiteEtablissement()
+    {
+        return $this->visiteEtablissement;
+    }
+
+    /**
+     * @param string $visiteEtablissement
+     */
+    public function setVisiteEtablissement($visiteEtablissement)
+    {
+        $this->visiteEtablissement = $visiteEtablissement;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="horraire_to_second_etablissement", type="string", length=255)
+     */
+    private $horraireToSecondEtablissement;
+
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="visite_etablissement", type="string", length=255)
+     */
+    private $visiteEtablissement;
+
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nomEtablissement
+     *
+     * @param string $nomEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setNomEtablissement($nomEtablissement)
+    {
+        $this->nomEtablissement = $nomEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get nomEtablissement
+     *
+     * @return string
+     */
+    public function getNomEtablissement()
+    {
+        return $this->nomEtablissement;
+    }
+
+    /**
+     * Set adresseEtablissement
+     *
+     * @param string $adresseEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setAdresseEtablissement($adresseEtablissement)
+    {
+        $this->adresseEtablissement = $adresseEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get adresseEtablissement
+     *
+     * @return string
+     */
+    public function getAdresseEtablissement()
+    {
+        return $this->adresseEtablissement;
+    }
+
+    /**
+     * Set postaleEtablissement
+     *
+     * @param string $postaleEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setPostaleEtablissement($postaleEtablissement)
+    {
+        $this->postaleEtablissement = $postaleEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get postaleEtablissement
+     *
+     * @return string
+     */
+    public function getPostaleEtablissement()
+    {
+        return $this->postaleEtablissement;
+    }
+
+    /**
+     * Set telOneEtablissement
+     *
+     * @param string $telOneEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setTelOneEtablissement($telOneEtablissement)
+    {
+        $this->telOneEtablissement = $telOneEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get telOneEtablissement
+     *
+     * @return string
+     */
+    public function getTelOneEtablissement()
+    {
+        return $this->telOneEtablissement;
+    }
+
+    /**
+     * Set telTwoEtablissement
+     *
+     * @param string $telTwoEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setTelTwoEtablissement($telTwoEtablissement)
+    {
+        $this->telTwoEtablissement = $telTwoEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get telTwoEtablissement
+     *
+     * @return string
+     */
+    public function getTelTwoEtablissement()
+    {
+        return $this->telTwoEtablissement;
+    }
+
+    /**
+     * Set telThreeEtablissement
+     *
+     * @param string $telThreeEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setTelThreeEtablissement($telThreeEtablissement)
+    {
+        $this->telThreeEtablissement = $telThreeEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get telThreeEtablissement
+     *
+     * @return string
+     */
+    public function getTelThreeEtablissement()
+    {
+        return $this->telThreeEtablissement;
+    }
+
+    /**
+     * Set emailEtablissement
+     *
+     * @param string $emailEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setEmailEtablissement($emailEtablissement)
+    {
+        $this->emailEtablissement = $emailEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get emailEtablissement
+     *
+     * @return string
+     */
+    public function getEmailEtablissement()
+    {
+        return $this->emailEtablissement;
+    }
+
+    /**
+     * Set webEtablissement
+     *
+     * @param string $webEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setWebEtablissement($webEtablissement)
+    {
+        $this->webEtablissement = $webEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get webEtablissement
+     *
+     * @return string
+     */
+    public function getWebEtablissement()
+    {
+        return $this->webEtablissement;
+    }
+
+    /**
+     * Set facebookEtablissement
+     *
+     * @param string $facebookEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setFacebookEtablissement($facebookEtablissement)
+    {
+        $this->facebookEtablissement = $facebookEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get facebookEtablissement
+     *
+     * @return string
+     */
+    public function getFacebookEtablissement()
+    {
+        return $this->facebookEtablissement;
+    }
+
+    /**
+     * Set latEtablissement
+     *
+     * @param string $latEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setLatEtablissement($latEtablissement)
+    {
+        $this->latEtablissement = $latEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get latEtablissement
+     *
+     * @return string
+     */
+    public function getLatEtablissement()
+    {
+        return $this->latEtablissement;
+    }
+
+    /**
+     * Set longEtablissement
+     *
+     * @param string $longEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setLongEtablissement($longEtablissement)
+    {
+        $this->longEtablissement = $longEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get longEtablissement
+     *
+     * @return string
+     */
+    public function getLongEtablissement()
+    {
+        return $this->longEtablissement;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->setAutorisationEtablissement('desactive');
+        $this->setSponsorEtablissement('desactive');
+        $this->specialite = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ambiance = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categorie = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->filtre = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add specialite
+     *
+     * @param \Administration\AdministrationBundle\Entity\Specialite $specialite
+     *
+     * @return Etablissement
+     */
+    public function addSpecialite(\Administration\AdministrationBundle\Entity\Specialite $specialite)
+    {
+        $this->specialite[] = $specialite;
+
+        return $this;
+    }
+
+    /**
+     * Remove specialite
+     *
+     * @param \Administration\AdministrationBundle\Entity\Specialite $specialite
+     */
+    public function removeSpecialite(\Administration\AdministrationBundle\Entity\Specialite $specialite)
+    {
+        $this->specialite->removeElement($specialite);
+    }
+
+    /**
+     * Get specialite
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSpecialite()
+    {
+        return $this->specialite;
+    }
+
+    /**
+     * Add ambiance
+     *
+     * @param \Administration\AdministrationBundle\Entity\Ambiance $ambiance
+     *
+     * @return Etablissement
+     */
+    public function addAmbiance(\Administration\AdministrationBundle\Entity\Ambiance $ambiance)
+    {
+        $this->ambiance[] = $ambiance;
+
+        return $this;
+    }
+
+    /**
+     * Remove ambiance
+     *
+     * @param \Administration\AdministrationBundle\Entity\Ambiance $ambiance
+     */
+    public function removeAmbiance(\Administration\AdministrationBundle\Entity\Ambiance $ambiance)
+    {
+        $this->ambiance->removeElement($ambiance);
+    }
+
+    /**
+     * Get ambiance
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAmbiance()
+    {
+        return $this->ambiance;
+    }
+
+    /**
+     * Add categorie
+     *
+     * @param \Administration\AdministrationBundle\Entity\Categorie $categorie
+     *
+     * @return Etablissement
+     */
+    public function addCategorie(\Administration\AdministrationBundle\Entity\Categorie $categorie)
+    {
+        $this->categorie[] = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Remove categorie
+     *
+     * @param \Administration\AdministrationBundle\Entity\Categorie $categorie
+     */
+    public function removeCategorie(\Administration\AdministrationBundle\Entity\Categorie $categorie)
+    {
+        $this->categorie->removeElement($categorie);
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
+    }
+
+    /**
+     * Add filtre
+     *
+     * @param \Administration\AdministrationBundle\Entity\Filtre $filtre
+     *
+     * @return Etablissement
+     */
+    public function addFiltre(\Administration\AdministrationBundle\Entity\Filtre $filtre)
+    {
+        $this->filtre[] = $filtre;
+
+        return $this;
+    }
+
+    /**
+     * Remove filtre
+     *
+     * @param \Administration\AdministrationBundle\Entity\Filtre $filtre
+     */
+    public function removeFiltre(\Administration\AdministrationBundle\Entity\Filtre $filtre)
+    {
+        $this->filtre->removeElement($filtre);
+    }
+
+    /**
+     * Get filtre
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFiltre()
+    {
+        return $this->filtre;
+    }
+
+    
+
+    /**
+     * Set horraireFromFirstEtablissement
+     *
+     * @param string $horraireFromFirstEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setHorraireFromFirstEtablissement($horraireFromFirstEtablissement)
+    {
+        $this->horraireFromFirstEtablissement = $horraireFromFirstEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get horraireFromFirstEtablissement
+     *
+     * @return string
+     */
+    public function getHorraireFromFirstEtablissement()
+    {
+        return $this->horraireFromFirstEtablissement;
+    }
+
+    /**
+     * Set horraireToFirstEtablissement
+     *
+     * @param string $horraireToFirstEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setHorraireToFirstEtablissement($horraireToFirstEtablissement)
+    {
+        $this->horraireToFirstEtablissement = $horraireToFirstEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get horraireToFirstEtablissement
+     *
+     * @return string
+     */
+    public function getHorraireToFirstEtablissement()
+    {
+        return $this->horraireToFirstEtablissement;
+    }
+
+    /**
+     * Set horraireFromSecondEtablissement
+     *
+     * @param string $horraireFromSecondEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setHorraireFromSecondEtablissement($horraireFromSecondEtablissement)
+    {
+        $this->horraireFromSecondEtablissement = $horraireFromSecondEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get horraireFromSecondEtablissement
+     *
+     * @return string
+     */
+    public function getHorraireFromSecondEtablissement()
+    {
+        return $this->horraireFromSecondEtablissement;
+    }
+
+    /**
+     * Set horraireToSecondEtablissement
+     *
+     * @param string $horraireToSecondEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setHorraireToSecondEtablissement($horraireToSecondEtablissement)
+    {
+        $this->horraireToSecondEtablissement = $horraireToSecondEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get horraireToSecondEtablissement
+     *
+     * @return string
+     */
+    public function getHorraireToSecondEtablissement()
+    {
+        return $this->horraireToSecondEtablissement;
+    }
+
+    /**
+     * Add album
+     *
+     * @param \Administration\AdministrationBundle\Entity\Album $album
+     *
+     * @return Etablissement
+     */
+    public function addAlbum(\Administration\AdministrationBundle\Entity\Album $album)
+    {
+        $this->album[] = $album;
+
+        return $this;
+    }
+
+    /**
+     * Remove album
+     *
+     * @param \Administration\AdministrationBundle\Entity\Album $album
+     */
+    public function removeAlbum(\Administration\AdministrationBundle\Entity\Album $album)
+    {
+        $this->album->removeElement($album);
+    }
+
+    /**
+     * Get album
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAlbum()
+    {
+        return $this->album;
+    }
+
+    /**
+     * Set budgetEtablissement
+     *
+     * @param string $budgetEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setBudgetEtablissement($budgetEtablissement)
+    {
+        $this->budgetEtablissement = $budgetEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get budgetEtablissement
+     *
+     * @return string
+     */
+    public function getBudgetEtablissement()
+    {
+        return $this->budgetEtablissement;
+    }
+
+    /**
+     * Set region
+     *
+     * @param \Administration\AdministrationBundle\Entity\Region $region
+     *
+     * @return Etablissement
+     */
+    public function setRegion(\Administration\AdministrationBundle\Entity\Region $region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return \Administration\AdministrationBundle\Entity\Region
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * Set gouvernorat
+     *
+     * @param \Administration\AdministrationBundle\Entity\Gouvernorat $gouvernorat
+     *
+     * @return Etablissement
+     */
+    public function setGouvernorat(\Administration\AdministrationBundle\Entity\Gouvernorat $gouvernorat)
+    {
+        $this->gouvernorat = $gouvernorat;
+
+        return $this;
+    }
+
+    /**
+     * Get gouvernorat
+     *
+     * @return \Administration\AdministrationBundle\Entity\Gouvernorat
+     */
+    public function getGouvernorat()
+    {
+        return $this->gouvernorat;
+    }
+
+    /**
+     * Add carte
+     *
+     * @param \Administration\AdministrationBundle\Entity\Carte $carte
+     *
+     * @return Etablissement
+     */
+    public function addCarte(\Administration\AdministrationBundle\Entity\Carte $carte)
+    {
+        $this->carte[] = $carte;
+
+        return $this;
+    }
+
+    /**
+     * Remove carte
+     *
+     * @param \Administration\AdministrationBundle\Entity\Carte $carte
+     */
+    public function removeCarte(\Administration\AdministrationBundle\Entity\Carte $carte)
+    {
+        $this->carte->removeElement($carte);
+    }
+
+    /**
+     * Get carte
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarte()
+    {
+        return $this->carte;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Administration\AdministrationBundle\Entity\Media $image
+     *
+     * @return Etablissement
+     */
+    public function setImage(\Administration\AdministrationBundle\Entity\Media $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Administration\AdministrationBundle\Entity\Media
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set autorisationEtablissement
+     *
+     * @param string $autorisationEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setAutorisationEtablissement($autorisationEtablissement)
+    {
+        $this->autorisationEtablissement = $autorisationEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get autorisationEtablissement
+     *
+     * @return string
+     */
+    public function getAutorisationEtablissement()
+    {
+        return $this->autorisationEtablissement;
+    }
+
+    /**
+     * Set descriptionEtablissement
+     *
+     * @param string $descriptionEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setDescriptionEtablissement($descriptionEtablissement)
+    {
+        $this->descriptionEtablissement = $descriptionEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionEtablissement
+     *
+     * @return string
+     */
+    public function getDescriptionEtablissement()
+    {
+        return $this->descriptionEtablissement;
+    }
+
+    /**
+     * Set sponsorEtablissement
+     *
+     * @param string $sponsorEtablissement
+     *
+     * @return Etablissement
+     */
+    public function setSponsorEtablissement($sponsorEtablissement)
+    {
+        $this->sponsorEtablissement = $sponsorEtablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get sponsorEtablissement
+     *
+     * @return string
+     */
+    public function getSponsorEtablissement()
+    {
+        return $this->sponsorEtablissement;
+    }
+
+    /**
+     * Set icone
+     *
+     * @param \Administration\AdministrationBundle\Entity\Media $icone
+     *
+     * @return Etablissement
+     */
+    public function setIcone(\Administration\AdministrationBundle\Entity\Media $icone = null)
+    {
+        $this->icone = $icone;
+
+        return $this;
+    }
+
+    /**
+     * Get icone
+     *
+     * @return \Administration\AdministrationBundle\Entity\Media
+     */
+    public function getIcone()
+    {
+        return $this->icone;
+    }
+}

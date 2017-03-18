@@ -1,0 +1,25 @@
+addPublication:
+    path:     /addPublication
+    defaults: { _controller: "ClientBundle:Publication:addPublication" }
+    options:
+        expose: true
+
+
+getPublications:
+    path:     /getPublications/{idu}/{tranche}
+    defaults: { _controller: "ClientBundle:Publication:getPublications" }
+    options:
+        expose: true
+
+deletePublication:
+    path:     /deletePublication/{idPub}
+    defaults: { _controller: "ClientBundle:Publication:deletePublication" }
+    options:
+        expose: true
+
+
+getMoreCommentsPublication:
+    path:     /getMoreCommentsPublication
+    defaults: { _controller: "ClientBundle:Publication:getMoreCommentsPublication" }
+    options:
+        expose: true

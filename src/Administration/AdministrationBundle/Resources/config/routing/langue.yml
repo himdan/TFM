@@ -1,0 +1,24 @@
+langue_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Langue:index" }
+    methods:  GET
+
+langue_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Langue:show" }
+    methods:  GET
+
+langue_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Langue:new" }
+    methods:  [GET, POST]
+
+langue_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Langue:edit" }
+    methods:  [GET, POST]
+
+langue_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Langue:delete" }
+    methods:  DELETE

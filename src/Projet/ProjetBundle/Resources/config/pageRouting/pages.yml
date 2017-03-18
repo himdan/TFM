@@ -1,0 +1,15 @@
+application:
+    path:     /application
+    defaults: { _controller: "ProjetBundle:Pages:application" }
+
+apropos:
+    path:     /apropos
+    defaults: { _controller: "ProjetBundle:Pages:apropos" }
+
+contact:
+    path:     /contact
+    defaults: { _controller: "ProjetBundle:Pages:contact" }
+
+pages:
+    path:     /etablissement/{page}
+    defaults: { _controller: "ProjetBundle:Pages:page" }

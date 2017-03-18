@@ -1,0 +1,239 @@
+{% extends 'layout/layoutProjet.html.twig' %}
+{% block body %}
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+
+            <div class="item active">
+                <img src="{{ asset('dist/img/application_slide.jpg') }}" alt="app">
+                <div class="carousel-caption">
+                    <h3>Télecharger notre 2 applications</h3>
+                    <p class="titleTwo"> Lorem ipsum dolor sit amet, consectetur adipiscing elit... </p>
+
+                    <div class="row">
+                        <div class="col-xs-3 sides">
+                            <h3>Logo ici</h3>
+                            <a href="#" class="btn-android"></a>
+                            <a href="#" class="btn-ios"></a>
+                        </div>
+                        <div class="col-xs-6" style="margin:0 auto;">
+                            <img src="{{ asset('dist/img/tel.png') }}" class="img-responsive" style="margin: 0 auto;" alt="tel">
+                        </div>
+                        <div class="col-xs-3 sides">
+                            <h3>Logo ici</h3>
+                            <a href="#" class="btn-android"></a>
+                            <a href="#" class="btn-ios"></a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        <!-- form inside carrousel -->
+        <form class="form-inline center-block text-center formInsideCarrousel">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label class="sr-only" for="inputProximite">proximité</label>
+                        <select class="js-example-basic-hide-search"  id="inputProximite">
+                            <option value="Tunis" > Tunis</option>
+                            <option value="Tunis" > Bizerte</option>
+                            <option value="Tunis" > Ariana</option>
+                            <option value="Tunis" > Nabul</option>
+                            <option value="Tunis" > Ben Arous</option>
+                            <option value="Tunis" > Sousse</option>
+                            <option value="Tunis" > Manouba</option>
+                            <option value="Sfax" > Sfax</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <!-- <label class="sr-only" for="inputSearch">search</label>
+                        <input type="text" class="form-control" id="inputSearch"> -->
+                        <select class="js-example-basic-multiple" id="inputSearch"  multiple="multiple">
+                            <option value="Restaurants"
+                                    data-image="dist/img/ambianceico.png"> Restaurants</option>
+                            <option value="the"
+                                    data-image="dist/img/aproximite.png">Salons de thé & Brasseries</option>
+                            <option value="pizzas"
+                                    data-image="dist/img/budgeticon.png">Snacks & Pizzerias</option>
+                            <option value="pati"
+                                    data-image="dist/img/cuisson.png">Patisseries</option>
+                            <option value="clubs"
+                                    data-image="dist/img/diffcult.png">Bars & Clubs</option>
+                            <option value="yaourt"
+                                    data-image="dist/img/Horaires.png">Glaciers & Yaourties</option>
+                            <option value="chokolat"
+                                    data-image="dist/img/ico-langue.png">Dragées & chocolat</option>
+                            <option value="recette"
+                                    data-image="dist/img/ico-langue.png""ico-left-etab1.png">Recette</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn-search">
+                            <!-- <span class="glyphicon glyphicon-search"></span> --> Rechercher
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="outerWrapperApp">
+
+        <div class="container">
+
+            <div class="row feature center-block text-center">
+                <div class="col-sm-4">
+
+                    <p> <img src="{{ asset('dist/img/feature1.png') }}" alt="feature"> </p>
+                    <div>
+                        <h3>Lorem Ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor istamet </p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p> <img src="{{ asset('dist/img/feature2.png') }}" alt="feature"> </p>
+                    <div>
+                        <h3>Lorem Ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor istamet </p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p> <img src="{{ asset('dist/img/feature3.png') }}" alt="feature"> </p>
+                    <div>
+                        <h3>Lorem Ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor istamet </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>  <!-- container -->
+
+    </div>
+    <div class="outerWrapperApp outerWrapperApp2" id="outerWrapperApp2">
+
+        <div class="container">
+
+            <h1 class=" center-block text-center"> Nom de l’application 1 </h1>
+            <div class="store" data-anchor-target="#outerWrapperApp2"
+                 data-bottom-top="left:-50%"
+                 data-center-center="left[cubic]:8%"
+            >
+                <h2>Lorem ipsum dolor sit amet, <br> consectetuer</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor  istamet Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor  istamet Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor  istamet Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor  istamet Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                </p>
+
+                <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </li>
+                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </li>
+                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </li>
+                </ul>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="#"> <img src="{{ asset('dist/img/gl-store.png') }}" alt="im"> </a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="#"> <img src="{{ asset('dist/img/gl-store1.png') }}" alt="im"> </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="theIMG"  data-anchor-target="#outerWrapperApp2"
+                 data-bottom-top="right:-50%"
+                 data-center-center="right[cubic]:5%"
+            >
+                <img src="{{ asset('dist/img/app-tel-store.png') }}" alt="im">
+            </div>
+
+        </div> <!-- container -->
+
+    </div>
+    <div class="outerWrapperApp  outerWrapperApp3" id="outerWrapperApp3">
+
+        <div class="container">
+
+            <h1 class=" center-block text-center"> Nom de l’application 1 </h1>
+
+            <div class="col-md-6"  data-anchor-target="#outerWrapperApp3"
+                 data-bottom-top="left:-50%"
+                 data-center-center="left[cubic]:8%"
+            >
+                <img src="{{ asset('dist/img/app-tel-store1.png') }}" alt="im">
+            </div>
+
+            <div class="col-md-6 store"   data-anchor-target="#outerWrapperApp3"
+                 data-bottom-top="right:-50%;opacity:0"
+                 data-center-center="right[cubic]:5%;opacity:1"
+            >
+                <h2>Lorem ipsum dolor sit amet, <br> consectetuer</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor  istamet Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor  istamet Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor  istamet Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor  istamet Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                </p>
+
+                <ul class="opt2">
+                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </li>
+                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </li>
+                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </li>
+                </ul>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="#"> <img src="{{ asset('dist/img/gl-store.png') }}" alt="im"> </a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="#"> <img src="{{ asset('dist/img/gl-store1.png') }}" alt="im"> </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div> <!-- container -->
+
+    </div>
+    <div class="outerWrapperApp outerWrapperApp4">
+        <h1 class=" center-block text-center"> OUR CLIENTS LOVES OUR APP </h1>
+        <h2 class=" center-block text-center"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy <br>dolor istamet nibh euismod escaptecular. </h2>
+        <div class="container">
+
+            <div class="row feature center-block text-center">
+                <div class="col-sm-4">
+                    <p> <img src="{{ asset('dist/img/app-lastim1.png') }}" alt="feature"> </p>
+                    <div>
+                        <h3>JONATHAN DOE</h3>
+                        <p>"Lorem ipsum dolor sit amet, consectetuer <br> adipiscing elit, sed diam nonummy dolor <br> istamet nibh euismod escaptecular."</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p> <img src="{{ asset('dist/img/app-lastim2.png') }}" alt="feature"> </p>
+                    <div>
+                        <h3>Anna DOE</h3>
+                        <p>"Lorem ipsum dolor sit amet, consectetuer <br> adipiscing elit, sed diam nonummy dolor <br> istamet nibh euismod escaptecular." </p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p> <img src="{{ asset('dist/img/app-lastim3.png') }}" alt="feature"> </p>
+                    <div>
+                        <h3>Bernard DOE</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetuer <br> adipiscing elit, sed diam nonummy dolor <br> istamet nibh euismod escaptecular." </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>  <!-- container -->
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/application/script.js') }}"></script>
+{% endblock %}

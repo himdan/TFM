@@ -1,0 +1,65 @@
+compte:
+    path:     /compte
+    defaults: { _controller: "ClientBundle:Settings:compte" }
+
+saveCompte:
+    path:     /saveCompte
+    defaults: { _controller: "ClientBundle:Settings:saveCompte" }
+    options:
+        expose: true
+
+saveInformation:
+    path:     /saveInformation
+    defaults: { _controller: "ClientBundle:Settings:saveInformation" }
+    options:
+        expose: true
+
+getCompteInformation:
+    path:     /getCompteInformation
+    defaults: { _controller: "ClientBundle:Settings:getCompteInformation" }
+    options:
+        expose: true
+
+getInformation:
+    path:     /getInformation
+    defaults: { _controller: "ClientBundle:Settings:getInformation" }
+    options:
+        expose: true
+
+getGouv:
+    path:     /getGouv
+    defaults: { _controller: "ClientBundle:Settings:getGouv" }
+    options:
+        expose: true
+
+getGender:
+    path:     /getGender
+    defaults: { _controller: "ClientBundle:Settings:getGender" }
+    options:
+        expose: true
+
+getPays:
+    path:     /getPays
+    defaults: { _controller: "ClientBundle:Settings:getPays" }
+    options:
+        expose: true
+
+getRegion:
+    path:     /getRegion
+    defaults: { _controller: "ClientBundle:Settings:getRegion" }
+    options:
+        expose: true
+
+securite:
+    path:     /securite
+    defaults: { _controller: "ClientBundle:Settings:securite" }
+
+delCompte:
+    path:     /delCompte
+    defaults: { _controller: "ClientBundle:Settings:delCompte" }
+    options:
+        expose: true
+
+information:
+    path:     /information
+    defaults: { _controller: "ClientBundle:Settings:information" }

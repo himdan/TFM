@@ -1,0 +1,43 @@
+recetterecherche:
+    path:     /recetterecherche/{recherche}
+    defaults: { _controller: "AdministrationBundle:Recette:recetterecherche" }
+    options:
+        expose: true
+
+recette_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:Recette:index" }
+    methods:  GET
+
+recette_active:
+    path:     /active
+    defaults: { _controller: "AdministrationBundle:Recette:active" }
+    methods:  GET
+
+recette_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:Recette:show" }
+    methods:  GET
+
+recette_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:Recette:new" }
+    methods:  [GET, POST]
+
+recette_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:Recette:edit" }
+    methods:  [GET, POST]
+
+recette_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:Recette:delete" }
+    methods:  DELETE
+
+recette_active_method:
+    path:     /{id}/active
+    defaults: { _controller: "AdministrationBundle:Recette:activeRecette" }
+
+recette_desactive_method:
+    path:     /{id}/desactive
+    defaults: { _controller: "AdministrationBundle:Recette:desactiveRecette" }

@@ -1,0 +1,503 @@
+<div class="col-md-3 menu-left" ng-controller="appLeftController">
+    <!-- right column (268px) -->
+    <style>
+        .gris {
+            color: red;
+        }
+        .dialogPhoto {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+        }
+
+        .contentPhoto {
+            height: 100%;
+            border-radius: 0;
+        }
+
+
+    </style>
+
+
+    <div class="center-block text-center profile-settings">
+
+        {% if(user.image) %}
+            <img src="{{ asset(user.image.webPath) }}" class="img-profile img-responsive center-block  img-thumbnail" alt="image profile" style="width: 150px;height: 150px;" >
+        {% else %}
+            <img src="{{ asset('zoom/avatar.png') }}" class="img-profile img-responsive center-block  img-thumbnail" alt="image profile" style="width: 150px;height: 150px;" >
+        {% endif %}
+        <div class="name">{{ user.nomClient }} {{ user.prenomClient }}</div>
+        {% if user.descriptionClient|length != 0 %}
+            <div class="description">
+                <p>
+                    {{ user.descriptionClient }}
+
+
+
+                </p>
+
+            </div>
+        {% endif %}
+        {% if(user.id == app.user.id) %}
+            <div class="inf user-s">
+                <ul class="list-inline">
+                    <li>
+                        <a href="#" class="setting" alt="add new feature">
+                            <img src="{{ asset('dist/img/p-setting.png') }}" alt="add-profil-autre">
+                            <span><a href="{{ path('compte') }}" style="color:#C95430"> Compte</a></span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#" class="invite" alt="add new feature">
+                            <img src="{{ asset('dist/img/add-friend.png') }}" alt="add-new-msg">
+                            <span>invite des amis</span>
+                        </a>
+
+                    </li>
+                </ul> <!-- ul -->
+
+            </div>
+        {% else %}
+            <div class="inf adding-new">
+                <ul class="list-inline">
+                    <li>
+                        <a href="" class="btn add-profil-autre" alt="add new feature" ng-click="faireOperation(actionUser['idr'])">
+                            <img src="{{ asset('dist/img/add-profil-autre.png') }}" alt="add-profil-autre">
+                            <span>#actionUser['btnContent']#</span>
+
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#" class="btn add-new-msg" alt="add new feature">
+                            <img src="{{ asset('dist/img/add-new-msg.png') }}" alt="add-new-msg">
+                            <span>Message</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <!--  -->
+                        <div class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle singalORbloc"></a>
+                            <ul class="dropdown-menu singalORblocDrop">
+                                {#
+                                <li><a href="{{ path('amiSignaler', {'userSignal': user.id}) }}">Signaler</a></li>
+                                #}
+
+                                <li><a style="display: none;color:grey;" id="chargementRefuser">Refus en cours</a></li>
+                                <li><a href="" ng-click="refuserDemande('{{ user.id }}')" style="display: none" id="btnRefuser">Refuser</a></li>
+                                <li><a href="" ng-click="openModalSignal('{{ user.id }}')">Signaler</a></li>
+                                <li><a href="{{ path('bloqueAmitie', {'to':user.id}) }}">Bloquer</a></li>
+                            </ul>
+                        </div>
+                        <!--  -->
+                    </li>
+                </ul> <!-- ul -->
+
+            </div>
+
+        {% endif %}
+        <div class="inf location">
+            <img src="{{ asset('dist/img/location.png') }}" alt="location">
+            <span>
+                {% if user.region  %}
+                    {{ user.region.nomRegion }}
+                {% endif %}
+                {% if user.pays %}
+                    , {{ user.pays.niceNamePays }}
+                {% endif %}
+            </span>
+        </div>
+        {% if user.dateNaissanceClient|length != 0 %}
+            <div class="inf birth">
+                <img src="{{ asset('dist/img/birth.png') }}" alt="birth">
+
+                <span>{{ user.dateNaissanceClient }}</span>
+
+            </div>
+        {% endif %}
+        {% if user.situationClient|length != 0 %}
+            <div class="inf status">
+                <img src="{{ asset('dist/img/status.png') }}" alt="status">
+                <span>{{ user.situationClient }}</span>
+            </div>
+        {% endif %}
+
+        <div style="
+                padding-top: 2px;
+                  padding-bottom: 10px;
+                  background-color: rgba(236, 232, 232, 0.32);
+                  color: #c9532f;
+                  text-align: left;
+                  line-height: 27px;
+                  padding-left: 7px;
+                  padding-right: 7px;
+                  margin-left: 5px;
+                  margin-right: 5px;
+                  margin-bottom: 10px;
+                  margin-top: 20px;
+              ">
+            <img src="{{ asset('dist/img/progres-bar-ico-txt.png') }}" alt="im"> <span class="afficheGourmand">Chargement en cours ...</span>
+            <!-- <img src="dist/img/volume.jpg" alt="volume"> -->
+            <div id="progressbar" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="37" style="height: 18px;">
+                <div class="ui-progressbar-value ui-widget-header ui-corner-left" id="progressAfficheBarre">
+
+                </div>
+            </div>
+        </div>
+        <ul class="list-inline statistics">
+
+            <li>
+                <a href="#" class="stat-link stat-link-v">
+                    <!-- <img src="dist/img/visit-set.png" alt="visites"> -->
+                    <span class="stat-visit">Visite </span>
+                    <span class="stat-num">{{ user.getVisiteClient }}</span>
+                </a>
+            </li>
+
+            <li class="stats-separator"></li>
+
+            <li>
+                <a href="#" class="stat-link  stat-link-a">
+                    <!-- <img src="dist/img/ar.png" alt="articles"> -->
+                    <span class="stat-avis">Avis </span>
+                    <span class="stat-num">{{ nbrAvis }}</span>
+                </a>
+            </li>
+
+            <li class="stats-separator"></li>
+
+            <li>
+                <a href="{{ path('favoris') }}" class="stat-link stat-link-b">
+                    <!-- <img src="dist/img/bk2.png" alt="recettes"> -->
+                    <span class="stat-book">Bookmarks </span>
+                    <span class="stat-num">{{ nbrfavoris }}</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <h3 class="menu-left-heading"> <a href="{{ path('pageAmis') }}" class="menu-left-heading-link"><img src="{{ asset('dist/img/ami-icon2.png') }}" alt="amis"> Amis</a> </h3>
+
+
+    <section>
+
+        <div class="row img-amis">
+            {% if amis %}
+                {% for ami in amis|slice(0,6) %}
+                    <div class="col-xs-4" style="margin-bottom: 5px;">
+                        <a href="{{ path('profile', {'userId':ami.idClient}) }}"  class="ami-link">
+                            <img src="{{ asset(ami.image) }}"
+                                 alt="avatar_generale_mon_profil" style="width: 70px;height: 70px;" class="">
+                            <span class="ami-name" style="color:#C95430"> {{ ami.nom }} </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-xs-12" style="margin-bottom: 5px;">
+                    <div class="alert alert-warning">Aucun amis</div>
+                </div>
+            {% endif %}
+        </div>
+
+    </section>
+
+
+    <h3 class="menu-left-heading"> <a href="{{ path('photos') }}" class="menu-left-heading-link"><img src="{{ asset('dist/img/photo-icon-2.png') }}" alt="photos"> Photos </a> </h3>
+
+    <section class="fbphotobox">
+
+
+        <div class="row img-amis">
+            {% if user.photos|length != null %}
+                <div class="fbphotobox" ng-show="true">
+                    <div ng-repeat="fbFoto in photosFbBox">
+
+                        <div class="col-xs-6" style="margin-bottom:5px;">
+                            <a href=""  class="fb-lb-g">
+                                <img ng-click="openModalPhotos($index)" class="img-responsive" src="{{ asset('photos/#fbFoto.path#') }}"
+                                     alt="foto3"  style="height: 80px;width: 100px;">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-6" style="margin-bottom:5px;">
+                        <a >
+                            <img class="img-responsive" src="{{ asset('dist/img/drop.jpg') }}"
+                                 alt="foto3"  style="height: 80px;width: 100px;">
+                        </a>
+                    </div>
+                </div>
+
+            {% else %}
+                <div class="col-xs-12" style="margin-bottom: 5px;">
+                    <div class="alert alert-warning">Aucune photos</div>
+                </div>
+            {% endif %}
+
+        </div>
+
+
+    </section>
+
+
+
+    <h3 class="menu-left-heading"> <a href="{{ path('lieux') }}" class="menu-left-heading-link"><img src="{{ asset('dist/img/lieux-icon-2.png') }}" alt="lieu"> Lieux </a></h3>
+    <section>
+        {% if(lieux|length != null) %}
+        {% for lieu in lieux|slice(0,3) %}
+        <div class="row img-lieu">
+
+            <a href="#" class="img-lieu-link">
+                <div class="col-xs-3">
+                    <img src="{{ asset(lieu.img) }}" alt="lieu1" style="width: 50px;height: 50px;">
+                </div>
+                <div class="col-xs-9">
+                    <div class="clear">
+                        <div class="col-xs-7 res-name ">{{ lieu.nom }}</div>
+                        <div class="col-xs-5 res-date nopadding">{{ lieu.date }}</div>
+                    </div>
+                    <p class="para-lieu">
+                        {{ lieu.description }}
+                    </p>
+                </div>
+            </a>
+
+        </div>
+        {% endfor %}
+        {% else %}
+            <div class="col-xs-12" style="margin-bottom: 5px;">
+                <div class="alert alert-warning">Aucun lieux</div>
+            </div>
+        {% endif %}
+
+    </section>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModalSignal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div id="partiesignal">
+                        <h6 id="messageSignal"></h6>
+                        <textarea id="textSignal" placeholder="Expliquer pourquoi..." class="form-control" rows="2" style="width:100%"></textarea>
+                        <button id="btnSignalConfirm" class="btn btn-success" ng-click="confirmSignal('{{ user.id }}')">Confirmer</button>
+
+                    </div>
+                    <div id="chargementsignal" style="display: none">
+                        <h5>Chargement en cours ...</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div style="width: 100%!important;" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modalPhotos" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg dialogPhoto">
+            <div class="modal-content contentPhoto">
+                <div class="row">
+                    <div class="col-lg-8">
+
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+
+
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item"  ng-class="{'active': $index==positionActuelle}"  ng-repeat="fbFoto in photosFbBox" id="#$index#">
+                                    <img class="img-responsive" src="{{ asset('photos/#fbFoto.path#') }}">
+                                    <div class="carousel-caption">
+                                        #fbFoto.id#
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" ng-click="PrevTof()" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" ng-click="NextTof()" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4">
+                        <h1>Comments n°#positionActuelle# el id#photosFbBox[positionActuelle].id#</h1>
+
+
+
+
+
+
+                        <div class="row social-avatar-inf">
+                            <div class="col-xs-3"><img src="{{ asset('dist/img/perso.jpg') }}" alt="pic"> </div>
+                            <div class="col-xs-9">
+                                <p class="name">{{ asset('photos/#fbFoto.path#') }}</p>
+                                <div class="date" id="dateClick" onclick="enzel()" >14 mai 2015 <br>Tunis, Tunisie</div>
+                            </div>
+                        </div>
+
+                        <ul class="profil-list list-inline infstats">
+                            <li>
+                                <a>
+                                    <img src="{{ asset('dist/img/likeInfIco.png') }}" alt=""> <span class="likeStat">3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <span class="barSeapara">|</span>
+                            </li>
+                            <li>
+                                <a>
+                                    <img src="{{ asset('dist/img/disLikeInfIco.png') }}" alt=""> <span class="disLikeStat">7</span>
+                                </a>
+                            </li>
+                            <li>
+                                <span class="barSeapara">|</span>
+                            </li>
+                            <li>
+                                <a>
+                                    <img src="{{ asset('dist/img/commentInfIco.png') }}" alt=""> <span class="commentStat">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <span class="barSeapara">|</span>
+                            </li>
+                            <li>
+                                <a>
+                                    <img src="{{ asset('dist/img/shareInfIco.png') }}" alt=""> <span class="shareStat">5</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="list-inline postUtilities postUtilities-online profil-modal">
+                            <li>
+                                <a class="likeBtn" ng-click="aime()"> <img  ng-src="#shownAime#" alt=""> J'aime </a>
+                            </li>
+                            <li>
+                                <a class="dislikeBtn" ng-click="aimepas()"> <img ng-src="#shownAimePas#" alt=""> J’aime pas </a>
+                            </li>
+                            <li>
+                                <a class="cmtBtn" ng-click="goToCommenter()"> <img src="{{ asset('dist/img/online-cmtBtn.png') }}" alt=""> Commenter </a>
+                            </li>
+
+                        </ul>
+
+
+                        <div class="row inBetweenVert allComments">
+
+
+
+                            <div class="col-xs-12 all-cmt" id="scrollComments" style="overflow-y:scroll; height: 250px!important;">
+
+
+                                <div class="col-lg-6">
+                                    <a href="" ng-click="moreComments()" id="afficherplus" style="display: block;"><h5>afficher les précédents</h5></a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <img id="loadingComments" style="display:none" src="{{ asset('dist/img/loadingComments.gif') }}" alt="loading...">
+                                </div>
+
+
+                                <br>
+
+
+                                <div class="media" ng-repeat="comment in commentsToShow">
+                                    <div class="media-left">
+                                        <a >
+                                            <img src="#comment.image#" height="50px" width="50px" class="media-object" alt="Sample Image">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <span id="btnDell#comment.commentId#" class="pull-right" style="color:red" ng-show="comment.deletable" ng-click="deleteComment(comment.commentId)">x</span>
+                                        <span id="spinDell#comment.commentId#" class="pull-right" style="color:Blue;display:none" ng-show="comment.deletable">O</span>
+                                        <h4 class="media-heading">#comment.nomClient#</h4>
+
+                                        <p>#comment.commentText#</p>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <span id="finComments">fin.</span>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="row exprimezVous modal-c">
+                            <div class="col-sm-2">
+                                <img src="{{ asset('dist/img/avatar_monprofil.jpg') }}" class="fotoDeProfil" alt="photo profil">
+                            </div>
+                            <div class="col-sm-10">
+                                <form>
+                                    <div class="form-group">
+                                        <textarea name="commentToSend" id="commentToSend" class="exp" cols="30" rows="10" placeholder="Exprimez vous ..."></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-9 app">Appuyez sur entrée pour envoyer</div>
+                                        <div class="col-sm-3">
+                                            <img src="{{ asset('dist/img/smile.png') }}" class="smile pull-right">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+{% block javascripts %}
+
+    <script>
+
+        function afficheBarre() {
+            $(function () {
+                $.ajax({
+                    url: Routing.generate('afficheBarre'),
+                    dataType: 'JSON',
+                    success: function (result) {
+                        var pourcentage = (result / 17);
+                        if(result <= 550){
+                            $('.afficheGourmand').html('Petit gourmand');
+                        }else if(result <= 1110){
+                            $('.afficheGourmand').html('Moyen gourmand');
+                        }else{
+                            $('.afficheGourmand').html('Grand gourmand');
+                        }
+                        $('#progressAfficheBarre').css('width',pourcentage+'%');
+                    }
+                });
+            });
+        }
+        setInterval(afficheBarre,3000);
+    </script>
+{% endblock %}

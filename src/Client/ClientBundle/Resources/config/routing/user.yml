@@ -1,0 +1,3 @@
+user:
+    path:     /
+    defaults: { _controller: "ClientBundle:User:index" }

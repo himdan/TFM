@@ -1,0 +1,115 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block body %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2><b>"{{ signalRecette.recette.nomRecette }}"</b>
+
+            </h2>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content  animated fadeInRight article">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="pull-right">
+                            <span class="label label-primary">Progression {{ signalRecette.niveauSignalRecette }}</span>
+                            {% if signalRecette.niveauSignalRecette == 'Faible' %}
+                                <span class="label label-primary">Niveau de signal : {{ signalRecette.niveauSignalRecette }}</span>
+                            {% elseif signalRecette.niveauSignalRecette == 'Moyen' %}
+                                <span class="label label-warning">Niveau de signal : {{ signalRecette.niveauSignalRecette }}</span>
+                            {% else %}
+                                <span class="label label-danger">Niveau de signal : {{ signalRecette.niveauSignalRecette }}</span>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="text-center article-title">
+                            <span class="text-muted"><i class="fa fa-clock-o"></i> {{  signalRecette.dateSignalRecette|date("m/d/Y à H:i:s") }}</span>
+                            <h1>
+                                {{ signalRecette.recette.nomRecette }}
+                            </h1>
+                        </div>
+                        <div class="" style="margin-bottom:20px;">
+                            {{ signalRecette.objetSignalRecette }}
+                        </div>
+                        <p>
+                            {{ signalRecette.texteSignalRecette|raw }}
+                        </p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="small text-right">
+                                    <h5>Statistique :</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> {{ nbrCommentSignal }} Commentaires </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="comment">
+                            <div class="col-lg-12">
+
+                                <h2>Commentaires :</h2>
+                                {% for commentSignal in commentSignals %}
+                                <div class="social-feed-box">
+                                    <div class="social-avatar">
+                                        <a href="#" class="pull-left">
+                                            <img alt="image" src="{{ asset(commentSignal.user.image.webPath) }}">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="#">
+                                                {{ commentSignal.user.username }}
+                                            </a>
+                                            <small class="text-muted">{{ commentSignal.dateCommentaireSignal|date("m/d/Y à H:i:s") }}</small>
+                                        </div>
+                                    </div>
+                                    <div class="social-body">
+                                        <p>
+                                            {{ commentSignal.texteCommentaireSignal|raw }}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="col-lg-12">
+
+                                <form action="{{ path('commentaireSignalAjout',{'id': signalRecette.id}) }}" method="POST" class="form-block">
+
+                                    <div class="row">
+
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                {{ form(form.texteCommentaireSignal) }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" class="btn btn-primary pull-right" value="commenter">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}

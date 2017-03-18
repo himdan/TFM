@@ -1,0 +1,3 @@
+mobileRecette:
+    resource: "@MobileBundle/Resources/config/mobileRecette/mobileRecetteRouting.yml"
+    prefix:   /mobileRecette

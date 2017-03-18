@@ -1,0 +1,30 @@
+menuSubCategorie:
+    path:     /menuSubCategorie/{menu}
+    defaults: { _controller: "AdministrationBundle:SubCategorie:menuSubCategorie" }
+    options:
+        expose: true
+
+subcategorie_index:
+    path:     /
+    defaults: { _controller: "AdministrationBundle:SubCategorie:index" }
+    methods:  GET
+
+subcategorie_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdministrationBundle:SubCategorie:show" }
+    methods:  GET
+
+subcategorie_new:
+    path:     /new
+    defaults: { _controller: "AdministrationBundle:SubCategorie:new" }
+    methods:  [GET, POST]
+
+subcategorie_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdministrationBundle:SubCategorie:edit" }
+    methods:  [GET, POST]
+
+subcategorie_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdministrationBundle:SubCategorie:delete" }
+    methods:  DELETE

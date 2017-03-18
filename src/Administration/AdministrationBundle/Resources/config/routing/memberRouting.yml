@@ -1,0 +1,39 @@
+memberGestion:
+    path:     /all
+    defaults: { _controller: AdministrationBundle:Member/Member:index }
+
+memberProfile:
+    path:     /profile/{id}
+    defaults: { _controller: AdministrationBundle:Member/MemberProfile:profile }
+
+memberPremiumActive:
+    path:     /premiumActive/{id}
+    defaults: { _controller: AdministrationBundle:Member/Member:premiumActive }
+
+memberSupprimer:
+    path:     /supprimer/{id}
+    defaults: { _controller: AdministrationBundle:Member/Member:supprimer }
+
+memberActiver:
+    path:     /activer/{id}
+    defaults: { _controller: AdministrationBundle:Member/Member:activer }
+
+memberNouveau:
+    path:     /nouveau
+    defaults: { _controller: AdministrationBundle:Member/Member:nouveau }
+
+memberPremium:
+    path:     /premium
+    defaults: { _controller: AdministrationBundle:Member/Member:premium }
+
+memberBloque:
+    path:     /bloque
+    defaults: { _controller: AdministrationBundle:Member/Member:bloque }
+
+memberAdmin:
+    path:     /admin
+    defaults: { _controller: AdministrationBundle:Member/Member:Admin }
+
+memberRedacteur:
+    path:     /redacteur
+    defaults: { _controller: AdministrationBundle:Member/Member:Redacteur }

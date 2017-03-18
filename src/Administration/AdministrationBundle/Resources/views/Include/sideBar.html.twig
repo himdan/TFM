@@ -1,0 +1,129 @@
+<div id="right-sidebar">
+    <div class="sidebar-container">
+        {% if is_granted('ROLE_ADMIN') %}
+        <ul class="nav nav-tabs navs-3">
+        {% else %}
+            <ul class="nav nav-tabs navs-2">
+            {% endif %}
+            <li class="active">
+                <a data-toggle="tab" href="#tab-1">
+                    Signal
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#tab-2">
+                    Comment.
+                </a>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+            <li>
+                <a data-toggle="tab" href="#tab-3">
+                    Recettes
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <div class="tab-content">
+
+
+            <div id="tab-1" class="tab-pane active">
+
+                <div class="sidebar-title">
+                    <h3> <i class="fa fa-comments-o"></i>&nbsp;Signals</h3>
+                    <small><i class="fa fa-tim"></i> Il y a {{ nbSignalRecette }} Signal</small>
+                </div>
+
+                <div>
+                    {% for signal in SignalRecette %}
+                        <div class="sidebar-message">
+                            <a href="{{ path('signalrecette_show', {'id':signal.id}) }}">
+                                <div class="pull-left text-center">
+
+                                    <img alt="image" class="img-circle message-avatar" src="{{ asset(signal.recette.image.webPath) }}">
+
+                                </div>
+                                <div class="media-body">
+                                    <p>
+
+                                        <b>{{ signal.recette.nomRecette }}</b>
+                                        <span class="badge badge-info"> {{ signal.niveauSignalRecette }}</span>
+
+
+                                    </p>
+                                    <small class="text-muted">{{  signal.dateSignalRecette|date("m/d/Y à H:i:s") }}</span></small>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div id="tab-2" class="tab-pane">
+
+                <div class="sidebar-title">
+                    <h3> <i class="fa fa-cube"></i>&nbsp;Commentaires</h3>
+                    <small><i class="fa fa-tim"></i> Il y a {{ nbSignalComment }} Commentaires</small>
+                </div>
+
+                <ul class="sidebar-list">
+                    {% for comment in SignalComment %}
+                        <div class="sidebar-message">
+                            <a href="{{ path('signalrecette_show', {'id':comment.signalRecette.id}) }}#comment">
+                                <div class="pull-left text-center">
+
+                                    <img alt="image" class="img-circle message-avatar" src="{{ asset(comment.user.image.webPath) }}">
+
+                                </div>
+                                <div class="media-body">
+                                    <p>
+                                        Commenté par <b>{{ comment.user.username }}</b>
+                                    </p>
+                                    <small class="text-muted">{{  comment.dateCommentaireSignal|date("m/d/Y à H:i:s") }}</span></small>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+            <div id="tab-3" class="tab-pane">
+
+                <div class="sidebar-title">
+                    <h3> <i class="fa fa-cube"></i>&nbsp;Recettes</h3>
+                    <small><i class="fa fa-tim"></i> Il y a {{ nbRecette }} Recettes.</small>
+                </div>
+
+                <ul class="sidebar-list">
+                    {% for recette in Recette %}
+                        <div class="sidebar-message">
+                            <a href="{{ path('recette_show', {'id':recette.id}) }}">
+                                <div class="pull-left text-center">
+
+                                    <img alt="image" class="img-circle message-avatar" src="">
+
+                                </div>
+                                <div class="media-body">
+                                    <p>
+                                        Ajouter par <b>{{ recette.auteur.username }}</b>
+
+                                    </p>
+                                    <small class="text-muted">{{  recette.dateRecette|date("m/d/Y à H:i:s") }}</span></small>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+
+</div>

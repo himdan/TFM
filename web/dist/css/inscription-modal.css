@@ -1,0 +1,172 @@
+#inscription-modal.modal-wide .modal-dialog {
+  width: 80%; /* or whatever you wish */
+  max-width: 710px; 
+  margin: 30px auto;
+}
+#inscription-modal .partLeft{
+	    padding-left: 43px;
+}
+
+#inscription-modal .partRight{
+	background: url(../img/cx-modal-separation-bg.png) left center no-repeat;
+	padding-left: 30px;
+}
+
+
+#inscription-modal .modal-header {
+	background-color: #c9532f;
+	max-height: 49px;
+}
+#inscription-modal .modal-header p {
+	font-family: 'Roboto', sans-serif;
+	font-size: 22px;
+	color: white;
+	line-height: 16px;
+
+}
+
+#inscription-modal .para-principal{
+	font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+  	color: rgb( 34, 34, 34 );
+}
+
+#inscription-modal #inputEmail{
+	background: url(../img/insc-email.png) right center no-repeat;
+	background-size: 100%;
+	padding-left: 57px;
+	color: #eabeb0;
+	font-size: 13px;
+	width: 100%;
+	max-width: 305px;
+	height: 50px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+#inscription-modal #inputConfEmail{
+	background: url(../img/insc-email-conf.png) right center no-repeat;
+	background-size: 100%;
+	padding-left: 57px;
+	color: #eabeb0;
+	font-size: 13px;
+	width: 100%;
+	max-width: 305px;
+	height: 50px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+#inscription-modal #inputPassword{
+	background: url(../img/cx-pass.png) right center no-repeat;
+	background-size: 100%;
+	padding-left: 57px;
+	color: #eabeb0;
+	font-size: 13px;
+	width: 100%;
+	max-width: 305px;
+	height: 50px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+
+#inscription-modal #inputEmail::-webkit-input-placeholder,
+#inscription-modal #inputConfEmail::-webkit-input-placeholder,
+#inscription-modal #inputPassword::-webkit-input-placeholder {
+    color: #eabeb0;
+	font-size: 13px;
+	margin-left: 57px;
+}
+
+#inscription-modal #inputEmail:-moz-placeholder,
+#inscription-modal #inputConfEmail:-moz-placeholder,
+#inscription-modal #inputPassword:-moz-placeholder { /* Firefox 18- */
+    color: #eabeb0;
+	font-size: 13px;
+	margin-left: 57px;  
+}
+
+#inscription-modal #inputEmail::-moz-placeholder,
+#inscription-modal #inputConfEmail::-moz-placeholder,
+#inscription-modal #inputPassword::-moz-placeholder {  /* Firefox 19+ */
+    color: #eabeb0;
+	font-size: 13px; 
+	margin-left: 57px; 
+}
+
+#inscription-modal #inputEmail:-ms-input-placeholder,
+#inscription-modal #inputConfEmail:-ms-input-placeholder,
+#inscription-modal #inputPassword:-ms-input-placeholder {  
+   color: #eabeb0;
+	font-size: 13px; 
+	margin-left: 57px;
+}
+
+#inscription-modal  .btn-submit-cx{
+	background: #c9532f;
+    width: 100%;
+    color: white;
+    font-size: 17px;
+    height: 47px;
+    border-radius: 6px;
+    outline: none;
+    border: 0px solid transparent;
+}
+
+#inscription-modal  .btn-fb-cx{
+	display: block;
+	background: url(../img/connect-fb.png) right center no-repeat;
+	background-size: 100%;
+	width: 100%;
+	max-width: 297px;
+	height: 42px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+#inscription-modal  .btn-gl-cx{
+	display: block;
+	background: url(../img/connect-gl.png) right center no-repeat;
+	background-size: 100%;
+	width: 100%;
+	max-width: 299px;
+	height: 40px;
+	outline: none;
+	border: 0px solid transparent;
+	box-shadow:none; 
+}
+#inscription-modal  .partRight .para-principal{
+	margin-bottom: 45px;
+}
+#inscription-modal  .partRight .insc-vous{
+  font-size: 11px;
+  color: rgb( 34, 34, 34 );
+}
+
+
+/*mobile*/
+@media (max-width: 768px) {
+	#inscription-modal  .partRight{
+		background: none left center no-repeat;
+		padding-left: 30px;
+	}
+	#inscription-modal  #inputEmail {
+	    margin: 0 auto;
+	}
+	#inscription-modal  #inputPassword {
+	    margin: 0 auto;
+	}
+	#inscription-modal #inputEmail{
+		margin: 0 auto;
+	}
+	#inscription-modal #inputConfEmail{
+		margin: 0 auto;
+	}
+	#inscription-modal  .btn-fb-cx {
+	    margin: 0 auto;
+	}
+	#inscription-modal  .btn-gl-cx {
+	    margin: 0 auto;
+	}
+}
